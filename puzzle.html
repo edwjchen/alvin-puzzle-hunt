@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle - Alvin Puzzle Hunt</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="puzzle-styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="puzzle-header">
+            <button class="back-btn" onclick="goBack()">← Back to Puzzles</button>
+            <h1 id="puzzle-title">Puzzle <span id="puzzle-number">1</span></h1>
+        </header>
+
+        <main class="puzzle-main">
+            <div class="puzzle-content">
+                <div class="puzzle-description">
+                    <h2>Welcome to Puzzle <span id="puzzle-number-desc">1</span>!</h2>
+                    <p>This is where your puzzle content will go. You can add clues, questions, images, or any interactive elements here.</p>
+                </div>
+
+                <div class="puzzle-area">
+                    <div class="puzzle-box">
+                        <h3>Puzzle Content</h3>
+                        <p>Replace this with your actual puzzle content:</p>
+                        <ul>
+                            <li>Clues and hints</li>
+                            <li>Images or diagrams</li>
+                            <li>Interactive elements</li>
+                            <li>Answer input fields</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="puzzle-actions">
+                    <input type="text" id="answer-input" placeholder="Enter your answer here..." class="answer-input">
+                    <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
+                </div>
+
+                <div class="puzzle-hints">
+                    <button class="hint-btn" onclick="toggleHint()">Show Hint</button>
+                    <div id="hint-content" class="hint-content hidden">
+                        <p>This is where hints will appear when you need help!</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Alvin Puzzle Hunt. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="puzzle-script.js"></script>
+</body>
+</html>

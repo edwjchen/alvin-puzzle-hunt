@@ -1,0 +1,21 @@
+{
+    "name": "alvin-puzzle-hunt",
+    "version": "1.0.0",
+    "description": "A simple landing page with three sections of buttons",
+    "main": "index.html",
+    "scripts": {
+        "dev": "vercel dev",
+        "build": "echo 'Static site - no build needed'",
+        "start": "vercel dev"
+    },
+    "keywords": [
+        "landing-page",
+        "vercel",
+        "static"
+    ],
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+        "vercel": "^32.0.0"
+    }
+}
