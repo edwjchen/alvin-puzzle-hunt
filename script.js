@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Get all buttons
     const buttons = document.querySelectorAll(".btn");
+    console.log("Found buttons:", buttons.length);
+    buttons.forEach((btn, i) => console.log(`Button ${i}:`, btn.textContent));
 
     // Add click event listeners to all buttons
     buttons.forEach((button, index) => {
@@ -17,9 +19,31 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Navigate to puzzle page
             const buttonText = this.textContent;
+            console.log("Button clicked:", buttonText);
+
+            // Handle Meta Puzzle button
+            if (
+                buttonText.toLowerCase().includes("meta puzzle") ||
+                this.classList.contains("btn-meta")
+            ) {
+                console.log("Navigating to Meta Puzzle...");
+                window.location.href = "./puzzle15.html";
+                return;
+            }
+
             // Extract puzzle number, handling both "Puzzle X" and "✅ Puzzle X" formats
             const puzzleNumber = buttonText.replace(/[^\d]/g, "");
-            window.location.href = `puzzle${puzzleNumber}.html`;
+
+            // Only proceed if we found a valid puzzle number
+            if (puzzleNumber && puzzleNumber.length > 0) {
+                console.log("Navigating to Puzzle", puzzleNumber);
+                window.location.href = `puzzle${puzzleNumber}.html`;
+            } else {
+                console.log(
+                    "No valid puzzle number found for button:",
+                    buttonText
+                );
+            }
         });
 
         // Add hover sound effect (optional)

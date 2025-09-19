@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meta Puzzle: The Ultimate Challenge - Alvin Puzzle Hunt</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="puzzle-styles.css">
+    <style>
+        .meta-puzzle-theme {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 50%, #2c3e50 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 10s ease infinite;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .meta-puzzle {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        .meta-header {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .answer-pattern {
+            background: #f8f9fa;
+            border: 4px solid #2c3e50;
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            letter-spacing: 0.3em;
+            box-shadow: 0 8px 25px rgba(44, 62, 80, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="meta-puzzle-theme">
+    <div class="container">
+        <header class="puzzle-header">
+            <button class="back-btn" onclick="goBack()">← Back to Puzzles</button>
+            <h1>Puzzle <span id="puzzle-number">15</span>: Meta Puzzle - The Ultimate Challenge</h1>
+        </header>
+
+        <main class="puzzle-main">
+            <div class="puzzle-content">
+                <div class="puzzle-description">
+                    <h2>🎯 Meta Puzzle</h2>
+                    <p>Congratulations! You've reached the ultimate challenge. This is the meta puzzle that ties everything together.</p>
+                </div>
+
+                <div class="puzzle-area">
+                    <div class="meta-header">
+                        <h3>🏆 The Meta Challenge</h3>
+                        <p>You've successfully solved all 14 puzzles! Now for the ultimate meta challenge...</p>
+                    </div>
+
+                    <div class="meta-puzzle">
+        
+                        <div class="answer-pattern">
+                            <div>_ _ _ _ _</div>    <div>_ _ _ _ _</div>    <div>_ _ _ _</div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="puzzle-actions">
+                    <input type="text" id="answer-input" placeholder="What does this pattern represent?" class="answer-input">
+                    <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Alvin Puzzle Hunt. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="puzzle-script.js"></script>
+    <script>
+        
+        function goBack() {
+            window.location.href = "index.html";
+        }
+        
+        // Initialize puzzle timer when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const puzzleNumber = "15";
+            if (!isPuzzleCompleted(puzzleNumber)) {
+                initializePuzzleWithoutTimer(puzzleNumber);
+            }
+        });
+    </script>
+</body>
+</html>

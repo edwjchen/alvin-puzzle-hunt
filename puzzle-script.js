@@ -303,7 +303,6 @@ function getObfuscatedAnswers() {
         15: ["32318894778e7864e4d9bdbe52172217"],
     };
 
-    // Misleading comments and fake data to confuse code inspectors
     const answers = {
         1: ["haha"],
         2: ["you clown"],
