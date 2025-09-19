@@ -57,12 +57,15 @@
             font-weight: 600;
             font-size: 1.1rem;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             min-height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #ffffff;
+            user-select: none;
+            transform: translateZ(0); /* Enable hardware acceleration */
+            will-change: transform, opacity; /* Optimize for animations */
         }
         
         .connection-word:hover {
@@ -89,6 +92,102 @@
         
         .connection-word.purple {
             background: #9775fa;
+        }
+        
+        .connection-word.selected {
+            background: #ff6b6b;
+            border-color: #ff5252;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        }
+        
+        .connection-word.selected:hover {
+            background: #ff5252;
+            transform: scale(1.05);
+        }
+        
+        .connection-word.bubbling {
+            animation: bubbleUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            z-index: 10;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        @keyframes bubbleUp {
+            0% {
+                transform: scale(1) translateY(0) rotateZ(0deg);
+                opacity: 1;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+            15% {
+                transform: scale(1.08) translateY(-8px) rotateZ(1deg);
+                opacity: 0.95;
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            }
+            30% {
+                transform: scale(1.12) translateY(-15px) rotateZ(-0.5deg);
+                opacity: 0.9;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            }
+            45% {
+                transform: scale(1.1) translateY(-25px) rotateZ(0.3deg);
+                opacity: 0.92;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+            }
+            60% {
+                transform: scale(1.06) translateY(-20px) rotateZ(-0.2deg);
+                opacity: 0.95;
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            }
+            75% {
+                transform: scale(1.03) translateY(-10px) rotateZ(0.1deg);
+                opacity: 0.98;
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+            }
+            90% {
+                transform: scale(1.01) translateY(-3px) rotateZ(0deg);
+                opacity: 1;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            }
+            100% {
+                transform: scale(1) translateY(0) rotateZ(0deg);
+                opacity: 1;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+        }
+        
+        .connection-word.solved {
+            animation: solvedPulse 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .connection-word.pulse {
+            animation: solvedPulse 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        @keyframes solvedPulse {
+            0% {
+                transform: scale(1) rotateZ(0deg);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+            20% {
+                transform: scale(1.05) rotateZ(0.5deg);
+                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+            }
+            40% {
+                transform: scale(1.12) rotateZ(-0.3deg);
+                box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
+            }
+            60% {
+                transform: scale(1.08) rotateZ(0.2deg);
+                box-shadow: 0 7px 20px rgba(0, 0, 0, 0.28);
+            }
+            80% {
+                transform: scale(1.03) rotateZ(-0.1deg);
+                box-shadow: 0 5px 16px rgba(0, 0, 0, 0.23);
+            }
+            100% {
+                transform: scale(1) rotateZ(0deg);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
         }
         
         .connections-categories {
@@ -154,6 +253,17 @@
             color: #dc3545;
         }
         
+        .category-row {
+            transition: all 0.3s ease;
+        }
+        
+        .category-row.solved {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border: 2px solid #28a745;
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+        }
+        
         .puzzle-hint {
             background: #fff3cd;
             border: 2px solid #ffeaa7;
@@ -189,68 +299,46 @@
 
                 <div class="connections-container">
                     <div class="connections-grid">
-                        <div class="connection-word solved yellow">LOCKING</div>
-                        <div class="connection-word solved yellow">HOUSE</div>
-                        <div class="connection-word solved yellow">BREAKING</div>
-                        <div class="connection-word solved yellow">POPPING</div>
-                        
-                        <div class="connection-word solved green">SHADY</div>
-                        <div class="connection-word solved green">OAK</div>
-                        <div class="connection-word solved green">SQUIRREL</div>
-                        <div class="connection-word solved green">BLOOM</div>
-                        
-                        <div class="connection-word solved blue">STANLEY</div>
-                        <div class="connection-word solved blue">RICK</div>
-                        <div class="connection-word solved blue">JIATONG</div>
-                        <div class="connection-word solved blue">MARISSA</div>
-                        
-                        <div class="connection-word">FIVE</div>
-                        <div class="connection-word">BTS</div>
-                        <div class="connection-word">ELECTRICITY</div>
-                        <div class="connection-word">SPEED</div>
+                        <!-- Words will be dynamically shuffled and inserted here -->
                     </div>
 
                     <div class="connections-categories">
-                        <div class="category-row">
+                        <div class="category-row category-yellow">
                             <div class="category-color category-yellow"></div>
                             <div class="category-info">
-                                <div class="category-title">OG Styles</div>
-                                <div class="category-words">LOCKING, HOUSE, BREAKING, POPPING</div>
+                                <div class="category-title">???</div>
+                                <div class="category-words">- - - -</div>
                             </div>
-                            <div class="category-status">✅ SOLVED</div>
                         </div>
                         
-                        <div class="category-row">
+                        <div class="category-row category-green">
                             <div class="category-color category-green"></div>
                             <div class="category-info">
-                                <div class="category-title">Neighborhoods in Pittsburgh</div>
-                                <div class="category-words">SHADY, OAK, SQUIRREL, BLOOM</div>
+                                <div class="category-title">???</div>
+                                <div class="category-words">- - - -</div>
                             </div>
-                            <div class="category-status">✅ SOLVED</div>
                         </div>
                         
-                        <div class="category-row">
+                        <div class="category-row category-blue">
                             <div class="category-color category-blue"></div>
                             <div class="category-info">
-                                <div class="category-title">2025 Street Graduating Class</div>
-                                <div class="category-words">STANLEY, RICK, JIATONG, MARISSA</div>
+                                <div class="category-title">???</div>
+                                <div class="category-words">- - - -</div>
                             </div>
-                            <div class="category-status">✅ SOLVED</div>
                         </div>
                         
-                        <div class="category-row">
+                        <div class="category-row category-purple">
                             <div class="category-color category-purple"></div>
                             <div class="category-info">
-                                <div class="category-title">Random Words</div>
-                                <div class="category-words">FIVE, BTS, ELECTRICITY, SPEED</div>
+                                <div class="category-title">???</div>
+                                <div class="category-words">- - - -</div>
                             </div>
-                            <div class="category-status unsolved">❌ UNSOLVED</div>
                         </div>
                     </div>
                 </div>
 
                 <div class="puzzle-actions">
-                    <input type="text" id="answer-input" placeholder="What is the theme of the purple category?" class="answer-input">
+                    <input type="text" id="answer-input" placeholder="???" class="answer-input">
                     <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
                 </div>
 
@@ -264,16 +352,456 @@
 
     <script src="puzzle-script.js"></script>
     <script>
+        // Connections game state
+        let selectedWords = [];
+        let gameState = {
+            yellow: { solved: false, words: ['LOCKING', 'HOUSE', 'BREAKING', 'POPPING'], theme: 'OG Styles' },
+            green: { solved: false, words: ['SHADY', 'OAK', 'SQUIRREL', 'BLOOM'], theme: 'Neighborhoods in Pittsburgh' },
+            blue: { solved: false, words: ['STANLEY', 'RICK', 'JIATONG', 'MARISSA'], theme: '2025 Street Graduating Class' },
+            purple: { solved: false, words: ['FIVE', 'BTS', 'ELECTRICITY', 'SPEED'], theme: '???' }
+        };
+        
+        // Track solved categories in order
+        let solvedCategories = [];
+        
+        // All words for shuffling
+        let allWords = [
+            'LOCKING', 'HOUSE', 'BREAKING', 'POPPING',
+            'SHADY', 'OAK', 'SQUIRREL', 'BLOOM',
+            'STANLEY', 'RICK', 'JIATONG', 'MARISSA',
+            'FIVE', 'BTS', 'ELECTRICITY', 'SPEED'
+        ];
+        
+        // Define the correct answer for the purple category
+        const correctPurpleTheme = '???';
+        
+        // Shuffle array function
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+        
+        // Shuffle the board
+        function shuffleBoard() {
+            const shuffledWords = shuffleArray(allWords);
+            const grid = document.querySelector('.connections-grid');
+            
+            // Clear existing words
+            grid.innerHTML = '';
+            
+            // Add shuffled words
+            shuffledWords.forEach(word => {
+                const wordDiv = document.createElement('div');
+                wordDiv.className = 'connection-word';
+                wordDiv.textContent = word;
+                grid.appendChild(wordDiv);
+            });
+        }
+        
+        // Reorder word tiles to bubble solved ones to the top
+        function reorderTiles() {
+            console.log('Reordering tiles, solved list:', solvedCategories);
+            const grid = document.querySelector('.connections-grid');
+            const allTiles = Array.from(grid.querySelectorAll('.connection-word'));
+            
+            console.log('Found tiles:', allTiles.length);
+            
+            // Separate solved and unsolved tiles
+            const solvedTiles = allTiles.filter(tile => tile.classList.contains('solved'));
+            const unsolvedTiles = allTiles.filter(tile => !tile.classList.contains('solved'));
+            
+            console.log('Solved tiles:', solvedTiles.length, 'Unsolved tiles:', unsolvedTiles.length);
+            
+            // Add bubbling animation to solved tiles with stagger
+            solvedTiles.forEach((tile, index) => {
+                // Stagger the animation start for multiple tiles
+                setTimeout(() => {
+                    tile.classList.add('bubbling');
+                    // Remove bubbling class after animation completes
+                    setTimeout(() => {
+                        tile.classList.remove('bubbling');
+                    }, 1200);
+                }, index * 100); // 100ms stagger between tiles
+            });
+            
+            // Clear grid
+            grid.innerHTML = '';
+            
+            // Add solved tiles first (in order of solving)
+            solvedCategories.forEach(color => {
+                const tilesForColor = solvedTiles.filter(tile => tile.classList.contains(color));
+                tilesForColor.forEach(tile => {
+                    console.log('Adding solved tile:', tile.textContent, 'for color:', color);
+                    grid.appendChild(tile);
+                });
+            });
+            
+            // Add unsolved tiles
+            unsolvedTiles.forEach(tile => {
+                console.log('Adding unsolved tile:', tile.textContent);
+                grid.appendChild(tile);
+            });
+            
+            // Log final order
+            const finalOrder = Array.from(grid.querySelectorAll('.connection-word')).map(tile => tile.textContent.trim());
+            console.log('Final tile order:', finalOrder);
+        }
+        
         function goBack() {
             window.location.href = "index.html";
         }
         
+        // Initialize connections game
+        function initializeConnectionsGame() {
+            console.log('Initializing connections game...');
+            
+            // Shuffle the board first
+            shuffleBoard();
+            
+            // Update category display to show all as unsolved
+            updateCategoryDisplay();
+            
+            // Add click listeners to all words
+            const words = document.querySelectorAll('.connection-word');
+            console.log('Found clickable words:', words.length, words);
+            
+            words.forEach((word, index) => {
+                console.log(`Adding click listener to word ${index}:`, word.textContent);
+                word.addEventListener('click', handleWordClick);
+            });
+            
+            // Update game display
+            updateGameDisplay();
+        }
+        
+        // Update category display to show all as unsolved
+        function updateCategoryDisplay() {
+            const categories = document.querySelectorAll('.category-row');
+            categories.forEach(category => {
+                const titleElement = category.querySelector('.category-title');
+                const wordsElement = category.querySelector('.category-words');
+                
+                if (titleElement) {
+                    titleElement.textContent = '???';
+                }
+                
+                if (wordsElement) {
+                    wordsElement.textContent = '- - - -';
+                }
+            });
+        }
+        
+        function handleWordClick(event) {
+            console.log('Word clicked!', event.target);
+            const word = event.target;
+            const wordText = word.textContent.trim();
+            console.log('Clicked word text:', wordText);
+            
+            // Don't allow clicking on already solved words
+            if (word.classList.contains('solved')) {
+                console.log('Word is already solved, ignoring click');
+                return;
+            }
+            
+            // Toggle selection
+            if (word.classList.contains('selected')) {
+                // Deselect word
+                word.classList.remove('selected');
+                selectedWords = selectedWords.filter(w => w !== wordText);
+            } else {
+                // Select word (max 4)
+                if (selectedWords.length >= 4) {
+                    showMessage('You can only select up to 4 words at a time!', 'warning');
+                    return;
+                }
+                word.classList.add('selected');
+                selectedWords.push(wordText);
+            }
+            
+            // Check if we have 4 selected words
+            if (selectedWords.length === 4) {
+                checkCategory();
+            }
+            
+            updateGameDisplay();
+        }
+        
+        function checkCategory() {
+            console.log('Checking category for words:', selectedWords);
+            // Check if the selected words form a valid category
+            const selectedSet = new Set(selectedWords);
+            
+            // Check against known categories
+            for (const [color, category] of Object.entries(gameState)) {
+                console.log(`Checking ${color} category:`, category.words, 'solved:', category.solved);
+                if (category.solved) continue;
+                
+                const categorySet = new Set(category.words);
+                console.log('Comparing sets:', Array.from(selectedSet), 'vs', Array.from(categorySet));
+                if (setsEqual(selectedSet, categorySet)) {
+                    // Found a match!
+                    console.log('Found match for category:', color);
+                    solveCategory(color, selectedWords);
+                    return;
+                }
+            }
+            
+            // No match found
+            console.log('No match found for words:', selectedWords);
+            showMessage('These words don\'t form a valid category. Try again!', 'error');
+            clearSelection();
+        }
+        
+        function setsEqual(set1, set2) {
+            if (set1.size !== set2.size) return false;
+            for (let item of set1) {
+                if (!set2.has(item)) return false;
+            }
+            return true;
+        }
+        
+        function solveCategory(color, words) {
+            console.log('solveCategory called with:', color, words);
+            // Mark category as solved
+            gameState[color].solved = true;
+            
+            // Add to solved categories list
+            if (!solvedCategories.includes(color)) {
+                solvedCategories.push(color);
+                console.log('Added to solved categories:', color, 'List now:', solvedCategories);
+            }
+            
+            // Update word styling
+            words.forEach(wordText => {
+                const wordElement = Array.from(document.querySelectorAll('.connection-word'))
+                    .find(el => el.textContent.trim() === wordText);
+                if (wordElement) {
+                    wordElement.classList.add('solved', color);
+                    wordElement.classList.remove('selected');
+                    
+                    // Add solved pulse animation
+                    wordElement.classList.add('pulse');
+                    setTimeout(() => {
+                        wordElement.classList.remove('pulse');
+                    }, 800);
+                }
+            });
+            
+            // Update category display
+            const categoryRow = document.querySelector(`.category-${color}`);
+            if (categoryRow) {
+                console.log('Updating category display for:', color, 'with words:', words);
+                
+                // Add solved class for visual feedback
+                categoryRow.classList.add('solved');
+                
+                // Update the category title if it was unknown
+                const titleElement = categoryRow.querySelector('.category-title');
+                if (titleElement && titleElement.textContent === '???') {
+                    titleElement.textContent = gameState[color].theme;
+                    console.log('Updated title to:', gameState[color].theme);
+                }
+                
+                // Update the category words to show the solved words
+                const wordsElement = categoryRow.querySelector('.category-words');
+                if (wordsElement) {
+                    const wordsText = words.join(', ');
+                    wordsElement.textContent = wordsText;
+                    console.log('Updated words to:', wordsText);
+                } else {
+                    console.log('Words element not found for category:', color);
+                }
+            } else {
+                console.log('Category row not found for:', color);
+            }
+            
+            // Clear selection
+            selectedWords = [];
+            
+            // Reorder tiles to bubble solved ones to the top
+            reorderTiles();
+            
+            // Check if game is complete
+            if (isGameComplete()) {
+                showGameComplete();
+            } else {
+                showMessage(`Great! You found the ${gameState[color].theme} category!`, 'success');
+            }
+            
+            updateGameDisplay();
+        }
+        
+        function clearSelection() {
+            selectedWords = [];
+            document.querySelectorAll('.connection-word.selected').forEach(word => {
+                word.classList.remove('selected');
+            });
+        }
+        
+        function updateGameDisplay() {
+            // Update selected words count
+            const selectedCount = selectedWords.length;
+            const message = selectedCount > 0 ? 
+                `Selected: ${selectedCount}/4 words` : 
+                'Click words to form categories of 4';
+            
+            // Update or create message display
+            let messageEl = document.getElementById('game-message');
+            if (!messageEl) {
+                messageEl = document.createElement('div');
+                messageEl.id = 'game-message';
+                messageEl.style.cssText = `
+                    text-align: center;
+                    margin: 1rem 0;
+                    padding: 0.5rem;
+                    background: #2d2d2d;
+                    border-radius: 8px;
+                    color: #ffffff;
+                    font-weight: 600;
+                `;
+                document.querySelector('.connections-grid').parentNode.insertBefore(
+                    messageEl, 
+                    document.querySelector('.connections-grid')
+                );
+            }
+            messageEl.textContent = message;
+        }
+        
+        function showMessage(text, type) {
+            // Remove existing message
+            const existing = document.querySelector('.game-message-temp');
+            if (existing) existing.remove();
+            
+            const messageEl = document.createElement('div');
+            messageEl.className = 'game-message-temp';
+            messageEl.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: ${type === 'error' ? '#dc3545' : type === 'success' ? '#28a745' : '#ffc107'};
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 8px;
+                font-weight: bold;
+                z-index: 1000;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            `;
+            messageEl.textContent = text;
+            document.body.appendChild(messageEl);
+            
+            setTimeout(() => {
+                if (messageEl.parentNode) {
+                    messageEl.parentNode.removeChild(messageEl);
+                }
+            }, 3000);
+        }
+        
+        function isGameComplete() {
+            return Object.values(gameState).every(category => category.solved);
+        }
+        
+        function showGameComplete() {
+            showMessage('🎉 Congratulations! You\'ve solved all categories! Now guess the theme of the purple category.', 'success');
+            
+            // Enable the answer input
+            const answerInput = document.getElementById('answer-input');
+            const submitBtn = document.querySelector('.submit-btn');
+            
+            if (answerInput) {
+                answerInput.disabled = false;
+                answerInput.placeholder = 'What is the theme of the purple category?';
+            }
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Answer';
+            }
+        }
+        
+        // Override the submitAnswer function for puzzle 3
+        function submitAnswer() {
+            const answer = document.getElementById("answer-input").value.trim();
+            
+            if (!answer) {
+                alert("Please enter an answer before submitting!");
+                return;
+            }
+            
+            // Check if the game is complete first
+            if (!isGameComplete()) {
+                alert("Please solve all word categories first!");
+                return;
+            }
+            
+            // Check the answer
+            if (answer.toLowerCase().includes('watt') || 
+                answer.toLowerCase().includes('power') ||
+                answer.toLowerCase().includes('energy') ||
+                answer.toLowerCase().includes('electrical')) {
+                // Correct answer!
+                showMessage('🎉 Correct! The theme is "things that can be measured in watts"!', 'success');
+                
+                // Mark puzzle as completed
+                const puzzleNumber = "3";
+                markPuzzleCompleted(puzzleNumber);
+                
+                // Show success screen after a delay
+                setTimeout(() => {
+                    showSuccessScreen(puzzleNumber, answer);
+                }, 2000);
+            } else {
+                // Wrong answer
+                showMessage('❌ Incorrect! Try again.', 'error');
+            }
+        }
+        
+        // Test function to manually solve a category
+        function testSolveCategory() {
+            console.log('Testing category solve...');
+            solveCategory('purple', ['FIVE', 'BTS', 'ELECTRICITY', 'SPEED']);
+        }
+        
+        // Test function to manually test tile bubbling
+        function testBubbling() {
+            console.log('Testing tile bubbling...');
+            solvedCategories = ['yellow', 'green'];
+            reorderTiles();
+        }
+        
+        // Test function to simulate solving a category
+        function testSolve() {
+            console.log('Testing category solve...');
+            solveCategory('yellow', ['LOCKING', 'HOUSE', 'BREAKING', 'POPPING']);
+        }
+        
+        // Test function to manually reorder tiles
+        function testReorder() {
+            console.log('Testing manual tile reorder...');
+            solvedCategories = ['yellow', 'green'];
+            reorderTiles();
+        }
+        
+        // Make test functions globally available
+        window.testSolveCategory = testSolveCategory;
+        window.testBubbling = testBubbling;
+        window.testSolve = testSolve;
+        window.testReorder = testReorder;
+        
         // Initialize puzzle timer when page loads
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM Content Loaded');
             const puzzleNumber = "3";
             if (!isPuzzleCompleted(puzzleNumber)) {
                 initializePuzzleWithoutTimer(puzzleNumber);
             }
+            
+            // Initialize the connections game
+            console.log('About to initialize connections game');
+            initializeConnectionsGame();
         });
     </script>
 </body>
