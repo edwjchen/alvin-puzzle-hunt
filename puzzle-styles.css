@@ -44,6 +44,7 @@
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     text-align: center;
+    color: #000000;
 }
 
 .timer-display {
@@ -72,22 +73,22 @@
 }
 
 .timer-label {
-    color: rgba(255, 255, 255, 0.8);
+    color: #000000;
     font-size: 0.9rem;
     font-weight: 500;
 }
 
 .timer-countdown {
-    color: white;
+    color: #000000;
     font-size: 1.8rem;
     font-weight: 700;
     font-family: 'Courier New', monospace;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    text-shadow: none;
     transition: color 0.3s ease;
 }
 
 .timer-message {
-    color: white;
+    color: #000000;
     font-size: 0.9rem;
     font-style: italic;
     margin: 0;

@@ -482,7 +482,7 @@ function initializePuzzleWithoutTimer(puzzleNumber) {
         if (messageElement) {
             messageElement.textContent =
                 "Take your time to read and understand the puzzle. The timer will start after each answer attempt.";
-            messageElement.style.color = "white";
+            messageElement.style.color = "#000000";
         }
         enableAnswerSubmission();
     }
@@ -515,7 +515,7 @@ function initializeTimer(puzzleNumber) {
         if (messageElement) {
             messageElement.textContent =
                 "Timer restored from previous session. Answer submission will be enabled when the timer expires.";
-            messageElement.style.color = "#ffc107";
+            messageElement.style.color = "#000000";
         }
     }
 
@@ -548,7 +548,7 @@ function startTimerOnAttempt(puzzleNumber) {
     if (messageElement) {
         messageElement.textContent =
             "Timer started! You have 1 minute to solve this puzzle.";
-        messageElement.style.color = "#ffc107";
+        messageElement.style.color = "#000000";
     }
 
     // Disable answer submission
@@ -577,12 +577,12 @@ function startPuzzleTimer(puzzleNumber) {
 
 function addTimerDisplay() {
     console.log("addTimerDisplay called");
-    const puzzleHeader = document.querySelector(".puzzle-header");
-    console.log("Found puzzle header:", puzzleHeader);
+    const submitButton = document.querySelector(".submit-btn");
+    console.log("Found submit button:", submitButton);
     const existingTimer = document.querySelector(".timer-container");
     console.log("Existing timer container:", existingTimer);
 
-    if (puzzleHeader && !existingTimer) {
+    if (submitButton && !existingTimer) {
         console.log("Creating timer container");
         const timerContainer = document.createElement("div");
         timerContainer.className = "timer-container";
@@ -598,12 +598,16 @@ function addTimerDisplay() {
                 Take your time to read and understand the puzzle. The timer will start after each answer attempt.
             </div>
         `;
-        puzzleHeader.appendChild(timerContainer);
-        console.log("Timer container added to puzzle header");
+        // Insert timer container directly after the submit button
+        submitButton.parentNode.insertBefore(
+            timerContainer,
+            submitButton.nextSibling
+        );
+        console.log("Timer container added after submit button");
     } else {
         console.log(
-            "Timer container not added - puzzleHeader:",
-            !!puzzleHeader,
+            "Timer container not added - submitButton:",
+            !!submitButton,
             "existingTimer:",
             !!existingTimer
         );
@@ -618,7 +622,7 @@ function updateTimerDisplay() {
         if (!hasAttemptedAnswer) {
             // Show "Ready" state before timer starts
             countdownElement.textContent = "Ready";
-            countdownElement.style.color = "#4facfe";
+            countdownElement.style.color = "#000000";
             countdownElement.style.fontWeight = "normal";
         } else {
             // Show countdown when timer is running
@@ -628,23 +632,16 @@ function updateTimerDisplay() {
                 .toString()
                 .padStart(2, "0")}`;
 
-            // Change color as time runs out
-            if (timeRemaining <= 10) {
-                countdownElement.style.color = "#dc3545";
-                countdownElement.style.fontWeight = "bold";
-            } else if (timeRemaining <= 30) {
-                countdownElement.style.color = "#ffc107";
-            } else {
-                countdownElement.style.color = "#4facfe";
-                countdownElement.style.fontWeight = "normal";
-            }
+            // Keep all timer text black
+            countdownElement.style.color = "#000000";
+            countdownElement.style.fontWeight = "normal";
         }
     }
 
     if (messageElement && timeRemaining <= 0 && hasAttemptedAnswer) {
         messageElement.textContent =
             "Timer expired! You can now submit your answer.";
-        messageElement.style.color = "#28a745";
+        messageElement.style.color = "#000000";
         messageElement.style.fontWeight = "bold";
     }
 }
