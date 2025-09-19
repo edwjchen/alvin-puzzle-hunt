@@ -280,9 +280,7 @@ function getObfuscatedAnswers() {
         3: ["9e3669d19b675bd57058fd4664205d2a"],
         4: ["5828d49f807e44f7ec77eccf7dd18a2f"],
         5: ["3899dcbab79f92af727c2190bbd8abc5"],
-        6: [
-            "3d8b6c2ce0612662a0c5054feda8fba3",
-        ],
+        6: ["3d8b6c2ce0612662a0c5054feda8fba3"],
         7: ["e8984b9da2f51f375a80360246755854"],
         8: [
             "54418875ec249dd4b51d368ae3f9dcef",
@@ -1068,7 +1066,7 @@ function showCompletionScreen(puzzleNumber) {
 function goToNextPuzzle(currentPuzzleNumber) {
     const nextPuzzle = parseInt(currentPuzzleNumber) + 1;
     if (nextPuzzle <= 14) {
-        window.location.href = `puzzle.html?puzzle=${nextPuzzle}`;
+        window.location.href = `puzzle${nextPuzzle}.html`;
     } else {
         // All puzzles completed!
         showAllCompletedScreen();

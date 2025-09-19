@@ -326,19 +326,61 @@
             font-size: 12px;
             border: 1px solid #555;
         }
+        
+        /* Puzzle 10 specific styling for attempted answers */
+        .puzzle10-theme .attempted-answers-container h3 {
+            color: #000000;
+            text-shadow: none;
+        }
+        
+        .puzzle10-theme .attempted-answers-container h3::before {
+            content: '🎯';
+            font-size: 1.3rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        .puzzle10-theme .attempted-answers-container h3::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(0, 0, 0, 0.3) 50%, 
+                transparent 100%);
+            margin-left: 0.5rem;
+        }
+        
+        .puzzle10-theme .attempted-answer {
+            background: none;
+            color: #000000;
+            border: none;
+            backdrop-filter: none;
+            padding: 0;
+            border-radius: 0;
+            font-weight: normal;
+            transition: none;
+            cursor: default;
+        }
+        
+        .puzzle10-theme .attempted-answer:hover {
+            background: none;
+            transform: none;
+            box-shadow: none;
+        }
     </style>
 </head>
 <body>
     <div class="container puzzle10-theme">
         <header class="puzzle-header">
-            <h1>🏠 Get Home Saif</h1>
-            <span id="puzzle-number-desc" style="display: none;">10</span>
+            <button class="back-btn" onclick="goBack()">← Back to Puzzles</button>
+            <h1>Puzzle <span id="puzzle-number">10</span>: Get Home Saif</h1>
         </header>
 
         <main class="puzzle-main">
             <div class="puzzle-content">
                 <div class="puzzle-description">
                     <h2>🏠 Get Home Saif</h2>
+                    <p id="puzzle-number-desc" style="display: none;">10</p>
                 </div>
 
                 <div class="street-scene">
@@ -1090,6 +1132,7 @@
             }
             initializeGame();
         });
+        
     </script>
 </body>
 </html>
