@@ -280,9 +280,7 @@ function getObfuscatedAnswers() {
         3: ["9e3669d19b675bd57058fd4664205d2a"],
         4: ["5828d49f807e44f7ec77eccf7dd18a2f"],
         5: ["3899dcbab79f92af727c2190bbd8abc5"],
-        6: [
-            "3d8b6c2ce0612662a0c5054feda8fba3",
-        ],
+        6: ["3d8b6c2ce0612662a0c5054feda8fba3"],
         7: ["e8984b9da2f51f375a80360246755854"],
         8: [
             "54418875ec249dd4b51d368ae3f9dcef",
@@ -482,7 +480,7 @@ function initializePuzzleWithoutTimer(puzzleNumber) {
         if (messageElement) {
             messageElement.textContent =
                 "Take your time to read and understand the puzzle. The timer will start after each answer attempt.";
-            messageElement.style.color = "white";
+            messageElement.style.color = "#000000";
         }
         enableAnswerSubmission();
     }
@@ -515,7 +513,7 @@ function initializeTimer(puzzleNumber) {
         if (messageElement) {
             messageElement.textContent =
                 "Timer restored from previous session. Answer submission will be enabled when the timer expires.";
-            messageElement.style.color = "#ffc107";
+            messageElement.style.color = "#000000";
         }
     }
 
@@ -548,7 +546,7 @@ function startTimerOnAttempt(puzzleNumber) {
     if (messageElement) {
         messageElement.textContent =
             "Timer started! You have 1 minute to solve this puzzle.";
-        messageElement.style.color = "#ffc107";
+        messageElement.style.color = "#000000";
     }
 
     // Disable answer submission
@@ -577,12 +575,12 @@ function startPuzzleTimer(puzzleNumber) {
 
 function addTimerDisplay() {
     console.log("addTimerDisplay called");
-    const puzzleHeader = document.querySelector(".puzzle-header");
-    console.log("Found puzzle header:", puzzleHeader);
+    const submitButton = document.querySelector(".submit-btn");
+    console.log("Found submit button:", submitButton);
     const existingTimer = document.querySelector(".timer-container");
     console.log("Existing timer container:", existingTimer);
 
-    if (puzzleHeader && !existingTimer) {
+    if (submitButton && !existingTimer) {
         console.log("Creating timer container");
         const timerContainer = document.createElement("div");
         timerContainer.className = "timer-container";
@@ -598,12 +596,16 @@ function addTimerDisplay() {
                 Take your time to read and understand the puzzle. The timer will start after each answer attempt.
             </div>
         `;
-        puzzleHeader.appendChild(timerContainer);
-        console.log("Timer container added to puzzle header");
+        // Insert timer container directly after the submit button
+        submitButton.parentNode.insertBefore(
+            timerContainer,
+            submitButton.nextSibling
+        );
+        console.log("Timer container added after submit button");
     } else {
         console.log(
-            "Timer container not added - puzzleHeader:",
-            !!puzzleHeader,
+            "Timer container not added - submitButton:",
+            !!submitButton,
             "existingTimer:",
             !!existingTimer
         );
@@ -618,7 +620,7 @@ function updateTimerDisplay() {
         if (!hasAttemptedAnswer) {
             // Show "Ready" state before timer starts
             countdownElement.textContent = "Ready";
-            countdownElement.style.color = "#4facfe";
+            countdownElement.style.color = "#000000";
             countdownElement.style.fontWeight = "normal";
         } else {
             // Show countdown when timer is running
@@ -628,23 +630,16 @@ function updateTimerDisplay() {
                 .toString()
                 .padStart(2, "0")}`;
 
-            // Change color as time runs out
-            if (timeRemaining <= 10) {
-                countdownElement.style.color = "#dc3545";
-                countdownElement.style.fontWeight = "bold";
-            } else if (timeRemaining <= 30) {
-                countdownElement.style.color = "#ffc107";
-            } else {
-                countdownElement.style.color = "#4facfe";
-                countdownElement.style.fontWeight = "normal";
-            }
+            // Keep all timer text black
+            countdownElement.style.color = "#000000";
+            countdownElement.style.fontWeight = "normal";
         }
     }
 
     if (messageElement && timeRemaining <= 0 && hasAttemptedAnswer) {
         messageElement.textContent =
             "Timer expired! You can now submit your answer.";
-        messageElement.style.color = "#28a745";
+        messageElement.style.color = "#000000";
         messageElement.style.fontWeight = "bold";
     }
 }
@@ -1071,7 +1066,7 @@ function showCompletionScreen(puzzleNumber) {
 function goToNextPuzzle(currentPuzzleNumber) {
     const nextPuzzle = parseInt(currentPuzzleNumber) + 1;
     if (nextPuzzle <= 14) {
-        window.location.href = `puzzle.html?puzzle=${nextPuzzle}`;
+        window.location.href = `puzzle${nextPuzzle}.html`;
     } else {
         // All puzzles completed!
         showAllCompletedScreen();

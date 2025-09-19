@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puzzle 4: Visual Puzzle - Alvin Puzzle Hunt</title>
+    <title>Puzzle 4: 🔍 - Alvin Puzzle Hunt</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="puzzle-styles.css">
     <style>
         .puzzle4-theme {
             background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
         }
-        .visual-puzzle {
+        .audio-puzzle {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             padding: 3rem;
@@ -18,73 +18,8 @@
             text-align: center;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         }
-        .color-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 1rem;
-            margin: 2rem 0;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .color-box {
-            aspect-ratio: 1;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: white;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        .color-box:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-        }
-        .color-box::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s ease;
-        }
-        .color-box:hover::before {
-            left: 100%;
-        }
-        .box-1 { background: linear-gradient(135deg, #667eea, #764ba2); }
-        .box-2 { background: linear-gradient(135deg, #f093fb, #f5576c); }
-        .box-3 { background: linear-gradient(135deg, #4facfe, #00f2fe); }
-        .box-4 { background: linear-gradient(135deg, #43e97b, #38f9d7); }
-        .box-5 { background: linear-gradient(135deg, #fa709a, #fee140); }
-        .box-6 { background: linear-gradient(135deg, #a8edea, #fed6e3); }
-        .box-7 { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
-        .box-8 { background: linear-gradient(135deg, #ffecd2, #fcb69f); }
-        .box-9 { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
-        .box-10 { background: linear-gradient(135deg, #fad0c4, #ffd1ff); }
-        .box-11 { background: linear-gradient(135deg, #667eea, #764ba2); }
-        .box-12 { background: linear-gradient(135deg, #f093fb, #f5576c); }
-        .box-13 { background: linear-gradient(135deg, #4facfe, #00f2fe); }
-        .box-14 { background: linear-gradient(135deg, #43e97b, #38f9d7); }
-        .box-15 { background: linear-gradient(135deg, #fa709a, #fee140); }
-        .box-16 { background: linear-gradient(135deg, #a8edea, #fed6e3); }
-        .box-17 { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
-        .box-18 { background: linear-gradient(135deg, #ffecd2, #fcb69f); }
-        .box-19 { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
-        .box-20 { background: linear-gradient(135deg, #fad0c4, #ffd1ff); }
-        .box-21 { background: linear-gradient(135deg, #667eea, #764ba2); }
-        .box-22 { background: linear-gradient(135deg, #f093fb, #f5576c); }
-        .box-23 { background: linear-gradient(135deg, #4facfe, #00f2fe); }
-        .box-24 { background: linear-gradient(135deg, #43e97b, #38f9d7); }
-        .box-25 { background: linear-gradient(135deg, #fa709a, #fee140); }
         
-        .pattern-analysis {
+        .audio-player {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 2rem;
@@ -92,74 +27,38 @@
             backdrop-filter: blur(10px);
         }
         
-        .analysis-tool {
-            background: white;
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .pattern-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 2rem 0;
-        }
-        
-        .pattern-btn {
+        .play-btn {
             background: linear-gradient(135deg, #a8edea, #fed6e3);
             color: #333;
             border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
+            padding: 1rem 2rem;
+            border-radius: 50px;
             cursor: pointer;
-            font-size: 1rem;
+            font-size: 1.2rem;
             font-weight: 600;
             transition: all 0.3s ease;
+            margin: 1rem;
         }
         
-        .pattern-btn:hover {
+        .play-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(168, 237, 234, 0.4);
         }
         
-        .hidden-message {
+        .play-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .audio-clue {
             background: #f8f9fa;
             border: 2px solid #e9ecef;
             border-radius: 10px;
             padding: 1rem;
             margin: 1rem 0;
             font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
+            font-size: 1rem;
             color: #495057;
-            display: none;
-        }
-        
-        .color-legend {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-        
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-        
-        .legend-color {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
         }
     </style>
 </head>
@@ -167,167 +66,63 @@
     <div class="container">
         <header class="puzzle-header">
             <button class="back-btn" onclick="goBack()">← Back to Puzzles</button>
-            <h1>Puzzle <span id="puzzle-number">4</span>: Visual Puzzle</h1>
+            <h1>Puzzle <span id="puzzle-number">4</span>: 🔍</h1>
         </header>
 
         <main class="puzzle-main">
             <div class="puzzle-content">
                 <div class="puzzle-description">
-                    <h2>🎨 Visual Detective</h2>
-                    <p>Look at the layout of this page carefully. Sometimes the answer is hidden in the visual structure itself!</p>
+                    <h2>🔍🔍🔍</h2>
                 </div>
 
                 <div class="puzzle-area">
-                    <div class="visual-puzzle">
-                        <h3>🌈 Color Pattern Analysis</h3>
-                        <p>Examine this 5x5 color grid. What pattern do you see? What might it spell out?</p>
-                        
-                        <div class="color-grid">
-                            <div class="color-box box-1" onclick="selectBox(1)">1</div>
-                            <div class="color-box box-2" onclick="selectBox(2)">2</div>
-                            <div class="color-box box-3" onclick="selectBox(3)">3</div>
-                            <div class="color-box box-4" onclick="selectBox(4)">4</div>
-                            <div class="color-box box-5" onclick="selectBox(5)">5</div>
-                            <div class="color-box box-6" onclick="selectBox(6)">6</div>
-                            <div class="color-box box-7" onclick="selectBox(7)">7</div>
-                            <div class="color-box box-8" onclick="selectBox(8)">8</div>
-                            <div class="color-box box-9" onclick="selectBox(9)">9</div>
-                            <div class="color-box box-10" onclick="selectBox(10)">10</div>
-                            <div class="color-box box-11" onclick="selectBox(11)">11</div>
-                            <div class="color-box box-12" onclick="selectBox(12)">12</div>
-                            <div class="color-box box-13" onclick="selectBox(13)">13</div>
-                            <div class="color-box box-14" onclick="selectBox(14)">14</div>
-                            <div class="color-box box-15" onclick="selectBox(15)">15</div>
-                            <div class="color-box box-16" onclick="selectBox(16)">16</div>
-                            <div class="color-box box-17" onclick="selectBox(17)">17</div>
-                            <div class="color-box box-18" onclick="selectBox(18)">18</div>
-                            <div class="color-box box-19" onclick="selectBox(19)">19</div>
-                            <div class="color-box box-20" onclick="selectBox(20)">20</div>
-                            <div class="color-box box-21" onclick="selectBox(21)">21</div>
-                            <div class="color-box box-22" onclick="selectBox(22)">22</div>
-                            <div class="color-box box-23" onclick="selectBox(23)">23</div>
-                            <div class="color-box box-24" onclick="selectBox(24)">24</div>
-                            <div class="color-box box-25" onclick="selectBox(25)">25</div>
-                        </div>
-                        
-                        <p>Click on the boxes to analyze the pattern!</p>
-                    </div>
-
-                    <div class="pattern-analysis">
-                        <h4>🔍 Pattern Analysis Tools</h4>
-                        <div class="analysis-tool">
-                            <h5>Selected Boxes:</h5>
-                            <div id="selected-boxes" style="margin: 1rem 0; font-weight: bold; color: #333;"></div>
-                        </div>
-                        
-                        <div class="pattern-buttons">
-                            <button class="pattern-btn" onclick="analyzeRows()">Analyze Rows</button>
-                            <button class="pattern-btn" onclick="analyzeColumns()">Analyze Columns</button>
-                            <button class="pattern-btn" onclick="analyzeDiagonals()">Analyze Diagonals</button>
-                            <button class="pattern-btn" onclick="resetAnalysis()">Reset</button>
-                        </div>
-                        
-                        <div id="analysis-result" style="margin-top: 1rem; font-size: 1.2rem; font-weight: bold; color: white; text-align: center;"></div>
-                    </div>
-
-                    <div class="color-legend">
-                        <div class="legend-item">
-                            <div class="legend-color" style="background: linear-gradient(135deg, #667eea, #764ba2);"></div>
-                            <span>Purple</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background: linear-gradient(135deg, #f093fb, #f5576c);"></div>
-                            <span>Pink</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background: linear-gradient(135deg, #4facfe, #00f2fe);"></div>
-                            <span>Blue</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background: linear-gradient(135deg, #43e97b, #38f9d7);"></div>
-                            <span>Green</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background: linear-gradient(135deg, #fa709a, #fee140);"></div>
-                            <span>Yellow</span>
+                    <div class="audio-puzzle">
+                        <h3>🎵 🎵 🎵</h3>
+                        <div class="audio-player">
+                            <audio id="puzzle-audio" preload="auto">
+                                <source src="audio.mp3" type="audio/mpeg">
+                                Your browser does not support the audio element.
+                            </audio>
+                            <button class="play-btn" onclick="playAudio()">🔊 Play Audio Clue</button>
+                            <!-- Wow you decided to actually InSpEcT the html!!! Great job. Here's a hint: https://www.youtube.com/watch?v=dQw4w9WgXcQ -->
                         </div>
                     </div>
 
-                    <div class="hidden-message" id="hidden-message">
-                        <strong>💡 Hidden Message Found!</strong><br>
-                        The pattern spells out: "HELLO"<br>
-                        Look at the first letter of each color name in the legend:<br>
-                        Purple → P, Pink → P, Blue → B, Green → G, Yellow → Y<br>
-                        But wait... that's not right. Look more carefully at the actual colors used in the grid!
-                    </div>
-
-                    <div class="puzzle-box">
-                        <h3>🎯 The Solution</h3>
-                        <p>Look at the first letter of each color name in the legend, but consider the actual colors used in the grid pattern.</p>
-                        <p>The answer is hidden in the visual structure - examine the HTML structure and CSS classes!</p>
-                    </div>
                 </div>
 
                 <div class="puzzle-actions">
-                    <input type="text" id="answer-input" placeholder="What word do the colors spell out?" class="answer-input">
+                    <input type="text" id="answer-input" placeholder="What do you hear in the audio clip?" class="answer-input">
                     <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
                 </div>
 
-                <div class="puzzle-hints">
-                    <button class="hint-btn" onclick="toggleHint()">Show Hint</button>
-                    <div id="hint-content" class="hint-content hidden">
-                        <p>Look at the HTML structure and CSS classes. The colors might spell out a word when arranged properly.</p>
-                    </div>
-                </div>
             </div>
         </main>
 
         <footer>
             <p>&copy; 2024 Alvin Puzzle Hunt. All rights reserved.</p>
+        <!-- jk here's the real hint: https://www.youtube.com/shorts/M56m6jeISlY --> 
         </footer>
     </div>
 
     <script src="puzzle-script.js"></script>
     <script>
-        let selectedBoxes = [];
-        
-        function selectBox(boxNumber) {
-            if (selectedBoxes.includes(boxNumber)) {
-                selectedBoxes = selectedBoxes.filter(num => num !== boxNumber);
+        function playAudio() {
+            const audio = document.getElementById('puzzle-audio');
+            const button = document.querySelector('.play-btn');
+            
+            if (audio.paused) {
+                audio.play();
+                button.textContent = '⏸️ Pause Audio';
+                button.disabled = false;
             } else {
-                selectedBoxes.push(boxNumber);
-            }
-            updateSelectedDisplay();
-        }
-        
-        function updateSelectedDisplay() {
-            const display = document.getElementById('selected-boxes');
-            if (selectedBoxes.length === 0) {
-                display.textContent = 'No boxes selected';
-            } else {
-                display.textContent = `Selected: ${selectedBoxes.join(', ')}`;
+                audio.pause();
+                button.textContent = '🔊 Play Audio Clue';
             }
         }
         
-        function analyzeRows() {
-            const result = document.getElementById('analysis-result');
-            result.innerHTML = 'Analyzing rows... Look for patterns in the color sequence!';
-        }
-        
-        function analyzeColumns() {
-            const result = document.getElementById('analysis-result');
-            result.innerHTML = 'Analyzing columns... Each column might represent a letter!';
-        }
-        
-        function analyzeDiagonals() {
-            const result = document.getElementById('analysis-result');
-            result.innerHTML = 'Analyzing diagonals... The pattern might be diagonal!';
-        }
-        
-        function resetAnalysis() {
-            selectedBoxes = [];
-            updateSelectedDisplay();
-            document.getElementById('analysis-result').innerHTML = '';
+        function showAudioHint() {
+            const hint = document.getElementById('audio-hint');
+            hint.style.display = hint.style.display === 'none' ? 'block' : 'none';
         }
         
         function goBack() {
@@ -340,6 +135,14 @@
             if (!isPuzzleCompleted(puzzleNumber)) {
                 initializePuzzleWithoutTimer(puzzleNumber);
             }
+            
+            // Add event listener for audio ended
+            const audio = document.getElementById('puzzle-audio');
+            audio.addEventListener('ended', function() {
+                const button = document.querySelector('.play-btn');
+                button.textContent = '🔊 Play Audio Clue';
+                button.disabled = false;
+            });
         });
     </script>
 </body>

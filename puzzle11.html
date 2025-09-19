@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puzzle 11: Master Challenge 1 - Alvin Puzzle Hunt</title>
+    <title>Puzzle 11: Webcam Activation - Alvin Puzzle Hunt</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="puzzle-styles.css">
     <style>
         .puzzle11-theme {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
         }
-        .master-puzzle {
+        .webcam-puzzle {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             padding: 3rem;
@@ -18,40 +18,41 @@
             text-align: center;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         }
-        .hidden-number {
-            position: absolute;
-            top: -1000px;
-            left: -1000px;
-            color: #667eea;
-            font-size: 0.1px;
-            opacity: 0.01;
-        }
-        .console-hint {
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            padding: 1rem;
-            margin: 1rem 0;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9rem;
-            color: #495057;
-        }
-        .master-tool {
-            background: rgba(255, 255, 255, 0.1);
+        .webcam-container {
+            position: relative;
+            max-width: 640px;
+            margin: 2rem auto;
             border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            backdrop-filter: blur(10px);
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
-        .tool-buttons {
+        .webcam-video {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: #000;
+        }
+        .webcam-placeholder {
+            width: 100%;
+            height: 360px;
+            background: linear-gradient(45deg, #2c3e50, #34495e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            border-radius: 15px;
+        }
+        .webcam-controls {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
             display: flex;
             gap: 1rem;
             justify-content: center;
-            flex-wrap: wrap;
-            margin: 2rem 0;
+            align-items: center;
         }
-        .tool-btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+        .webcam-btn {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
             color: white;
             border: none;
             padding: 0.8rem 1.5rem;
@@ -61,11 +62,16 @@
             font-weight: 600;
             transition: all 0.3s ease;
         }
-        .tool-btn:hover {
+        .webcam-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
         }
-        .result-display {
+        .webcam-btn:disabled {
+            background: #7f8c8d;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .webcam-status {
             background: #f8f9fa;
             border: 2px solid #e9ecef;
             border-radius: 10px;
@@ -76,26 +82,7 @@
             color: #495057;
             text-align: center;
         }
-        .step-by-step {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        .step {
-            background: #f8f9fa;
-            border-left: 4px solid #667eea;
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 0 8px 8px 0;
-        }
-        .step-number {
-            font-weight: bold;
-            color: #667eea;
-            font-size: 1.1rem;
-        }
-        .master-hint {
+        .permission-hint {
             background: #fff3cd;
             border: 2px solid #ffeaa7;
             border-radius: 15px;
@@ -103,91 +90,75 @@
             margin: 2rem 0;
             color: #856404;
         }
+        .error-message {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            color: #721c24;
+        }
     </style>
 </head>
 <body class="puzzle11-theme">
     <div class="container">
         <header class="puzzle-header">
             <button class="back-btn" onclick="goBack()">← Back to Puzzles</button>
-            <h1>Puzzle <span id="puzzle-number">11</span>: Master Challenge 1</h1>
+            <h1>Puzzle <span id="puzzle-number">11</span>: Webcam Activation</h1>
         </header>
 
         <main class="puzzle-main">
             <div class="puzzle-content">
                 <div class="puzzle-description">
-                    <h2>🧩 Master Puzzle</h2>
-                    <p>This is a complex puzzle requiring multiple steps. First, find the hidden number in this page.</p>
+                    <h2>📹 Webcam Puzzle</h2>
                 </div>
 
                 <div class="puzzle-area">
-                    <div class="master-puzzle">
-                        <h3>🎯 The Challenge</h3>
-                        <p>This puzzle has multiple layers. You'll need to use different techniques to solve it.</p>
+                    <div class="webcam-puzzle">
+                        <h3>🎥 The Challenge</h3>
+                        <p>Click the button below to activate your webcam. Once activated, you'll see the answer appear on your screen!</p>
                         
-                        <div class="console-hint">
-                            <strong>💡 Developer's Tip:</strong> Check the browser console for any logged messages or errors. Sometimes clues are hidden there!
-                        </div>
-                        
-                        <div class="master-tool">
-                            <h4>🔧 Master Analysis Tool</h4>
-                            <p>Use this tool to help solve the puzzle:</p>
-                            <div class="tool-buttons">
-                                <button class="tool-btn" onclick="checkConsole()">Check Console</button>
-                                <button class="tool-btn" onclick="inspectPage()">Inspect Page</button>
-                                <button class="tool-btn" onclick="findHidden()">Find Hidden</button>
-                                <button class="tool-btn" onclick="showSolution()">Show Solution</button>
+                        <div class="webcam-container">
+                            <video id="webcam-video" class="webcam-video" autoplay muted style="display: none;"></video>
+                            <div id="webcam-placeholder" class="webcam-placeholder">
+                                📹 Click "Activate Webcam" to start
                             </div>
-                            <div class="result-display" id="result-display">
-                                Click "Check Console" to start!
+                            <div class="webcam-controls">
+                                <button id="webcam-btn" class="webcam-btn" onclick="toggleWebcam()">
+                                    Activate Webcam
+                                </button>
+                                <span id="webcam-indicator" style="color: white; font-weight: bold;">
+                                    ● Camera Off
+                                </span>
                             </div>
                         </div>
                         
-                        <div class="master-hint">
-                            <h4>💡 Master Hints</h4>
-                            <p><strong>Hint 1:</strong> Look for elements that are positioned off-screen or have very small text.</p>
-                            <p><strong>Hint 2:</strong> Check the browser console for any logged messages.</p>
-                            <p><strong>Hint 3:</strong> Inspect the HTML source code for hidden elements.</p>
+                        <div class="webcam-status" id="webcam-status">
+                            Ready to activate your webcam!
                         </div>
                         
-                        <div class="step-by-step" id="solution-steps" style="display: none;">
-                            <h4>📝 Step-by-Step Solution</h4>
-                            <div class="step">
-                                <div class="step-number">Step 1:</div>
-                                <p>Look for hidden elements in the HTML source code.</p>
-                            </div>
-                            <div class="step">
-                                <div class="step-number">Step 2:</div>
-                                <p>Find the hidden number: 42</p>
-                            </div>
-                            <div class="step">
-                                <div class="step-number">Step 3:</div>
-                                <p>Use this number as the answer to the puzzle.</p>
-                            </div>
-                            <div class="step">
-                                <div class="step-number">Answer:</div>
-                                <p><strong>42</strong></p>
-                            </div>
+                        <div class="permission-hint">
+                            <h4>💡 Permission Hint</h4>
+                            <p><strong>Note:</strong> Your browser will ask for camera permission. Click "Allow" to proceed with the puzzle.</p>
+                            <p>If you don't see the permission prompt, check your browser's address bar for a camera icon.</p>
                         </div>
                         
-                        <div class="puzzle-box">
-                            <h3>🎯 The Solution</h3>
-                            <p>The hidden number in this page is <strong>42</strong>.</p>
-                            <p>It's hidden in the HTML source code as a small, off-screen element.</p>
+                        <div id="error-container"></div>
+                        
+                        <div class="puzzle-box" id="answer-reveal" style="display: none;">
+                            <h3>🎯 The Answer</h3>
+                            <p>Great! Your webcam is now active. The answer to this puzzle is:</p>
+                            <p><strong>676767676767</strong></p>
+                            <p>You successfully activated your webcam to solve this puzzle!</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="puzzle-actions">
-                    <input type="text" id="answer-input" placeholder="What is the hidden number?" class="answer-input">
+                    <input type="text" id="answer-input" placeholder="What is the answer revealed when you activate the webcam?" class="answer-input">
                     <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
                 </div>
 
-                <div class="puzzle-hints">
-                    <button class="hint-btn" onclick="toggleHint()">Show Hint</button>
-                    <div id="hint-content" class="hint-content hidden">
-                        <p>Check the console for any logged messages or errors. Sometimes developers hide clues in the HTML source code!</p>
-                    </div>
-                </div>
             </div>
         </main>
 
@@ -196,37 +167,115 @@
         </footer>
     </div>
 
-    <!-- Hidden clue in the HTML source -->
-    <div class="hidden-number">42</div>
-
     <script src="puzzle-script.js"></script>
     <script>
-        // Log a message to the console
-        console.log("Hidden number found: 42");
+        let webcamStream = null;
+        let isWebcamActive = false;
         
-        function checkConsole() {
-            const result = document.getElementById('result-display');
-            result.innerHTML = 'Check the browser console (F12) for logged messages!<br>Look for "Hidden number found: 42"';
-        }
-        
-        function inspectPage() {
-            const result = document.getElementById('result-display');
-            result.innerHTML = 'Inspect the HTML source code (Ctrl+U or Cmd+U)!<br>Look for elements with very small text or positioned off-screen.';
-        }
-        
-        function findHidden() {
-            const result = document.getElementById('result-display');
-            result.innerHTML = 'Look for elements with class "hidden-number" in the HTML source!<br>The hidden number is 42.';
-        }
-        
-        function showSolution() {
-            document.getElementById('solution-steps').style.display = 'block';
-            document.getElementById('solution-steps').scrollIntoView({ behavior: 'smooth' });
+        async function toggleWebcam() {
+            const video = document.getElementById('webcam-video');
+            const placeholder = document.getElementById('webcam-placeholder');
+            const button = document.getElementById('webcam-btn');
+            const indicator = document.getElementById('webcam-indicator');
+            const status = document.getElementById('webcam-status');
+            const answerReveal = document.getElementById('answer-reveal');
+            const errorContainer = document.getElementById('error-container');
+            
+            // Clear any previous errors
+            errorContainer.innerHTML = '';
+            
+            if (!isWebcamActive) {
+                try {
+                    // Request webcam access
+                    webcamStream = await navigator.mediaDevices.getUserMedia({ 
+                        video: { 
+                            width: { ideal: 640 },
+                            height: { ideal: 480 }
+                        },
+                        audio: false 
+                    });
+                    
+                    // Set video source
+                    video.srcObject = webcamStream;
+                    video.style.display = 'block';
+                    placeholder.style.display = 'none';
+                    
+                    // Update UI
+                    button.textContent = 'Deactivate Webcam';
+                    button.style.background = 'linear-gradient(135deg, #27ae60, #2ecc71)';
+                    indicator.textContent = '● Camera On';
+                    indicator.style.color = '#27ae60';
+                    status.textContent = 'Webcam activated successfully! Look at the answer below.';
+                    status.style.background = '#d4edda';
+                    status.style.borderColor = '#c3e6cb';
+                    status.style.color = '#155724';
+                    
+                    // Show the answer
+                    answerReveal.style.display = 'block';
+                    answerReveal.scrollIntoView({ behavior: 'smooth' });
+                    
+                    isWebcamActive = true;
+                    
+                } catch (error) {
+                    console.error('Error accessing webcam:', error);
+                    let errorMessage = 'Failed to access webcam. ';
+                    
+                    if (error.name === 'NotAllowedError') {
+                        errorMessage += 'Please allow camera permission and try again.';
+                    } else if (error.name === 'NotFoundError') {
+                        errorMessage += 'No camera found on this device.';
+                    } else if (error.name === 'NotReadableError') {
+                        errorMessage += 'Camera is being used by another application.';
+                    } else {
+                        errorMessage += 'Please check your camera settings and try again.';
+                    }
+                    
+                    errorContainer.innerHTML = `<div class="error-message">${errorMessage}</div>`;
+                    status.textContent = 'Webcam activation failed. Please try again.';
+                    status.style.background = '#f8d7da';
+                    status.style.borderColor = '#f5c6cb';
+                    status.style.color = '#721c24';
+                }
+            } else {
+                // Stop webcam
+                if (webcamStream) {
+                    webcamStream.getTracks().forEach(track => track.stop());
+                    webcamStream = null;
+                }
+                
+                // Update UI
+                video.style.display = 'none';
+                placeholder.style.display = 'flex';
+                button.textContent = 'Activate Webcam';
+                button.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
+                indicator.textContent = '● Camera Off';
+                indicator.style.color = '#e74c3c';
+                status.textContent = 'Webcam deactivated. Click the button to activate again.';
+                status.style.background = '#f8f9fa';
+                status.style.borderColor = '#e9ecef';
+                status.style.color = '#495057';
+                
+                // Hide the answer
+                answerReveal.style.display = 'none';
+                
+                isWebcamActive = false;
+            }
         }
         
         function goBack() {
+            // Stop webcam before leaving
+            if (webcamStream) {
+                webcamStream.getTracks().forEach(track => track.stop());
+            }
             window.location.href = "index.html";
         }
+        
+        // Clean up webcam when page is unloaded
+        window.addEventListener('beforeunload', function() {
+            if (webcamStream) {
+                webcamStream.getTracks().forEach(track => track.stop());
+            }
+        });
         
         // Initialize puzzle timer when page loads
         document.addEventListener('DOMContentLoaded', function() {

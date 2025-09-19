@@ -3,277 +3,906 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puzzle 10: Pattern Recognition - Alvin Puzzle Hunt</title>
+    <title>Puzzle 10: Get Home Saif - Alvin Puzzle Hunt</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="puzzle-styles.css">
     <style>
         .puzzle10-theme {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #ffffff;
         }
-        .pattern-puzzle {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 3rem;
+        .street-scene {
+            background: linear-gradient(180deg, #000011 0%, #000033 50%, #000000 100%);
+            height: 600px;
+            position: relative;
+            overflow: hidden;
             margin: 2rem 0;
-            text-align: center;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
         }
-        .shape-sequence {
+        .scrolling-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6000%;
+            height: 100%;
+            background: linear-gradient(180deg, #000011 0%, #000033 50%, #000000 100%);
+            transition: transform 0.1s ease-out;
+        }
+        .street {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
+            border-top: 2px solid #333;
+        }
+        .street-lines {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: repeating-linear-gradient(
+                90deg,
+                #ffff00 0px,
+                #ffff00 20px,
+                transparent 20px,
+                transparent 40px
+            );
+        }
+        .buildings {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6000%;
+            height: 400px;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 2rem;
-            margin: 3rem 0;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-end;
+            transition: transform 0.1s ease-out;
         }
-        .shape {
-            width: 80px;
+        .building {
+            background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+            border: 1px solid #333;
+            position: relative;
+        }
+        .building-1 { width: 80px; height: 300px; left: 0; }
+        .building-2 { width: 120px; height: 250px; left: 100px; }
+        .building-3 { width: 90px; height: 320px; left: 250px; }
+        .building-4 { width: 70px; height: 280px; left: 370px; }
+        .building-5 { width: 100px; height: 290px; left: 470px; }
+        .building-6 { width: 85px; height: 310px; left: 600px; }
+        .building-7 { width: 110px; height: 240px; left: 720px; }
+        .building-8 { width: 75px; height: 330px; left: 860px; }
+        .building-9 { width: 95px; height: 270px; left: 970px; }
+        .building-10 { width: 105px; height: 300px; left: 1100px; }
+        .building-11 { width: 80px; height: 260px; left: 1240px; }
+        .building-12 { width: 90px; height: 340px; left: 1360px; }
+        .building-13 { width: 85px; height: 250px; left: 1480px; }
+        .building-14 { width: 100px; height: 290px; left: 1600px; }
+        .building-15 { width: 75px; height: 320px; left: 1740px; }
+        .building-16 { width: 110px; height: 280px; left: 1860px; }
+        .building-17 { width: 90px; height: 300px; left: 2000px; }
+        .building-18 { width: 95px; height: 260px; left: 2130px; }
+        .building-19 { width: 80px; height: 310px; left: 2260px; }
+        .building-20 { width: 105px; height: 270px; left: 2380px; }
+        .building-21 { width: 90px; height: 310px; left: 2520px; }
+        .building-22 { width: 80px; height: 240px; left: 2650px; }
+        .building-23 { width: 110px; height: 290px; left: 2780px; }
+        .building-24 { width: 75px; height: 320px; left: 2930px; }
+        .building-25 { width: 95px; height: 260px; left: 3050px; }
+        .building-26 { width: 85px; height: 300px; left: 3180px; }
+        .building-27 { width: 100px; height: 280px; left: 3310px; }
+        .building-28 { width: 70px; height: 340px; left: 3450px; }
+        .building-29 { width: 105px; height: 250px; left: 3560px; }
+        .building-30 { width: 90px; height: 310px; left: 3700px; }
+        .building-31 { width: 85px; height: 280px; left: 3830px; }
+        .building-32 { width: 100px; height: 320px; left: 3960px; }
+        .building-33 { width: 75px; height: 250px; left: 4100px; }
+        .building-34 { width: 110px; height: 290px; left: 4220px; }
+        .building-35 { width: 90px; height: 340px; left: 4370px; }
+        .building-36 { width: 80px; height: 260px; left: 4500px; }
+        .building-37 { width: 95px; height: 300px; left: 4630px; }
+        .building-38 { width: 105px; height: 270px; left: 4770px; }
+        .building-39 { width: 70px; height: 330px; left: 4920px; }
+        .building-40 { width: 100px; height: 240px; left: 5040px; }
+        .windows {
+            position: absolute;
+            top: 20px;
+            left: 10px;
+            right: 10px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 5px;
+        }
+        .window {
+            width: 20px;
+            height: 25px;
+            background: #ffff00;
+            border: 1px solid #333;
+            opacity: 0.8;
+            animation: windowFlicker 3s ease-in-out infinite;
+        }
+        .window:nth-child(even) {
+            animation-delay: 1.5s;
+        }
+        @keyframes windowFlicker {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.3; }
+        }
+        .character {
+            position: absolute;
+            bottom: 200px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 60px;
+            background: #4a4a4a;
+            border-radius: 15px 15px 0 0;
+            z-index: 10;
+        }
+        .character::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: #ffdbac;
+            border-radius: 50%;
+            border: 2px solid #333;
+        }
+        .character::after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            height: 35px;
+            background: #333;
+            border-radius: 5px;
+        }
+        .character.walking {
+            animation: walkCycle 0.6s ease-in-out infinite;
+        }
+        @keyframes walkCycle {
+            0%, 100% { transform: translateX(-50%) rotate(0deg); }
+            25% { transform: translateX(-50%) rotate(-2deg); }
+            75% { transform: translateX(-50%) rotate(2deg); }
+        }
+        .streetlights {
+            position: absolute;
+            bottom: 200px;
+            left: 0;
+            width: 6000%;
+            height: 100px;
+            transition: transform 0.1s ease-out;
+        }
+        .billboards {
+            position: absolute;
+            bottom: 200px;
+            left: 0;
+            width: 6000%;
+            height: 200px;
+            transition: transform 0.1s ease-out;
+            z-index: 5;
+        }
+        .billboard {
+            position: absolute;
+            width: 120px;
+            height: 70px;
+            background: linear-gradient(135deg, #2a5a2a 0%, #1a3a1a 100%);
+            border: 2px solid #4a6a4a;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            font-weight: bold;
+            color: #fff;
+            text-align: center;
+            line-height: 1.2;
+            padding: 6px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+        .billboard-stand {
+            position: absolute;
+            width: 6px;
+            height: 100px;
+            background: linear-gradient(180deg, #666 0%, #333 100%);
+            border: 1px solid #444;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .billboard-1 { left: 2%; bottom: 100px; }
+        .billboard-2 { left: 8%; bottom: 100px; }
+        .billboard-3 { left: 15%; bottom: 100px; }
+        .billboard-4 { left: 25%; bottom: 100px; }
+        .billboard-5 { left: 35%; bottom: 100px; }
+        .billboard-6 { left: 150%; bottom: 100px; }
+        .billboard-7 { left: 160%; bottom: 100px; }
+        .streetlight {
+            position: absolute;
+            bottom: 0;
+            width: 8px;
+            height: 100px;
+            background: #333;
+            border-radius: 4px;
+        }
+        .light-cone {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
             height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: bold;
+            background: radial-gradient(ellipse at center top, 
+                rgba(255, 255, 255, 0.3) 0%, 
+                rgba(255, 255, 200, 0.2) 30%, 
+                rgba(255, 255, 150, 0.1) 60%, 
+                transparent 100%);
+            border-radius: 50% 50% 0 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        .light-cone.dim {
+            background: radial-gradient(ellipse at center top, 
+                rgba(100, 100, 100, 0.1) 0%, 
+                rgba(80, 80, 80, 0.05) 30%, 
+                rgba(60, 60, 60, 0.02) 60%, 
+                transparent 100%);
+        }
+        .streetlight-1 { left: 5%; }
+        .streetlight-2 { left: 13%; }
+        .streetlight-3 { left: 21%; }
+        .streetlight-4 { left: 29%; }
+        .streetlight-5 { left: 37%; }
+        .streetlight-6 { left: 45%; }
+        .streetlight-7 { left: 53%; }
+        .streetlight-8 { left: 61%; }
+        .streetlight-9 { left: 69%; }
+        .streetlight-10 { left: 77%; }
+        .streetlight-11 { left: 85%; }
+        .streetlight-12 { left: 93%; }
+        .streetlight-13 { left: 101%; }
+        .light {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, #ffffff 0%, #ffff00 30%, #ffaa00 60%, transparent 80%);
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8), 0 0 80px rgba(255, 255, 136, 0.6);
+            opacity: 1;
+        }
+        .light.dimmed {
+            opacity: 0.8;
+            background: radial-gradient(circle, #333333 0%, #111111 50%, transparent 70%);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), inset 0 0 5px rgba(255, 255, 255, 0.1);
+            border: 1px solid #444;
+            animation: lightDim 0.2s ease-in-out;
+        }
+        @keyframes lightDim {
+            0%, 100% {
+                opacity: 0.8;
+                transform: translateX(-50%) scale(1);
+            }
+            50% {
+                opacity: 0.6;
+                transform: translateX(-50%) scale(0.95);
+            }
+        }
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            border-radius: 20px;
             color: white;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s ease;
-            cursor: pointer;
+            font-size: 14px;
+            z-index: 20;
         }
-        .shape:hover {
-            transform: scale(1.2);
-        }
-        .shape.circle {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
-        }
-        .shape.square {
-            background: linear-gradient(135deg, #f093fb, #f5576c);
-            border-radius: 10px;
-        }
-        .shape.triangle {
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-        }
-        .shape.question {
-            background: linear-gradient(135deg, #ffc107, #ff8c00);
-            border-radius: 50%;
-            border: 3px dashed #ff8c00;
-        }
-        .pattern-analyzer {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            backdrop-filter: blur(10px);
-        }
-        .analyzer-tool {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        .analyzer-buttons {
+        .controls-keys {
             display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 2rem 0;
+            gap: 10px;
+            margin-top: 5px;
         }
-        .analyzer-btn {
-            background: linear-gradient(135deg, #ffecd2, #fcb69f);
-            color: #333;
+        .key {
+            background: #333;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            border: 1px solid #555;
+        }
+        
+        /* Puzzle 10 specific styling for attempted answers */
+        .puzzle10-theme .attempted-answers-container h3 {
+            color: #000000;
+            text-shadow: none;
+        }
+        
+        .puzzle10-theme .attempted-answers-container h3::before {
+            content: '🎯';
+            font-size: 1.3rem;
+            animation: bounce 2s ease-in-out infinite;
+        }
+        
+        .puzzle10-theme .attempted-answers-container h3::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(0, 0, 0, 0.3) 50%, 
+                transparent 100%);
+            margin-left: 0.5rem;
+        }
+        
+        .puzzle10-theme .attempted-answer {
+            background: none;
+            color: #000000;
             border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
+            backdrop-filter: none;
+            padding: 0;
+            border-radius: 0;
+            font-weight: normal;
+            transition: none;
+            cursor: default;
         }
-        .analyzer-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 236, 210, 0.4);
-        }
-        .pattern-display {
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            padding: 2rem;
-            margin: 2rem 0;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #495057;
-            text-align: center;
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .pattern-hint {
-            background: #fff3cd;
-            border: 2px solid #ffeaa7;
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            color: #856404;
-        }
-        .shape-options {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 2rem 0;
-        }
-        .shape-option {
-            background: white;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            padding: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-            font-weight: 600;
-        }
-        .shape-option:hover {
-            border-color: #ffc107;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 193, 7, 0.2);
-        }
-        .shape-option.selected {
-            border-color: #28a745;
-            background: #d4edda;
-        }
-        .shape-option.correct {
-            border-color: #28a745;
-            background: #d4edda;
-            animation: correctPulse 0.6s ease;
-        }
-        .shape-option.incorrect {
-            border-color: #dc3545;
-            background: #f8d7da;
-            animation: incorrectShake 0.6s ease;
-        }
-        @keyframes correctPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        @keyframes incorrectShake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            75% { transform: translateX(5px); }
-        }
-        .pattern-explanation {
-            background: #d1ecf1;
-            border: 2px solid #bee5eb;
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            color: #0c5460;
+        
+        .puzzle10-theme .attempted-answer:hover {
+            background: none;
+            transform: none;
+            box-shadow: none;
         }
     </style>
 </head>
-<body class="puzzle10-theme">
-    <div class="container">
+<body>
+    <div class="container puzzle10-theme">
         <header class="puzzle-header">
             <button class="back-btn" onclick="goBack()">← Back to Puzzles</button>
-            <h1>Puzzle <span id="puzzle-number">10</span>: Pattern Recognition</h1>
+            <h1>Puzzle <span id="puzzle-number">10</span>: Get Home Saif</h1>
         </header>
 
         <main class="puzzle-main">
             <div class="puzzle-content">
                 <div class="puzzle-description">
-                    <h2>🔍 Pattern Detective</h2>
-                    <p>Look at the sequence of shapes carefully. What pattern do you see? What should come next?</p>
+                    <h2>🏠 Get Home Saif</h2>
+                    <p id="puzzle-number-desc" style="display: none;">10</p>
                 </div>
 
-                <div class="puzzle-area">
-                    <div class="pattern-puzzle">
-                        <h3>🎯 The Shape Sequence</h3>
-                        <p>What is the next shape in this sequence?</p>
-                        
-                        <div class="shape-sequence">
-                            <div class="shape circle">○</div>
-                            <div class="shape square">□</div>
-                            <div class="shape triangle">△</div>
-                            <div class="shape circle">○</div>
-                            <div class="shape square">□</div>
-                            <div class="shape question">?</div>
-                        </div>
-                    </div>
-
-                    <div class="pattern-analyzer">
-                        <h4>🔧 Pattern Analysis Tool</h4>
-                        <div class="analyzer-tool">
-                            <p>Use this tool to help identify the pattern:</p>
-                            <div class="analyzer-buttons">
-                                <button class="analyzer-btn" onclick="analyzePattern()">Analyze Pattern</button>
-                                <button class="analyzer-btn" onclick="showHint()">Show Hint</button>
-                                <button class="analyzer-btn" onclick="checkAnswer()">Check Answer</button>
-                                <button class="analyzer-btn" onclick="resetAnalyzer()">Reset</button>
-                            </div>
-                            <div class="pattern-display" id="pattern-display">
-                                Click "Analyze Pattern" to start!
+                <div class="street-scene">
+                    <!-- Scrolling Background -->
+                    <div class="scrolling-background"></div>
+                    
+                    <!-- Buildings -->
+                    <div class="buildings">
+                        <div class="building building-1">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="pattern-hint">
-                        <h4>💡 Pattern Hints</h4>
-                        <p><strong>Hint 1:</strong> Look at the sequence: ○, □, △, ○, □, ?</p>
-                        <p><strong>Hint 2:</strong> The pattern repeats every 3 shapes.</p>
-                        <p><strong>Hint 3:</strong> What comes after the second square in the pattern?</p>
-                    </div>
-
-                    <div class="shape-options">
-                        <div class="shape-option" onclick="selectShape(this, 'circle')">
-                            <div class="shape circle" style="width: 40px; height: 40px; margin: 0 auto 0.5rem;">○</div>
-                            <p>Circle</p>
+                        <div class="building building-2">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
                         </div>
-                        <div class="shape-option" onclick="selectShape(this, 'square')">
-                            <div class="shape square" style="width: 40px; height: 40px; margin: 0 auto 0.5rem;">□</div>
-                            <p>Square</p>
+                        <div class="building building-3">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
                         </div>
-                        <div class="shape-option" onclick="selectShape(this, 'triangle')">
-                            <div class="shape triangle" style="width: 40px; height: 40px; margin: 0 auto 0.5rem;">△</div>
-                            <p>Triangle</p>
+                        <div class="building building-4">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-5">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-6">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-7">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-8">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-9">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-10">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-11">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-12">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-13">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-14">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-15">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-16">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-17">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-18">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-19">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-20">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-21">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-22">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-23">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-24">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-25">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-26">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-27">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-28">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-29">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-30">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-31">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-32">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-33">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-34">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-35">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-36">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-37">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-38">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-39">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
+                        </div>
+                        <div class="building building-40">
+                            <div class="windows">
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                                <div class="window"></div>
+                            </div>
                         </div>
                     </div>
-
-                    <div class="pattern-explanation" id="explanation" style="display: none;">
-                        <h4>💡 Pattern Explanation</h4>
-                        <p><strong>Pattern Analysis:</strong></p>
-                        <p>Position 1: ○ (Circle)</p>
-                        <p>Position 2: □ (Square)</p>
-                        <p>Position 3: △ (Triangle)</p>
-                        <p>Position 4: ○ (Circle) - Pattern repeats!</p>
-                        <p>Position 5: □ (Square)</p>
-                        <p>Position 6: ? (Triangle) - Next in the pattern</p>
-                        <br>
-                        <p><strong>Answer:</strong> <strong>TRIANGLE</strong></p>
-                        <p>The pattern repeats every 3 shapes: Circle, Square, Triangle, Circle, Square, Triangle...</p>
+                    
+                    <!-- Billboards -->
+                    <div class="billboards">
+                        <div class="billboard billboard-1">
+                            red card,<br>blue card
+                            <div class="billboard-stand"></div>
+                        </div>
+                        <div class="billboard billboard-2">
+                            feeling bored?<br>join street styles!
+                            <div class="billboard-stand"></div>
+                        </div>
+                        <div class="billboard billboard-3">
+                            Pog Pog Pog<br>Pog Pog
+                            <div class="billboard-stand"></div>
+                        </div>
+                        <div class="billboard billboard-4">
+                            shhhhh...<br>zzz
+                            <div class="billboard-stand"></div>
+                        </div>
+                        <div class="billboard billboard-5">
+                            xd xd xd
+                            <div class="billboard-stand"></div>
+                        </div>
+                        <div class="billboard billboard-6">
+                            Maybe turn back now..?
+                            <div class="billboard-stand"></div>
+                        </div>
+                        <div class="billboard billboard-7">
+                            feeling remorse?
+                            <div class="billboard-stand"></div>
+                        </div>
                     </div>
-
-                    <div class="puzzle-box">
-                        <h3>🎯 The Solution</h3>
-                        <p>The pattern repeats every 3 shapes: Circle, Square, Triangle.</p>
-                        <p>Since we have: ○, □, △, ○, □, ?</p>
-                        <p>The next shape should be <strong>Triangle (△)</strong> to complete the pattern.</p>
+                    
+                    <div class="streetlights">
+                        <div class="streetlight streetlight-1">
+                            <div class="light"></div>
+                            <div class="light-cone"></div>
+                        </div>
+                        <div class="streetlight streetlight-2">
+                            <div class="light"></div>
+                            <div class="light-cone"></div>
+                        </div>
+                        <div class="streetlight streetlight-3">
+                            <div class="light"></div>
+                            <div class="light-cone"></div>
+                        </div>
+                        <div class="streetlight streetlight-4">
+                            <div class="light"></div>
+                            <div class="light-cone"></div>
+                        </div>
+                        <div class="streetlight streetlight-5">
+                            <div class="light"></div>
+                            <div class="light-cone"></div>
+                        </div>
+                        <div class="streetlight streetlight-6">
+                            <div class="light"></div>
+                            <div class="light-cone"></div>
+                        </div>
+                        <div class="streetlight streetlight-7">
+                            <div class="light"></div>
+                            <div class="light-cone"></div>
+                        </div>
+                        <div class="streetlight streetlight-8">
+                            <div class="light"></div>
+                            <div class="light-cone"></div>
+                        </div>
+                        <div class="streetlight streetlight-9">
+                            <div class="light"></div>
+                            <div class="light-cone"></div>
+                        </div>
+                        <div class="streetlight streetlight-10">
+                            <div class="light"></div>
+                            <div class="light-cone"></div>
+                        </div>
+                        <div class="streetlight streetlight-11">
+                            <div class="light"></div>
+                            <div class="light-cone"></div>
+                        </div>
+                        <div class="streetlight streetlight-12">
+                            <div class="light"></div>
+                            <div class="light-cone"></div>
+                        </div>
+                        <div class="streetlight streetlight-13">
+                            <div class="light"></div>
+                            <div class="light-cone"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Character -->
+                    <div class="character" id="character"></div>
+                    
+                    <!-- Street -->
+                    <div class="street">
+                        <div class="street-lines"></div>
+                    </div>
+                    
+                    <!-- Controls -->
+                    <div class="controls">
+                        <div>Use arrow keys to walk</div>
+                        <div class="controls-keys">
+                            <div class="key">←</div>
+                            <div class="key">→</div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="puzzle-actions">
-                    <input type="text" id="answer-input" placeholder="What is the next shape? (circle/square/triangle)" class="answer-input">
+                    <input type="text" id="answer-input" placeholder="What do you discover in the shadows?" class="answer-input">
                     <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
                 </div>
 
-                <div class="puzzle-hints">
-                    <button class="hint-btn" onclick="toggleHint()">Show Hint</button>
-                    <div id="hint-content" class="hint-content hidden">
-                        <p>Look at the pattern of shapes repeating every three items. What comes after the second square?</p>
-                    </div>
-                </div>
             </div>
         </main>
 
@@ -284,66 +913,226 @@
 
     <script src="puzzle-script.js"></script>
     <script>
-        let selectedShape = null;
+        let character = null;
+        let characterPosition = 50; // Percentage from left
+        let isWalking = false;
+        let walkDirection = 0; // -1 for left, 1 for right, 0 for stopped
+        let backgroundOffset = 0; // Background scroll offset
         
-        function selectShape(element, value) {
-            // Remove previous selection
-            document.querySelectorAll('.shape-option').forEach(option => {
-                option.classList.remove('selected');
+        // Light blinking patterns for streetlights (13 lights)
+        const lightPatterns = {
+            'A': 'xxx',
+            'B': 'x',
+            'C': 'oxox',
+            'D': 'xox',
+            'E': 'x',
+            'F': 'o',
+            'G': '',
+            'H': 'xxxx',
+            'I': 'xx',
+            'J': 'o',
+            'K': 'xoxx',
+            'L': 'x',
+            'M': 'xox',
+        };
+        
+        // Timing constants (in milliseconds)
+        const SHORT_DURATION = 200;    // Duration of a quick blink (x)
+        const LONG_DURATION = 600;     // Duration of a slow blink (o)
+        const PATTERN_GAP = 200;       // Gap between blinks in same pattern
+        const LIGHT_GAP = 10000;       // Gap between light patterns (10 seconds)
+        const CYCLE_GAP = 10000;       // Gap between pattern cycles (10 seconds)
+        
+        let lightSequence = [];
+        let currentLightIndex = 0;
+        let currentPatternIndex = 0;
+        let isPlayingPatterns = false;
+        
+        function initializeGame() {
+            character = document.getElementById('character');
+            setupControls();
+            startLightPatterns();
+        }
+        
+        function startLightPatterns() {
+            // Create sequence: A-B-C-D-E-F-G-H-I-J-K-L-M
+            const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'];
+            lightSequence = letters.map(letter => {
+                return { 
+                    type: 'letter', 
+                    letter: letter, 
+                    symbols: lightPatterns[letter].split(''),
+                    duration: 0 // Will be calculated
+                };
             });
             
-            // Add selection to clicked element
-            element.classList.add('selected');
-            selectedShape = value;
+            currentLightIndex = 0;
+            currentPatternIndex = 0;
+            isPlayingPatterns = true;
+            
+            // Start each light pole blinking its pattern every 10 seconds
+            startIndividualLightPatterns();
         }
         
-        function analyzePattern() {
-            const display = document.getElementById('pattern-display');
-            display.innerHTML = 'Analyzing pattern...<br>○, □, △, ○, □, ?<br>Pattern repeats every 3 shapes!';
+        function startIndividualLightPatterns() {
+            // Start each light pole with its own 10-second interval
+            for (let i = 0; i < 13; i++) {
+                const letter = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M'][i];
+                if (letter) {
+                    startLightPattern(i, letter);
+                }
+            }
         }
         
-        function showHint() {
-            const display = document.getElementById('pattern-display');
-            display.innerHTML = 'Hint: The pattern is Circle, Square, Triangle, then repeats.<br>What comes after the second square?';
-        }
-        
-        function checkAnswer() {
-            const display = document.getElementById('pattern-display');
-            if (!selectedShape) {
-                display.innerHTML = 'Please select a shape first!';
+        function startLightPattern(lightIndex, letter) {
+            const pattern = lightPatterns[letter];
+            
+            // Handle empty pattern - keep light off permanently
+            if (pattern === '') {
+                const light = document.querySelector(`.streetlight-${lightIndex + 1} .light`);
+                const lightCone = document.querySelector(`.streetlight-${lightIndex + 1} .light-cone`);
+                if (light && lightCone) {
+                    light.classList.add('dimmed');
+                    lightCone.classList.add('dim');
+                }
                 return;
             }
             
-            if (selectedShape === 'triangle') {
-                display.innerHTML = '🎉 Correct! The next shape is Triangle!';
-                document.querySelector('.shape-option.selected').classList.add('correct');
-                document.getElementById('explanation').style.display = 'block';
-            } else {
-                display.innerHTML = '❌ Incorrect. Look at the pattern more carefully.';
-                document.querySelector('.shape-option.selected').classList.add('incorrect');
+            const symbols = pattern.split('');
+            let symbolIndex = 0;
+            
+            function playNextSymbol() {
+                if (symbolIndex >= symbols.length) {
+                    // Pattern complete, restart after 10 seconds
+                    setTimeout(() => {
+                        symbolIndex = 0;
+                        playNextSymbol();
+                    }, 10000);
+                    return;
+                }
+                
+                const symbol = symbols[symbolIndex];
+                const duration = symbol === 'x' ? SHORT_DURATION : LONG_DURATION;
+                
+                // Blink the light
+                blinkLight(lightIndex, duration);
+                
+                // Move to next symbol after current symbol duration + gap
+                setTimeout(() => {
+                    symbolIndex++;
+                    setTimeout(() => playNextSymbol(), PATTERN_GAP);
+                }, duration);
+            }
+            
+            // Start the pattern
+            playNextSymbol();
+        }
+        
+        
+        function blinkLight(lightIndex, duration) {
+            const light = document.querySelector(`.streetlight-${lightIndex + 1} .light`);
+            const lightCone = document.querySelector(`.streetlight-${lightIndex + 1} .light-cone`);
+            if (light && lightCone) {
+                // Turn light off for light patterns
+                light.classList.add('dimmed');
+                lightCone.classList.add('dim');
+                
+                setTimeout(() => {
+                    light.classList.remove('dimmed');
+                    lightCone.classList.remove('dim');
+                }, duration);
             }
         }
         
-        function resetAnalyzer() {
-            document.querySelectorAll('.shape-option').forEach(option => {
-                option.classList.remove('selected', 'correct', 'incorrect');
-            });
-            selectedShape = null;
-            document.getElementById('pattern-display').innerHTML = 'Click "Analyze Pattern" to start!';
-            document.getElementById('explanation').style.display = 'none';
+        
+        function setupControls() {
+            document.addEventListener('keydown', handleKeyDown);
+            document.addEventListener('keyup', handleKeyUp);
         }
         
-        function goBack() {
-            window.location.href = "index.html";
+        function handleKeyDown(e) {
+            if (e.key === 'ArrowLeft') {
+                walkDirection = -1;
+                startWalking();
+            } else if (e.key === 'ArrowRight') {
+                // Check if we've reached the end (last billboard "feeling remorse?" is at 160%)
+                // Stop movement after reaching the "feeling remorse?" billboard
+                if (backgroundOffset < 1500) {
+                    walkDirection = 1;
+                    startWalking();
+                }
+            }
         }
         
-        // Initialize puzzle timer when page loads
+        function handleKeyUp(e) {
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+                stopWalking();
+            }
+        }
+        
+        function startWalking() {
+            if (!isWalking) {
+                isWalking = true;
+                character.classList.add('walking');
+                animateWalk();
+            }
+        }
+        
+        function stopWalking() {
+            isWalking = false;
+            character.classList.remove('walking');
+        }
+        
+        function animateWalk() {
+            if (!isWalking) return;
+            
+            // Keep character in center (50%)
+            characterPosition = 50;
+            character.style.left = characterPosition + '%';
+            
+            // Update background scroll based on character movement
+            backgroundOffset += walkDirection * 0.02;
+            
+            // Keep background offset within bounds (6000% width, so max scroll is 5900%)
+            if (backgroundOffset < 0) backgroundOffset = 0;
+            if (backgroundOffset > 5900) backgroundOffset = 5900;
+            
+            // Apply background scroll
+            updateBackgroundScroll();
+            
+            // Continue animation
+            requestAnimationFrame(animateWalk);
+        }
+        
+        function updateBackgroundScroll() {
+            const scrollingBackground = document.querySelector('.scrolling-background');
+            const buildings = document.querySelector('.buildings');
+            const billboards = document.querySelector('.billboards');
+            const streetlights = document.querySelector('.streetlights');
+            
+            if (scrollingBackground) {
+                scrollingBackground.style.transform = `translateX(-${backgroundOffset}%)`;
+            }
+            if (buildings) {
+                buildings.style.transform = `translateX(-${backgroundOffset}%)`;
+            }
+            if (billboards) {
+                billboards.style.transform = `translateX(-${backgroundOffset}%)`;
+            }
+            if (streetlights) {
+                streetlights.style.transform = `translateX(-${backgroundOffset}%)`;
+            }
+        }
+        
+        // Initialize the game when the page loads
         document.addEventListener('DOMContentLoaded', function() {
-            const puzzleNumber = "10";
+            const puzzleNumber = 10;
             if (!isPuzzleCompleted(puzzleNumber)) {
                 initializePuzzleWithoutTimer(puzzleNumber);
             }
+            initializeGame();
         });
+        
     </script>
 </body>
 </html>
