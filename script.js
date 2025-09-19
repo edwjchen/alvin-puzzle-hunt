@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const buttonText = this.textContent;
             // Extract puzzle number, handling both "Puzzle X" and "✅ Puzzle X" formats
             const puzzleNumber = buttonText.replace(/[^\d]/g, "");
-            window.location.href = `puzzle.html?puzzle=${puzzleNumber}`;
+            window.location.href = `puzzle${puzzleNumber}.html`;
         });
 
         // Add hover sound effect (optional)

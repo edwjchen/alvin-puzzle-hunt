@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle 10: Pattern Recognition - Alvin Puzzle Hunt</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="puzzle-styles.css">
+    <style>
+        .puzzle10-theme {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+        .pattern-puzzle {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        .shape-sequence {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+        .shape {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .shape:hover {
+            transform: scale(1.2);
+        }
+        .shape.circle {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+        }
+        .shape.square {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            border-radius: 10px;
+        }
+        .shape.triangle {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+        .shape.question {
+            background: linear-gradient(135deg, #ffc107, #ff8c00);
+            border-radius: 50%;
+            border: 3px dashed #ff8c00;
+        }
+        .pattern-analyzer {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+        }
+        .analyzer-tool {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .analyzer-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+        .analyzer-btn {
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+            color: #333;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .analyzer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 236, 210, 0.4);
+        }
+        .pattern-display {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #495057;
+            text-align: center;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .pattern-hint {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            color: #856404;
+        }
+        .shape-options {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+        .shape-option {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: 600;
+        }
+        .shape-option:hover {
+            border-color: #ffc107;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 193, 7, 0.2);
+        }
+        .shape-option.selected {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+        .shape-option.correct {
+            border-color: #28a745;
+            background: #d4edda;
+            animation: correctPulse 0.6s ease;
+        }
+        .shape-option.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+            animation: incorrectShake 0.6s ease;
+        }
+        @keyframes correctPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        @keyframes incorrectShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        .pattern-explanation {
+            background: #d1ecf1;
+            border: 2px solid #bee5eb;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            color: #0c5460;
+        }
+    </style>
+</head>
+<body class="puzzle10-theme">
+    <div class="container">
+        <header class="puzzle-header">
+            <button class="back-btn" onclick="goBack()">← Back to Puzzles</button>
+            <h1>Puzzle <span id="puzzle-number">10</span>: Pattern Recognition</h1>
+        </header>
+
+        <main class="puzzle-main">
+            <div class="puzzle-content">
+                <div class="puzzle-description">
+                    <h2>🔍 Pattern Detective</h2>
+                    <p>Look at the sequence of shapes carefully. What pattern do you see? What should come next?</p>
+                </div>
+
+                <div class="puzzle-area">
+                    <div class="pattern-puzzle">
+                        <h3>🎯 The Shape Sequence</h3>
+                        <p>What is the next shape in this sequence?</p>
+                        
+                        <div class="shape-sequence">
+                            <div class="shape circle">○</div>
+                            <div class="shape square">□</div>
+                            <div class="shape triangle">△</div>
+                            <div class="shape circle">○</div>
+                            <div class="shape square">□</div>
+                            <div class="shape question">?</div>
+                        </div>
+                    </div>
+
+                    <div class="pattern-analyzer">
+                        <h4>🔧 Pattern Analysis Tool</h4>
+                        <div class="analyzer-tool">
+                            <p>Use this tool to help identify the pattern:</p>
+                            <div class="analyzer-buttons">
+                                <button class="analyzer-btn" onclick="analyzePattern()">Analyze Pattern</button>
+                                <button class="analyzer-btn" onclick="showHint()">Show Hint</button>
+                                <button class="analyzer-btn" onclick="checkAnswer()">Check Answer</button>
+                                <button class="analyzer-btn" onclick="resetAnalyzer()">Reset</button>
+                            </div>
+                            <div class="pattern-display" id="pattern-display">
+                                Click "Analyze Pattern" to start!
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pattern-hint">
+                        <h4>💡 Pattern Hints</h4>
+                        <p><strong>Hint 1:</strong> Look at the sequence: ○, □, △, ○, □, ?</p>
+                        <p><strong>Hint 2:</strong> The pattern repeats every 3 shapes.</p>
+                        <p><strong>Hint 3:</strong> What comes after the second square in the pattern?</p>
+                    </div>
+
+                    <div class="shape-options">
+                        <div class="shape-option" onclick="selectShape(this, 'circle')">
+                            <div class="shape circle" style="width: 40px; height: 40px; margin: 0 auto 0.5rem;">○</div>
+                            <p>Circle</p>
+                        </div>
+                        <div class="shape-option" onclick="selectShape(this, 'square')">
+                            <div class="shape square" style="width: 40px; height: 40px; margin: 0 auto 0.5rem;">□</div>
+                            <p>Square</p>
+                        </div>
+                        <div class="shape-option" onclick="selectShape(this, 'triangle')">
+                            <div class="shape triangle" style="width: 40px; height: 40px; margin: 0 auto 0.5rem;">△</div>
+                            <p>Triangle</p>
+                        </div>
+                    </div>
+
+                    <div class="pattern-explanation" id="explanation" style="display: none;">
+                        <h4>💡 Pattern Explanation</h4>
+                        <p><strong>Pattern Analysis:</strong></p>
+                        <p>Position 1: ○ (Circle)</p>
+                        <p>Position 2: □ (Square)</p>
+                        <p>Position 3: △ (Triangle)</p>
+                        <p>Position 4: ○ (Circle) - Pattern repeats!</p>
+                        <p>Position 5: □ (Square)</p>
+                        <p>Position 6: ? (Triangle) - Next in the pattern</p>
+                        <br>
+                        <p><strong>Answer:</strong> <strong>TRIANGLE</strong></p>
+                        <p>The pattern repeats every 3 shapes: Circle, Square, Triangle, Circle, Square, Triangle...</p>
+                    </div>
+
+                    <div class="puzzle-box">
+                        <h3>🎯 The Solution</h3>
+                        <p>The pattern repeats every 3 shapes: Circle, Square, Triangle.</p>
+                        <p>Since we have: ○, □, △, ○, □, ?</p>
+                        <p>The next shape should be <strong>Triangle (△)</strong> to complete the pattern.</p>
+                    </div>
+                </div>
+
+                <div class="puzzle-actions">
+                    <input type="text" id="answer-input" placeholder="What is the next shape? (circle/square/triangle)" class="answer-input">
+                    <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
+                </div>
+
+                <div class="puzzle-hints">
+                    <button class="hint-btn" onclick="toggleHint()">Show Hint</button>
+                    <div id="hint-content" class="hint-content hidden">
+                        <p>Look at the pattern of shapes repeating every three items. What comes after the second square?</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Alvin Puzzle Hunt. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="puzzle-script.js"></script>
+    <script>
+        let selectedShape = null;
+        
+        function selectShape(element, value) {
+            // Remove previous selection
+            document.querySelectorAll('.shape-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            
+            // Add selection to clicked element
+            element.classList.add('selected');
+            selectedShape = value;
+        }
+        
+        function analyzePattern() {
+            const display = document.getElementById('pattern-display');
+            display.innerHTML = 'Analyzing pattern...<br>○, □, △, ○, □, ?<br>Pattern repeats every 3 shapes!';
+        }
+        
+        function showHint() {
+            const display = document.getElementById('pattern-display');
+            display.innerHTML = 'Hint: The pattern is Circle, Square, Triangle, then repeats.<br>What comes after the second square?';
+        }
+        
+        function checkAnswer() {
+            const display = document.getElementById('pattern-display');
+            if (!selectedShape) {
+                display.innerHTML = 'Please select a shape first!';
+                return;
+            }
+            
+            if (selectedShape === 'triangle') {
+                display.innerHTML = '🎉 Correct! The next shape is Triangle!';
+                document.querySelector('.shape-option.selected').classList.add('correct');
+                document.getElementById('explanation').style.display = 'block';
+            } else {
+                display.innerHTML = '❌ Incorrect. Look at the pattern more carefully.';
+                document.querySelector('.shape-option.selected').classList.add('incorrect');
+            }
+        }
+        
+        function resetAnalyzer() {
+            document.querySelectorAll('.shape-option').forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+            });
+            selectedShape = null;
+            document.getElementById('pattern-display').innerHTML = 'Click "Analyze Pattern" to start!';
+            document.getElementById('explanation').style.display = 'none';
+        }
+        
+        function goBack() {
+            window.location.href = "index.html";
+        }
+        
+        // Initialize puzzle timer when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const puzzleNumber = "10";
+            if (!isPuzzleCompleted(puzzleNumber)) {
+                initializePuzzleWithoutTimer(puzzleNumber);
+            }
+        });
+    </script>
+</body>
+</html>

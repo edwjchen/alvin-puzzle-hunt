@@ -436,16 +436,19 @@ function clearTimerState(puzzleNumber) {
 
 // Initialize puzzle without timer - timer starts after first attempt
 function initializePuzzleWithoutTimer(puzzleNumber) {
+    console.log("initializePuzzleWithoutTimer called for puzzle", puzzleNumber);
     // Check if there's a saved timer state
     const savedState = getTimerState(puzzleNumber);
 
     if (savedState) {
+        console.log("Found saved timer state:", savedState);
         // Calculate elapsed time since last save
         const elapsed = Math.floor((Date.now() - savedState.timestamp) / 1000);
         timeRemaining = Math.max(0, savedState.timeRemaining - elapsed);
         canSubmitAnswer = savedState.canSubmit || timeRemaining <= 0;
         hasAttemptedAnswer = savedState.hasAttempted || false;
     } else {
+        console.log("No saved timer state, starting fresh");
         // Start fresh - no timer yet
         timeRemaining = 60;
         canSubmitAnswer = true; // Allow submission initially
@@ -453,6 +456,7 @@ function initializePuzzleWithoutTimer(puzzleNumber) {
     }
 
     // Add timer display to the page
+    console.log("Calling addTimerDisplay");
     addTimerDisplay();
 
     if (hasAttemptedAnswer && timeRemaining > 0) {
@@ -469,7 +473,7 @@ function initializePuzzleWithoutTimer(puzzleNumber) {
         if (messageElement) {
             messageElement.textContent =
                 "Take your time to read and understand the puzzle. The timer will start after each answer attempt.";
-            messageElement.style.color = "#4facfe";
+            messageElement.style.color = "white";
         }
         enableAnswerSubmission();
     }
@@ -563,8 +567,14 @@ function startPuzzleTimer(puzzleNumber) {
 }
 
 function addTimerDisplay() {
+    console.log("addTimerDisplay called");
     const puzzleHeader = document.querySelector(".puzzle-header");
-    if (puzzleHeader && !document.querySelector(".timer-container")) {
+    console.log("Found puzzle header:", puzzleHeader);
+    const existingTimer = document.querySelector(".timer-container");
+    console.log("Existing timer container:", existingTimer);
+
+    if (puzzleHeader && !existingTimer) {
+        console.log("Creating timer container");
         const timerContainer = document.createElement("div");
         timerContainer.className = "timer-container";
         timerContainer.innerHTML = `
@@ -580,6 +590,14 @@ function addTimerDisplay() {
             </div>
         `;
         puzzleHeader.appendChild(timerContainer);
+        console.log("Timer container added to puzzle header");
+    } else {
+        console.log(
+            "Timer container not added - puzzleHeader:",
+            !!puzzleHeader,
+            "existingTimer:",
+            !!existingTimer
+        );
     }
 }
 
@@ -659,6 +677,12 @@ function enableAnswerSubmission() {
 
 function updatePuzzleContent(puzzleNumber) {
     const puzzleBox = document.querySelector(".puzzle-box");
+
+    // If puzzle-box doesn't exist (individual puzzle pages), skip content update
+    if (!puzzleBox) {
+        console.log("No .puzzle-box element found, skipping content update");
+        return;
+    }
     const puzzleDescriptions = {
         1: {
             title: "The First Clue",
@@ -942,7 +966,7 @@ function viewPuzzle(puzzleNumber) {
     if (timerMessage) {
         timerMessage.textContent =
             "Take your time to read and understand the puzzle. The timer will start after each answer attempt.";
-        timerMessage.style.color = "#4facfe";
+        timerMessage.style.color = "white";
     }
 }
 

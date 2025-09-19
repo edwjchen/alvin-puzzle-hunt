@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle 7: Mathematical Mystery - Alvin Puzzle Hunt</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="puzzle-styles.css">
+    <style>
+        .puzzle7-theme {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .math-puzzle {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        .prime-calculator {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+        }
+        .number-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .number-box {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .number-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        .number-box.prime {
+            background: #d4edda;
+            border-color: #28a745;
+            color: #155724;
+        }
+        .number-box.composite {
+            background: #f8d7da;
+            border-color: #dc3545;
+            color: #721c24;
+        }
+        .number-box.selected {
+            background: #fff3cd;
+            border-color: #ffc107;
+            color: #856404;
+            transform: scale(1.1);
+        }
+        .calculation-tool {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .calc-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+        .calc-btn {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .calc-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4);
+        }
+        .result-display {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #495057;
+            text-align: center;
+        }
+        .prime-explanation {
+            background: #d1ecf1;
+            border: 2px solid #bee5eb;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            color: #0c5460;
+        }
+        .step-by-step {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .step {
+            background: #f8f9fa;
+            border-left: 4px solid #4facfe;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .step-number {
+            font-weight: bold;
+            color: #4facfe;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body class="puzzle7-theme">
+    <div class="container">
+        <header class="puzzle-header">
+            <button class="back-btn" onclick="goBack()">← Back to Puzzles</button>
+            <h1>Puzzle <span id="puzzle-number">7</span>: Mathematical Mystery</h1>
+        </header>
+
+        <main class="puzzle-main">
+            <div class="puzzle-content">
+                <div class="puzzle-description">
+                    <h2>🔢 Prime Number Challenge</h2>
+                    <p>Find the sum of all prime numbers between 1 and 20. A prime number is only divisible by 1 and itself!</p>
+                </div>
+
+                <div class="puzzle-area">
+                    <div class="math-puzzle">
+                        <h3>🎯 The Challenge</h3>
+                        <p>What is the sum of all prime numbers between 1 and 20?</p>
+                        <div class="result-display" id="final-result">Click numbers to identify primes!</div>
+                    </div>
+
+                    <div class="prime-calculator">
+                        <h4>🔧 Prime Number Identifier</h4>
+                        <p>Click on numbers to identify which ones are prime:</p>
+                        
+                        <div class="number-grid" id="number-grid">
+                            <!-- Numbers 1-20 will be generated by JavaScript -->
+                        </div>
+                        
+                        <div class="calc-buttons">
+                            <button class="calc-btn" onclick="checkAllPrimes()">Check All Primes</button>
+                            <button class="calc-btn" onclick="calculateSum()">Calculate Sum</button>
+                            <button class="calc-btn" onclick="resetNumbers()">Reset</button>
+                            <button class="calc-btn" onclick="showSolution()">Show Solution</button>
+                        </div>
+                    </div>
+
+                    <div class="prime-explanation">
+                        <h4>💡 What is a Prime Number?</h4>
+                        <p>A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself.</p>
+                        <p><strong>Examples:</strong> 2, 3, 5, 7, 11, 13, 17, 19 are prime numbers.</p>
+                        <p><strong>Non-prime examples:</strong> 4 (divisible by 2), 6 (divisible by 2 and 3), 8 (divisible by 2 and 4), 9 (divisible by 3).</p>
+                    </div>
+
+                    <div class="step-by-step" id="solution-steps" style="display: none;">
+                        <h4>📝 Step-by-Step Solution</h4>
+                        <div class="step">
+                            <div class="step-number">Step 1:</div>
+                            <p>Identify all prime numbers between 1 and 20: 2, 3, 5, 7, 11, 13, 17, 19</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">Step 2:</div>
+                            <p>Add them together: 2 + 3 + 5 + 7 + 11 + 13 + 17 + 19</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">Step 3:</div>
+                            <p>Calculate: 2 + 3 = 5, 5 + 5 = 10, 10 + 7 = 17, 17 + 11 = 28, 28 + 13 = 41, 41 + 17 = 58, 58 + 19 = 77</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">Answer:</div>
+                            <p><strong>77</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="puzzle-box">
+                        <h3>🎯 The Solution</h3>
+                        <p>Prime numbers between 1 and 20: 2, 3, 5, 7, 11, 13, 17, 19</p>
+                        <p>Sum: 2 + 3 + 5 + 7 + 11 + 13 + 17 + 19 = <strong>77</strong></p>
+                    </div>
+                </div>
+
+                <div class="puzzle-actions">
+                    <input type="text" id="answer-input" placeholder="Enter the sum of all prime numbers" class="answer-input">
+                    <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
+                </div>
+
+                <div class="puzzle-hints">
+                    <button class="hint-btn" onclick="toggleHint()">Show Hint</button>
+                    <div id="hint-content" class="hint-content hidden">
+                        <p>Prime numbers are only divisible by 1 and themselves: 2, 3, 5, 7, 11, 13, 17, 19</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Alvin Puzzle Hunt. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="puzzle-script.js"></script>
+    <script>
+        let selectedNumbers = [];
+        let primeNumbers = [];
+        
+        function generateNumberGrid() {
+            const container = document.getElementById('number-grid');
+            container.innerHTML = '';
+            
+            for (let i = 1; i <= 20; i++) {
+                const numberBox = document.createElement('div');
+                numberBox.className = 'number-box';
+                numberBox.textContent = i;
+                numberBox.onclick = () => toggleNumber(i, numberBox);
+                container.appendChild(numberBox);
+            }
+        }
+        
+        function isPrime(num) {
+            if (num < 2) return false;
+            for (let i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i === 0) return false;
+            }
+            return true;
+        }
+        
+        function toggleNumber(num, element) {
+            if (selectedNumbers.includes(num)) {
+                selectedNumbers = selectedNumbers.filter(n => n !== num);
+                element.classList.remove('selected');
+            } else {
+                selectedNumbers.push(num);
+                element.classList.add('selected');
+            }
+            updateDisplay();
+        }
+        
+        function checkAllPrimes() {
+            const numberBoxes = document.querySelectorAll('.number-box');
+            numberBoxes.forEach((box, index) => {
+                const num = index + 1;
+                if (isPrime(num)) {
+                    box.classList.add('prime');
+                    if (!primeNumbers.includes(num)) {
+                        primeNumbers.push(num);
+                    }
+                } else {
+                    box.classList.add('composite');
+                }
+            });
+            updateDisplay();
+        }
+        
+        function calculateSum() {
+            const sum = primeNumbers.reduce((acc, num) => acc + num, 0);
+            document.getElementById('final-result').textContent = `Sum of primes: ${sum}`;
+        }
+        
+        function resetNumbers() {
+            selectedNumbers = [];
+            primeNumbers = [];
+            const numberBoxes = document.querySelectorAll('.number-box');
+            numberBoxes.forEach(box => {
+                box.classList.remove('selected', 'prime', 'composite');
+            });
+            document.getElementById('final-result').textContent = 'Click numbers to identify primes!';
+        }
+        
+        function showSolution() {
+            document.getElementById('solution-steps').style.display = 'block';
+            document.getElementById('solution-steps').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function updateDisplay() {
+            const result = document.getElementById('final-result');
+            if (primeNumbers.length > 0) {
+                result.textContent = `Prime numbers found: ${primeNumbers.join(', ')}`;
+            } else if (selectedNumbers.length > 0) {
+                result.textContent = `Selected numbers: ${selectedNumbers.join(', ')}`;
+            } else {
+                result.textContent = 'Click numbers to identify primes!';
+            }
+        }
+        
+        // Initialize the puzzle
+        generateNumberGrid();
+        
+        function goBack() {
+            window.location.href = "index.html";
+        }
+        
+        // Initialize puzzle timer when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const puzzleNumber = "7";
+            if (!isPuzzleCompleted(puzzleNumber)) {
+                initializePuzzleWithoutTimer(puzzleNumber);
+            }
+        });
+    </script>
+</body>
+</html>

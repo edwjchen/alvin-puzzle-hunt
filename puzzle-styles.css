@@ -78,16 +78,16 @@
 }
 
 .timer-countdown {
-    color: #4facfe;
+    color: white;
     font-size: 1.8rem;
     font-weight: 700;
     font-family: 'Courier New', monospace;
-    text-shadow: 0 0 10px rgba(79, 172, 254, 0.5);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     transition: color 0.3s ease;
 }
 
 .timer-message {
-    color: rgba(255, 255, 255, 0.9);
+    color: white;
     font-size: 0.9rem;
     font-style: italic;
     margin: 0;

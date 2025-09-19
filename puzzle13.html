@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle 13: Master Challenge 3 - Alvin Puzzle Hunt</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="puzzle-styles.css">
+    <style>
+        .puzzle13-theme {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .connection-puzzle {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        .puzzle-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .puzzle-section {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+        }
+        .section-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4facfe;
+            margin-bottom: 1rem;
+        }
+        .puzzle-list {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+        }
+        .puzzle-list li {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            font-weight: 600;
+            color: #495057;
+        }
+        .connection-tool {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+        }
+        .tool-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+        .tool-btn {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .tool-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4);
+        }
+        .result-display {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #495057;
+            text-align: center;
+        }
+        .connection-hint {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            color: #856404;
+        }
+        .step-by-step {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .step {
+            background: #f8f9fa;
+            border-left: 4px solid #4facfe;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .step-number {
+            font-weight: bold;
+            color: #4facfe;
+            font-size: 1.1rem;
+        }
+        .math-relationship {
+            background: #d1ecf1;
+            border: 2px solid #bee5eb;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            color: #0c5460;
+        }
+    </style>
+</head>
+<body class="puzzle13-theme">
+    <div class="container">
+        <header class="puzzle-header">
+            <button class="back-btn" onclick="goBack()">← Back to Puzzles</button>
+            <h1>Puzzle <span id="puzzle-number">13</span>: Master Challenge 3</h1>
+        </header>
+
+        <main class="puzzle-main">
+            <div class="puzzle-content">
+                <div class="puzzle-description">
+                    <h2>🔗 Connection Puzzle</h2>
+                    <p>Find the connection between all the puzzle numbers and their corresponding sections. Look at the mathematical relationships!</p>
+                </div>
+
+                <div class="puzzle-area">
+                    <div class="connection-puzzle">
+                        <h3>🎯 The Challenge</h3>
+                        <p>Analyze the relationship between puzzle numbers and section numbers:</p>
+                        
+                        <div class="puzzle-grid">
+                            <div class="puzzle-section">
+                                <div class="section-number">Section 1</div>
+                                <ul class="puzzle-list">
+                                    <li>Puzzle 1</li>
+                                    <li>Puzzle 2</li>
+                                    <li>Puzzle 3</li>
+                                    <li>Puzzle 4</li>
+                                    <li>Puzzle 5</li>
+                                </ul>
+                            </div>
+                            <div class="puzzle-section">
+                                <div class="section-number">Section 2</div>
+                                <ul class="puzzle-list">
+                                    <li>Puzzle 6</li>
+                                    <li>Puzzle 7</li>
+                                    <li>Puzzle 8</li>
+                                    <li>Puzzle 9</li>
+                                    <li>Puzzle 10</li>
+                                </ul>
+                            </div>
+                            <div class="puzzle-section">
+                                <div class="section-number">Section 3</div>
+                                <ul class="puzzle-list">
+                                    <li>Puzzle 11</li>
+                                    <li>Puzzle 12</li>
+                                    <li>Puzzle 13</li>
+                                    <li>Puzzle 14</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="connection-tool">
+                        <h4>🔧 Connection Analysis Tool</h4>
+                        <p>Use this tool to help find the connection:</p>
+                        <div class="tool-buttons">
+                            <button class="tool-btn" onclick="analyzeMath()">Analyze Math</button>
+                            <button class="tool-btn" onclick="showHint()">Show Hint</button>
+                            <button class="tool-btn" onclick="checkAnswer()">Check Answer</button>
+                            <button class="tool-btn" onclick="showSolution()">Show Solution</button>
+                        </div>
+                        <div class="result-display" id="result-display">
+                            Click "Analyze Math" to start!
+                        </div>
+                    </div>
+
+                    <div class="connection-hint">
+                        <h4>💡 Connection Hints</h4>
+                        <p><strong>Hint 1:</strong> Look at the mathematical relationships between puzzle numbers and section numbers.</p>
+                        <p><strong>Hint 2:</strong> Consider how puzzle numbers are distributed across sections.</p>
+                        <p><strong>Hint 3:</strong> Think about the pattern of puzzle numbers in each section.</p>
+                    </div>
+
+                    <div class="math-relationship">
+                        <h4>🧮 Mathematical Analysis</h4>
+                        <p><strong>Section 1:</strong> Puzzles 1-5 (5 puzzles)</p>
+                        <p><strong>Section 2:</strong> Puzzles 6-10 (5 puzzles)</p>
+                        <p><strong>Section 3:</strong> Puzzles 11-14 (4 puzzles)</p>
+                        <p><strong>Pattern:</strong> Each section contains consecutive puzzle numbers!</p>
+                    </div>
+
+                    <div class="step-by-step" id="solution-steps" style="display: none;">
+                        <h4>📝 Step-by-Step Solution</h4>
+                        <div class="step">
+                            <div class="step-number">Step 1:</div>
+                            <p>Look at the puzzle numbers in each section.</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">Step 2:</div>
+                            <p>Notice that each section contains consecutive puzzle numbers.</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">Step 3:</div>
+                            <p>Section 1: 1-5, Section 2: 6-10, Section 3: 11-14</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">Answer:</div>
+                            <p><strong>CONSECUTIVE</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="puzzle-box">
+                        <h3>🎯 The Solution</h3>
+                        <p>The connection is that each section contains <strong>consecutive</strong> puzzle numbers.</p>
+                        <p>Section 1: Puzzles 1-5, Section 2: Puzzles 6-10, Section 3: Puzzles 11-14</p>
+                    </div>
+                </div>
+
+                <div class="puzzle-actions">
+                    <input type="text" id="answer-input" placeholder="What is the connection between puzzle numbers and sections?" class="answer-input">
+                    <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
+                </div>
+
+                <div class="puzzle-hints">
+                    <button class="hint-btn" onclick="toggleHint()">Show Hint</button>
+                    <div id="hint-content" class="hint-content hidden">
+                        <p>Look at the mathematical relationships between puzzle numbers and section numbers.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Alvin Puzzle Hunt. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="puzzle-script.js"></script>
+    <script>
+        function analyzeMath() {
+            const result = document.getElementById('result-display');
+            result.innerHTML = 'Analyzing mathematical relationships...<br>Section 1: 1-5, Section 2: 6-10, Section 3: 11-14<br>Each section contains consecutive numbers!';
+        }
+        
+        function showHint() {
+            const result = document.getElementById('result-display');
+            result.innerHTML = 'Hint: Look at how puzzle numbers are distributed across sections.<br>Are they random or do they follow a pattern?';
+        }
+        
+        function checkAnswer() {
+            const result = document.getElementById('result-display');
+            result.innerHTML = 'The connection is that each section contains consecutive puzzle numbers!<br>Section 1: 1-5, Section 2: 6-10, Section 3: 11-14';
+        }
+        
+        function showSolution() {
+            document.getElementById('solution-steps').style.display = 'block';
+            document.getElementById('solution-steps').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function goBack() {
+            window.location.href = "index.html";
+        }
+        
+        // Initialize puzzle timer when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const puzzleNumber = "13";
+            if (!isPuzzleCompleted(puzzleNumber)) {
+                initializePuzzleWithoutTimer(puzzleNumber);
+            }
+        });
+    </script>
+</body>
+</html>

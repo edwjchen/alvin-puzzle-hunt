@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle 2: Number Patterns - Alvin Puzzle Hunt</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="puzzle-styles.css">
+    <style>
+        .puzzle2-theme {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .number-sequence {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        .sequence-display {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #f5576c;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+        }
+        .sequence-item {
+            display: inline-block;
+            margin: 0 0.5rem;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            border-radius: 10px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        .sequence-item:nth-child(2) { animation-delay: 0.2s; }
+        .sequence-item:nth-child(3) { animation-delay: 0.4s; }
+        .sequence-item:nth-child(4) { animation-delay: 0.6s; }
+        .sequence-item:nth-child(5) { animation-delay: 0.8s; }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .pattern-hint {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            color: #856404;
+        }
+        
+        .interactive-calculator {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+        }
+        
+        .calc-button {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            margin: 0.5rem;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .calc-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(240, 147, 251, 0.4);
+        }
+    </style>
+</head>
+<body class="puzzle2-theme">
+    <div class="container">
+        <header class="puzzle-header">
+            <button class="back-btn" onclick="goBack()">← Back to Puzzles</button>
+            <h1>Puzzle <span id="puzzle-number">2</span>: Number Patterns</h1>
+        </header>
+
+        <main class="puzzle-main">
+            <div class="puzzle-content">
+                <div class="puzzle-description">
+                    <h2>🔢 Mathematical Mystery</h2>
+                    <p>Numbers have patterns, and patterns tell stories. Can you find the next number in this sequence?</p>
+                </div>
+
+                <div class="puzzle-area">
+                    <div class="number-sequence">
+                        <h3>🎯 The Sequence</h3>
+                        <div class="sequence-display">
+                            <span class="sequence-item">2</span>
+                            <span class="sequence-item">4</span>
+                            <span class="sequence-item">8</span>
+                            <span class="sequence-item">16</span>
+                            <span class="sequence-item">?</span>
+                        </div>
+                        <p>What comes next in this sequence?</p>
+                    </div>
+
+                    <div class="pattern-hint">
+                        <h4>💡 Pattern Analysis</h4>
+                        <p>Let's break down the sequence step by step:</p>
+                        <ul style="text-align: left; display: inline-block;">
+                            <li>2 → 4: What operation was used?</li>
+                            <li>4 → 8: Same operation?</li>
+                            <li>8 → 16: Still the same?</li>
+                            <li>16 → ?: What should come next?</li>
+                        </ul>
+                    </div>
+
+                    <div class="interactive-calculator">
+                        <h4>🧮 Interactive Calculator</h4>
+                        <p>Use this calculator to explore the pattern:</p>
+                        <div style="margin: 1rem 0;">
+                            <button class="calc-button" onclick="calculateNext(16)">Calculate Next</button>
+                            <button class="calc-button" onclick="showPattern()">Show Pattern</button>
+                            <button class="calc-button" onclick="resetCalculator()">Reset</button>
+                        </div>
+                        <div id="calculation-result" style="margin-top: 1rem; font-size: 1.2rem; font-weight: bold; color: white;"></div>
+                    </div>
+
+                    <div class="puzzle-box">
+                        <h3>🔍 Think About It</h3>
+                        <p>This is a classic mathematical sequence. Each number is related to the previous one by a simple mathematical operation.</p>
+                        <p><strong>Hint:</strong> What do you get when you multiply 2 by itself? And then multiply that result by 2 again?</p>
+                    </div>
+                </div>
+
+                <div class="puzzle-actions">
+                    <input type="text" id="answer-input" placeholder="Enter the next number in the sequence" class="answer-input">
+                    <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
+                </div>
+
+                <div class="puzzle-hints">
+                    <button class="hint-btn" onclick="toggleHint()">Show Hint</button>
+                    <div id="hint-content" class="hint-content hidden">
+                        <p>Each number is double the previous one. 2 × 2 = 4, 4 × 2 = 8, 8 × 2 = 16, so 16 × 2 = ?</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Alvin Puzzle Hunt. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="puzzle-script.js"></script>
+    <script>
+        function calculateNext(current) {
+            const next = current * 2;
+            document.getElementById('calculation-result').innerHTML = 
+                `${current} × 2 = ${next}`;
+        }
+        
+        function showPattern() {
+            document.getElementById('calculation-result').innerHTML = 
+                'Pattern: Each number is multiplied by 2<br>2 → 4 → 8 → 16 → 32';
+        }
+        
+        function resetCalculator() {
+            document.getElementById('calculation-result').innerHTML = '';
+        }
+        
+        function goBack() {
+            window.location.href = "index.html";
+        }
+        
+        // Initialize puzzle timer when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const puzzleNumber = "2";
+            if (!isPuzzleCompleted(puzzleNumber)) {
+                initializePuzzleWithoutTimer(puzzleNumber);
+            }
+        });
+    </script>
+</body>
+</html>

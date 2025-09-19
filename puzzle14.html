@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle 14: Final Master Puzzle - Alvin Puzzle Hunt</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="puzzle-styles.css">
+    <style>
+        .puzzle14-theme {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .final-puzzle {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        .celebration-header {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        .answer-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .answer-section {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+        }
+        .answer-input {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            width: 100%;
+            margin: 1rem 0;
+        }
+        .answer-input:focus {
+            outline: none;
+            border-color: #4facfe;
+            box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+        }
+        .final-tool {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+        }
+        .tool-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+        .tool-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .tool-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        .result-display {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #495057;
+            text-align: center;
+        }
+        .final-hint {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            color: #856404;
+        }
+        .step-by-step {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .step {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .step-number {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1rem;
+        }
+        .celebration-message {
+            background: linear-gradient(135deg, #ffd700, #ff8c00);
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="puzzle14-theme">
+    <div class="container">
+        <header class="puzzle-header">
+            <button class="back-btn" onclick="goBack()">← Back to Puzzles</button>
+            <h1>Puzzle <span id="puzzle-number">14</span>: Final Master Puzzle</h1>
+        </header>
+
+        <main class="puzzle-main">
+            <div class="puzzle-content">
+                <div class="puzzle-description">
+                    <h2>🏆 Ultimate Challenge</h2>
+                    <p>Congratulations on reaching the final puzzle! Combine all your previous answers to solve this ultimate challenge.</p>
+                </div>
+
+                <div class="puzzle-area">
+                    <div class="celebration-header">
+                        <h3>🎉 Final Master Puzzle</h3>
+                        <p>You've successfully solved 13 puzzles! Now for the ultimate challenge...</p>
+                    </div>
+
+                    <div class="final-puzzle">
+                        <h3>🎯 The Ultimate Challenge</h3>
+                        <p>Combine all your previous answers to solve this final puzzle. Look for patterns, connections, or hidden messages!</p>
+                        
+                        <div class="answer-grid">
+                            <div class="answer-section">
+                                <h4>Puzzle 1-5 Answers</h4>
+                                <input type="text" class="answer-input" id="answers-1-5" placeholder="Enter answers from puzzles 1-5">
+                            </div>
+                            <div class="answer-section">
+                                <h4>Puzzle 6-10 Answers</h4>
+                                <input type="text" class="answer-input" id="answers-6-10" placeholder="Enter answers from puzzles 6-10">
+                            </div>
+                            <div class="answer-section">
+                                <h4>Puzzle 11-13 Answers</h4>
+                                <input type="text" class="answer-input" id="answers-11-13" placeholder="Enter answers from puzzles 11-13">
+                            </div>
+                            <div class="answer-section">
+                                <h4>Final Answer</h4>
+                                <input type="text" class="answer-input" id="final-answer" placeholder="What is the final answer?">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="final-tool">
+                        <h4>🔧 Final Analysis Tool</h4>
+                        <p>Use this tool to help solve the final puzzle:</p>
+                        <div class="tool-buttons">
+                            <button class="tool-btn" onclick="analyzeAnswers()">Analyze Answers</button>
+                            <button class="tool-btn" onclick="showHint()">Show Hint</button>
+                            <button class="tool-btn" onclick="checkFinalAnswer()">Check Answer</button>
+                            <button class="tool-btn" onclick="showSolution()">Show Solution</button>
+                        </div>
+                        <div class="result-display" id="result-display">
+                            Click "Analyze Answers" to start!
+                        </div>
+                    </div>
+
+                    <div class="final-hint">
+                        <h4>💡 Final Hints</h4>
+                        <p><strong>Hint 1:</strong> Look for patterns in your previous answers.</p>
+                        <p><strong>Hint 2:</strong> Consider the first letters of each answer.</p>
+                        <p><strong>Hint 3:</strong> Think about what all these puzzles have in common.</p>
+                    </div>
+
+                    <div class="step-by-step" id="solution-steps" style="display: none;">
+                        <h4>📝 Step-by-Step Solution</h4>
+                        <div class="step">
+                            <div class="step-number">Step 1:</div>
+                            <p>Collect all your previous answers.</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">Step 2:</div>
+                            <p>Look for patterns or connections between them.</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">Step 3:</div>
+                            <p>Consider what all these puzzles have in common.</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">Answer:</div>
+                            <p><strong>PUZZLE</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="celebration-message">
+                        <h4>🎊 Congratulations!</h4>
+                        <p>You've completed the Alvin Puzzle Hunt! All the puzzles were designed to test different aspects of problem-solving, and you've mastered them all!</p>
+                    </div>
+
+                    <div class="puzzle-box">
+                        <h3>🎯 The Solution</h3>
+                        <p>The final answer is <strong>PUZZLE</strong>.</p>
+                        <p>All the puzzles in this hunt were designed to test different aspects of puzzle-solving, and the common theme is that they are all puzzles!</p>
+                    </div>
+                </div>
+
+                <div class="puzzle-actions">
+                    <input type="text" id="answer-input" placeholder="What is the final answer?" class="answer-input">
+                    <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
+                </div>
+
+                <div class="puzzle-hints">
+                    <button class="hint-btn" onclick="toggleHint()">Show Hint</button>
+                    <div id="hint-content" class="hint-content hidden">
+                        <p>You might need to look back at all your previous solutions and find a pattern.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Alvin Puzzle Hunt. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="puzzle-script.js"></script>
+    <script>
+        function analyzeAnswers() {
+            const result = document.getElementById('result-display');
+            result.innerHTML = 'Analyzing your answers...<br>Look for patterns, connections, or common themes!<br>What do all these puzzles have in common?';
+        }
+        
+        function showHint() {
+            const result = document.getElementById('result-display');
+            result.innerHTML = 'Hint: Think about what all these puzzles have in common.<br>What word describes what you\'ve been solving?';
+        }
+        
+        function checkFinalAnswer() {
+            const result = document.getElementById('result-display');
+            result.innerHTML = 'The final answer is PUZZLE!<br>All the puzzles in this hunt were designed to test different aspects of puzzle-solving!';
+        }
+        
+        function showSolution() {
+            document.getElementById('solution-steps').style.display = 'block';
+            document.getElementById('solution-steps').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function goBack() {
+            window.location.href = "index.html";
+        }
+        
+        // Initialize puzzle timer when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const puzzleNumber = "14";
+            if (!isPuzzleCompleted(puzzleNumber)) {
+                initializePuzzleWithoutTimer(puzzleNumber);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle 5: Logic Challenge - Alvin Puzzle Hunt</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="puzzle-styles.css">
+    <style>
+        .puzzle5-theme {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+        .logic-puzzle {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        .logic-statement {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: left;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+        .statement-part {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .logic-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .option-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+        .option-card:hover {
+            border-color: #ffc107;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 193, 7, 0.2);
+        }
+        .option-card.selected {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+        .option-card.correct {
+            border-color: #28a745;
+            background: #d4edda;
+            animation: correctPulse 0.6s ease;
+        }
+        .option-card.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+            animation: incorrectShake 0.6s ease;
+        }
+        @keyframes correctPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        @keyframes incorrectShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        .logic-explanation {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+            display: none;
+        }
+        .venn-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0;
+        }
+        .circle {
+            width: 120px;
+            height: 120px;
+            border: 3px solid #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            position: relative;
+        }
+        .circle.roses {
+            background: rgba(255, 193, 7, 0.3);
+            margin-right: -20px;
+        }
+        .circle.flowers {
+            background: rgba(40, 167, 69, 0.3);
+            margin-left: -20px;
+        }
+        .circle.red {
+            background: rgba(220, 53, 69, 0.3);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+        }
+        .interactive-tool {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .tool-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+        .tool-btn {
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+            color: #333;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .tool-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 236, 210, 0.4);
+        }
+    </style>
+</head>
+<body class="puzzle5-theme">
+    <div class="container">
+        <header class="puzzle-header">
+            <button class="back-btn" onclick="goBack()">← Back to Puzzles</button>
+            <h1>Puzzle <span id="puzzle-number">5</span>: Logic Challenge</h1>
+        </header>
+
+        <main class="puzzle-main">
+            <div class="puzzle-content">
+                <div class="puzzle-description">
+                    <h2>🧠 Logical Reasoning</h2>
+                    <p>Test your logical thinking skills with this classic logic puzzle. Think carefully about the relationships between statements!</p>
+                </div>
+
+                <div class="puzzle-area">
+                    <div class="logic-puzzle">
+                        <h3>🎯 The Logic Problem</h3>
+                        <div class="statement-part">
+                            <strong>Statement 1:</strong> All roses are flowers.
+                        </div>
+                        <div class="statement-part">
+                            <strong>Statement 2:</strong> Some flowers are red.
+                        </div>
+                        <div class="statement-part">
+                            <strong>Question:</strong> Can we conclude that all roses are red?
+                        </div>
+                    </div>
+
+                    <div class="logic-options">
+                        <div class="option-card" onclick="selectOption(this, 'yes')">
+                            <h4>✅ Yes</h4>
+                            <p>If all roses are flowers, and some flowers are red, then all roses must be red.</p>
+                        </div>
+                        <div class="option-card" onclick="selectOption(this, 'no')">
+                            <h4>❌ No</h4>
+                            <p>We cannot conclude that all roses are red from these statements alone.</p>
+                        </div>
+                        <div class="option-card" onclick="selectOption(this, 'maybe')">
+                            <h4>🤔 Maybe</h4>
+                            <p>It depends on additional information not provided in the statements.</p>
+                        </div>
+                        <div class="option-card" onclick="selectOption(this, 'insufficient')">
+                            <h4>❓ Insufficient Information</h4>
+                            <p>We need more information to make any conclusion about rose colors.</p>
+                        </div>
+                    </div>
+
+                    <div class="venn-diagram">
+                        <div class="circle roses">Roses</div>
+                        <div class="circle flowers">Flowers</div>
+                        <div class="circle red">Red</div>
+                    </div>
+
+                    <div class="interactive-tool">
+                        <h4>🔧 Logic Analysis Tool</h4>
+                        <p>Use this tool to help visualize the logical relationships:</p>
+                        <div class="tool-buttons">
+                            <button class="tool-btn" onclick="showExplanation()">Show Explanation</button>
+                            <button class="tool-btn" onclick="resetSelection()">Reset Selection</button>
+                            <button class="tool-btn" onclick="checkAnswer()">Check Answer</button>
+                        </div>
+                        <div id="tool-result" style="margin-top: 1rem; font-size: 1.2rem; font-weight: bold; color: #333; text-align: center;"></div>
+                    </div>
+
+                    <div class="logic-explanation" id="explanation">
+                        <h4>💡 Logical Analysis</h4>
+                        <p><strong>Step 1:</strong> All roses are flowers (Roses ⊆ Flowers)</p>
+                        <p><strong>Step 2:</strong> Some flowers are red (Red ∩ Flowers ≠ ∅)</p>
+                        <p><strong>Step 3:</strong> Can we conclude all roses are red?</p>
+                        <br>
+                        <p><strong>Answer:</strong> <strong>NO</strong> - We cannot conclude that all roses are red.</p>
+                        <p><strong>Reasoning:</strong> Just because some flowers are red doesn't mean all flowers are red, and therefore doesn't mean all roses are red. The red flowers could be entirely separate from the roses.</p>
+                        <p><strong>Example:</strong> Imagine 100 flowers: 50 roses (all white) and 50 tulips (all red). This satisfies both statements but shows that not all roses are red.</p>
+                    </div>
+
+                    <div class="puzzle-box">
+                        <h3>🎯 The Solution</h3>
+                        <p>The correct answer is <strong>NO</strong> - we cannot conclude that all roses are red from the given statements.</p>
+                        <p>This is a classic example of the logical fallacy of assuming that a property of "some" members of a set applies to "all" members of a subset.</p>
+                    </div>
+                </div>
+
+                <div class="puzzle-actions">
+                    <input type="text" id="answer-input" placeholder="Enter your answer (yes/no/maybe/insufficient)" class="answer-input">
+                    <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
+                </div>
+
+                <div class="puzzle-hints">
+                    <button class="hint-btn" onclick="toggleHint()">Show Hint</button>
+                    <div id="hint-content" class="hint-content hidden">
+                        <p>Think about the logical relationships between these statements. Just because some flowers are red doesn't mean all flowers are red.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Alvin Puzzle Hunt. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="puzzle-script.js"></script>
+    <script>
+        let selectedOption = null;
+        
+        function selectOption(element, value) {
+            // Remove previous selection
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selection to clicked element
+            element.classList.add('selected');
+            selectedOption = value;
+        }
+        
+        function showExplanation() {
+            const explanation = document.getElementById('explanation');
+            explanation.style.display = 'block';
+            explanation.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function resetSelection() {
+            document.querySelectorAll('.option-card').forEach(card => {
+                card.classList.remove('selected', 'correct', 'incorrect');
+            });
+            selectedOption = null;
+            document.getElementById('tool-result').innerHTML = '';
+        }
+        
+        function checkAnswer() {
+            const result = document.getElementById('tool-result');
+            if (!selectedOption) {
+                result.innerHTML = 'Please select an option first!';
+                return;
+            }
+            
+            if (selectedOption === 'no') {
+                result.innerHTML = '🎉 Correct! You cannot conclude that all roses are red.';
+                document.querySelector('.option-card.selected').classList.add('correct');
+            } else {
+                result.innerHTML = '❌ Incorrect. Think about the logical relationships more carefully.';
+                document.querySelector('.option-card.selected').classList.add('incorrect');
+            }
+        }
+        
+        function goBack() {
+            window.location.href = "index.html";
+        }
+        
+        // Initialize puzzle timer when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const puzzleNumber = "5";
+            if (!isPuzzleCompleted(puzzleNumber)) {
+                initializePuzzleWithoutTimer(puzzleNumber);
+            }
+        });
+    </script>
+</body>
+</html>

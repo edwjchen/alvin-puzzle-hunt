@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Puzzle 1: Hawaiian Salutations - Alvin Puzzle Hunt</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="puzzle-styles.css">
+    <style>
+        .puzzle1-theme {
+            background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 50%, #45b7d1 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .slideshow-container {
+            position: relative;
+            max-width: 800px;
+            margin: 2rem auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        .slide {
+            display: none;
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: opacity 1s ease-in-out;
+        }
+        .slide.active {
+            display: block;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .slide-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .slide-title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        .slide-description {
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+        .slideshow-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .puzzle-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0 0.5rem 0;
+        }
+        .control-btn {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .control-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        .control-btn:active {
+            transform: translateY(-1px);
+        }
+        .slide-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .indicator.active {
+            background: white;
+            transform: scale(1.2);
+        }
+        .timer-display {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 1rem 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .hawaiian-hint {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+            color: white;
+            text-align: center;
+        }
+        .hidden-clue {
+            position: absolute;
+            top: -1000px;
+            left: -1000px;
+            color: #ff6b6b;
+            font-size: 0.1px;
+            opacity: 0.01;
+        }
+
+        .puzzle-tiles-container {
+            width: fit-content;
+            height: fit-content;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .tiles-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .puzzle-tile {
+            width: 64px;
+            height: 36px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            transition: transform 0.2s ease;
+            display: block;
+        }
+
+        .puzzle-tile:hover {
+            transform: scale(1.05);
+        }
+
+        .puzzle-tile-large {
+            width: 400px;
+            height: 300px;
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            margin: 0 auto;
+        }
+
+        .puzzle-tile-large:hover {
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="puzzle1-theme">
+    <div class="container">
+        <header class="puzzle-header">
+            <button class="back-btn" onclick="goBack()">← Back to Puzzles</button>
+            <h1>Puzzle <span id="puzzle-number">1</span>: Hawaiian Salutations</h1>
+        </header>
+
+        <main class="puzzle-main">
+            <div class="puzzle-content">
+                <div class="puzzle-description">
+                    <h2>🌺 Hawaiian Salutations 🌺</h2>
+                    <p id="puzzle-number-desc" style="display: none;">1</p>
+                </div>
+
+                <div class="puzzle-area">
+                    <div class="puzzle-tiles-container">
+                        <div class="tiles-grid" id="tiles-grid">
+                            <!-- Tiles will be dynamically generated here -->
+                        </div>
+                    </div>
+
+                    <div class="puzzle-controls">
+                        <button class="control-btn" onclick="togglePuzzle()" id="play-pause-btn">⏸️ Pause</button>
+                    </div>
+
+
+                </div>
+
+                <div class="puzzle-actions">
+                    <input type="text" id="answer-input" placeholder="What is the hidden answer?" class="answer-input">
+                    <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
+                </div>
+
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 Alvin Puzzle Hunt. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="puzzle-script.js"></script>
+    <script>
+        let currentSlide = 0;
+        let puzzleInterval;
+        let slideshowTimeRemaining = 3; // 3 seconds per tile
+        let isPlaying = true;
+        let availableTiles = []; // Array to store available tile indices
+        let randomTileOrder = []; // Array to store random order of available tiles
+
+        // List of missing tiles (deleted tiles)
+        const missingTiles = [
+            'tile_01_07.jpg', 'tile_01_08.jpg', 'tile_02_07.jpg', 'tile_02_08.jpg',
+            'tile_03_07.jpg', 'tile_05_07.jpg', 'tile_07_07.jpg', 'tile_08_04.jpg',
+            'tile_08_05.jpg', 'tile_09_04.jpg', 'tile_09_05.jpg', 'tile_09_07.jpg',
+            'tile_10_04.jpg', 'tile_10_07.jpg', 'tile_11_04.jpg', 'tile_11_05.jpg',
+            'tile_11_07.jpg'
+        ];
+
+        // Generate list of available tiles
+        function generateAvailableTiles() {
+            const tiles = [];
+            for (let row = 0; row < 12; row++) {
+                for (let col = 0; col < 12; col++) {
+                    const tileName = `tile_${row.toString().padStart(2, '0')}_${col.toString().padStart(2, '0')}.jpg`;
+                    if (!missingTiles.includes(tileName)) {
+                        tiles.push({row, col, index: row * 12 + col});
+                    }
+                }
+            }
+            return tiles;
+        }
+
+        // Generate random order of available tiles
+        function generateRandomTileOrder() {
+            const tiles = [...availableTiles]; // Copy available tiles
+            // Fisher-Yates shuffle algorithm
+            for (let i = tiles.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
+            }
+            return tiles;
+        }
+
+
+        // Initialize puzzle
+        function initPuzzle() {
+            // Generate list of available tiles
+            availableTiles = generateAvailableTiles();
+            // Generate random order of available tiles
+            randomTileOrder = generateRandomTileOrder();
+            showSlide(0);
+            startPuzzle();
+        }
+
+
+        // Show specific slide (single tile)
+        function showSlide(n) {
+            currentSlide = n;
+            const grid = document.getElementById('tiles-grid');
+            if (!grid) {
+                console.error('Grid element not found!');
+                return;
+            }
+            grid.innerHTML = '';
+            
+            // Get the tile from random order
+            const tileData = randomTileOrder[n];
+            if (!tileData) {
+                console.error('No tile data found for slide', n);
+                return;
+            }
+            
+            // Create a single large tile
+            const tile = document.createElement('div');
+            tile.className = 'puzzle-tile-large';
+            const imageUrl = `tiles/tile_${tileData.row.toString().padStart(2, '0')}_${tileData.col.toString().padStart(2, '0')}.jpg`;
+            tile.style.backgroundImage = `url('${imageUrl}')`;
+            tile.style.backgroundSize = 'cover';
+            tile.style.backgroundPosition = 'center';
+            grid.appendChild(tile);
+            
+        }
+
+        // Next slide
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % availableTiles.length;
+            showSlide(currentSlide);
+            resetTimer();
+        }
+
+
+        // Toggle puzzle play/pause
+        function togglePuzzle() {
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            
+            if (isPlaying) {
+                clearInterval(puzzleInterval);
+                playPauseBtn.textContent = '▶️ Play';
+                isPlaying = false;
+            } else {
+                startPuzzle();
+                playPauseBtn.textContent = '⏸️ Pause';
+                isPlaying = true;
+            }
+        }
+
+        // Start puzzle
+        function startPuzzle() {
+            puzzleInterval = setInterval(() => {
+                nextSlide();
+            }, 3000); // 3 seconds per tile
+        }
+
+        // Reset timer
+        function resetTimer() {
+            slideshowTimeRemaining = 3;
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Puzzle 1 DOMContentLoaded - starting initialization');
+            // Initialize puzzle timer first
+            const puzzleNumber = "1";
+            console.log('Checking if puzzle is completed:', isPuzzleCompleted(puzzleNumber));
+            if (!isPuzzleCompleted(puzzleNumber)) {
+                console.log('Initializing puzzle timer for puzzle', puzzleNumber);
+                initializePuzzleWithoutTimer(puzzleNumber);
+            }
+            // Then initialize puzzle
+            console.log('Initializing puzzle');
+            initPuzzle();
+        });
+
+        function goBack() {
+            window.location.href = "index.html";
+        }
+    </script>
+</body>
+</html>
