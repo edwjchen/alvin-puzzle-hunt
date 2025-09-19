@@ -3,80 +3,223 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puzzle 2: Number Patterns - Alvin Puzzle Hunt</title>
+    <title>Puzzle 2: Twitch Chat Mystery - Alvin Puzzle Hunt</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="puzzle-styles.css">
     <style>
         .puzzle2-theme {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #ffffff;
         }
-        .number-sequence {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        /* Twitch Stream Layout */
+        .stream-container {
+            display: flex;
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
         }
-        .sequence-display {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #f5576c;
-            margin: 1rem 0;
-            font-family: 'Courier New', monospace;
+        
+        .stream-content {
+            flex: 1;
+            background: #0e0e10;
+            border-radius: 8px;
+            overflow: hidden;
         }
-        .sequence-item {
-            display: inline-block;
-            margin: 0 0.5rem;
-            padding: 0.5rem 1rem;
-            background: linear-gradient(135deg, #f093fb, #f5576c);
+        
+        .stream-header {
+            background: #9146ff;
             color: white;
-            border-radius: 10px;
-            animation: pulse 2s ease-in-out infinite;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
-        .sequence-item:nth-child(2) { animation-delay: 0.2s; }
-        .sequence-item:nth-child(3) { animation-delay: 0.4s; }
-        .sequence-item:nth-child(4) { animation-delay: 0.6s; }
-        .sequence-item:nth-child(5) { animation-delay: 0.8s; }
+        
+        .stream-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .live-indicator {
+            background: #ff0000;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+        
+        .stream-video {
+            background: #000;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 1.2rem;
+        }
+        
+        /* Twitch Chat Styles */
+        .chat-container {
+            width: 350px;
+            height: 500px;
+            background: #18181b;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chat-header {
+            background: #9146ff;
+            color: white;
+            padding: 12px 16px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 16px;
+            overflow-y: auto;
+            height: 400px;
+        }
+        
+        .chat-message {
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            line-height: 1.3;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        .chat-message .username {
+            font-weight: bold;
+            margin-right: 8px;
+        }
+        
+        .chat-message .username.vip {
+            color: #ffd700;
+        }
+        
+        .chat-message .username.mod {
+            color: #00ff00;
+        }
+        
+        /* Username colors - matching Twitch's color system */
+        .username-xXGamerBoi23Xx { color: #ff6b6b; }
+        .username-NotABot_69 { color: #4ecdc4; }
+        .username-StreamSniper420 { color: #45b7d1; }
+        .username-RandomUser247 { color: #96ceb4; }
+        .username-MemeLord3000 { color: #feca57; }
+        .username-TwitchPrime_Andy { color: #ffd700; }
+        .username-CoolGuy88 { color: #ff9ff3; }
+        .username-NoobSlayer2023 { color: #54a0ff; }
+        .username-RandomSpammer { color: #5f27cd; }
+        .username-ChatBot_Auto { color: #00d2d3; }
+        .username-ModeratorMike { color: #00ff00; }
+        .username-PizzaLover42 { color: #ff9f43; }
+        .username-ToxicGamer2007 { color: #ff6348; }
+        .username-GamerGirl_XOX { color: #ff3838; }
+        .username-RAWRRRR_Dragon { color: #ff4757; }
+        .username-You { color: #9146ff; }
+        .username-NightBot { color: #00d2d3; }
+        .username-Bot_User { color: #747d8c; }
+        .username-AutoResponder { color: #747d8c; }
+        .username-ChatBot { color: #747d8c; }
+        
+        .chat-message .timestamp {
+            color: #666;
+            font-size: 0.8rem;
+            margin-right: 8px;
+        }
+        
+        .chat-message .message-text {
+            color: #ffffff;
+        }
+        
+        .chat-message .mention {
+            color: #9146ff;
+            font-weight: bold;
+        }
+        
+        .chat-input-container {
+            padding: 16px;
+            background: #18181b;
+            border-top: 1px solid #333;
+        }
+        
+        .chat-input {
+            width: 100%;
+            background: #464649;
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .chat-input:focus {
+            outline: 2px solid #9146ff;
+        }
+        
+        .chat-input::placeholder {
+            color: #999;
+        }
+        
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
         
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
         
-        .pattern-hint {
-            background: #fff3cd;
-            border: 2px solid #ffeaa7;
-            border-radius: 10px;
-            padding: 1rem;
-            margin: 1rem 0;
-            color: #856404;
+        /* Previous Attempts Styling - Puzzle 2 Specific */
+        .puzzle2-theme .attempted-answers-container[data-puzzle="2"] h3 {
+            color: #000000 !important;
+            font-family: 'Arial', sans-serif !important;
+            font-weight: bold !important;
         }
         
-        .interactive-calculator {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            backdrop-filter: blur(10px);
+        .puzzle2-theme .attempted-answers-container[data-puzzle="2"] {
+            background: rgba(255, 255, 255, 0.9) !important;
+            border-radius: 8px !important;
+            padding: 15px !important;
+            margin: 15px 0 !important;
+            color: #000000 !important;
+            font-family: 'Arial', sans-serif !important;
         }
         
-        .calc-button {
-            background: linear-gradient(135deg, #f093fb, #f5576c);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            margin: 0.5rem;
-            cursor: pointer;
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
+        .puzzle2-theme .attempted-answers-container[data-puzzle="2"] .attempted-answers-list {
+            color: #000000 !important;
+            font-family: 'Arial', sans-serif !important;
         }
         
-        .calc-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(240, 147, 251, 0.4);
+        .puzzle2-theme .attempted-answers-container[data-puzzle="2"] .attempted-answer {
+            color: #000000 !important;
+            font-family: 'Arial', sans-serif !important;
+        }
+        
+        /* More specific selectors to override any other CSS */
+        body.puzzle2-theme .attempted-answers-container[data-puzzle="2"] * {
+            color: #000000 !important;
+        }
+        
+        body.puzzle2-theme .attempted-answers-container[data-puzzle="2"] {
+            color: #000000 !important;
         }
     </style>
 </head>
@@ -84,69 +227,46 @@
     <div class="container">
         <header class="puzzle-header">
             <button class="back-btn" onclick="goBack()">← Back to Puzzles</button>
-            <h1>Puzzle <span id="puzzle-number">2</span>: Number Patterns</h1>
+            <h1>Puzzle <span id="puzzle-number">2</span>: Twitch Chat Mystery</h1>
         </header>
 
         <main class="puzzle-main">
             <div class="puzzle-content">
                 <div class="puzzle-description">
-                    <h2>🔢 Mathematical Mystery</h2>
-                    <p>Numbers have patterns, and patterns tell stories. Can you find the next number in this sequence?</p>
+                    <h2>📺 Stream Chat Investigation</h2>
+                    <p id="puzzle-number-desc" style="display: none;">2</p>
                 </div>
 
-                <div class="puzzle-area">
-                    <div class="number-sequence">
-                        <h3>🎯 The Sequence</h3>
-                        <div class="sequence-display">
-                            <span class="sequence-item">2</span>
-                            <span class="sequence-item">4</span>
-                            <span class="sequence-item">8</span>
-                            <span class="sequence-item">16</span>
-                            <span class="sequence-item">?</span>
+                <!-- Twitch Stream Interface -->
+                <div class="stream-container">
+                    <div class="stream-content">
+                        <div class="stream-header">
+                            <div class="stream-title">PuzzleMaster_Alvin - Solving the Mystery</div>
                         </div>
-                        <p>What comes next in this sequence?</p>
-                    </div>
-
-                    <div class="pattern-hint">
-                        <h4>💡 Pattern Analysis</h4>
-                        <p>Let's break down the sequence step by step:</p>
-                        <ul style="text-align: left; display: inline-block;">
-                            <li>2 → 4: What operation was used?</li>
-                            <li>4 → 8: Same operation?</li>
-                            <li>8 → 16: Still the same?</li>
-                            <li>16 → ?: What should come next?</li>
-                        </ul>
-                    </div>
-
-                    <div class="interactive-calculator">
-                        <h4>🧮 Interactive Calculator</h4>
-                        <p>Use this calculator to explore the pattern:</p>
-                        <div style="margin: 1rem 0;">
-                            <button class="calc-button" onclick="calculateNext(16)">Calculate Next</button>
-                            <button class="calc-button" onclick="showPattern()">Show Pattern</button>
-                            <button class="calc-button" onclick="resetCalculator()">Reset</button>
+                        <div class="stream-video">
+                            <div>🎥 Stream is currently offline</div>
                         </div>
-                        <div id="calculation-result" style="margin-top: 1rem; font-size: 1.2rem; font-weight: bold; color: white;"></div>
                     </div>
 
-                    <div class="puzzle-box">
-                        <h3>🔍 Think About It</h3>
-                        <p>This is a classic mathematical sequence. Each number is related to the previous one by a simple mathematical operation.</p>
-                        <p><strong>Hint:</strong> What do you get when you multiply 2 by itself? And then multiply that result by 2 again?</p>
+                    <div class="chat-container">
+                        <div class="chat-header">
+                            💬 Chat
+                        </div>
+                        <div class="chat-messages" id="chat-messages">
+                            <!-- Chat messages will be populated by JavaScript -->
+                        </div>
+                        <div class="chat-input-container">
+                            <input type="text" class="chat-input" placeholder="Say something in chat..." onkeypress="handleChatInput(event)">
+                        </div>
                     </div>
                 </div>
+
 
                 <div class="puzzle-actions">
-                    <input type="text" id="answer-input" placeholder="Enter the next number in the sequence" class="answer-input">
+                    <input type="text" id="answer-input" placeholder="What is the hidden message in the chat?" class="answer-input">
                     <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
                 </div>
 
-                <div class="puzzle-hints">
-                    <button class="hint-btn" onclick="toggleHint()">Show Hint</button>
-                    <div id="hint-content" class="hint-content hidden">
-                        <p>Each number is double the previous one. 2 × 2 = 4, 4 × 2 = 8, 8 × 2 = 16, so 16 × 2 = ?</p>
-                    </div>
-                </div>
             </div>
         </main>
 
@@ -157,32 +277,118 @@
 
     <script src="puzzle-script.js"></script>
     <script>
-        function calculateNext(current) {
-            const next = current * 2;
-            document.getElementById('calculation-result').innerHTML = 
-                `${current} × 2 = ${next}`;
-        }
+        // Chat message storage and configuration
+        let chatMessages = [
+            { username: "xXGamerBoi23Xx", message: "streamer's been offline for like 2 hours wtf", type: "normal" },
+            { username: "NotABot_69", message: "happy birthday wherever you are KEKW", type: "normal" },
+            { username: "StreamSniper420", message: "maybe he's opening birthday presents?", type: "normal" },
+            { username: "RandomUser247", message: "Pog my mom made cake for his birthday too", type: "normal" },
+            { username: "MemeLord3000", message: "!uptime", type: "normal" },
+            { username: "NightBot", message: "stream has been offline for 2 hours 14 minutes", type: "vip" },
+            { username: "CoolGuy88", message: "bet he's at some fancy birthday dinner", type: "normal" },
+            { username: "xXGamerBoi23Xx", message: "COPIUM he'll be back soon", type: "normal" },
+            { username: "NoobSlayer2023", message: "saved up channel points for birthday donation Pog", type: "normal" },
+            { username: "NotABot_69", message: "same here, got 50k ready", type: "normal" },
+            { username: "StreamSniper420", message: "birthday streams hit different", type: "normal" },
+            { username: "RandomSpammer", message: "happy bday happy bday happy bday", type: "normal" },
+            { username: "ChatBot_Auto", message: "Stream offline - streamer will return soon!", type: "normal" },
+            { username: "ModeratorMike", message: "he said he'd be back by 8pm, it's 8:30 now", type: "mod" },
+            { username: "PizzaLover42", message: "ordered pizza for the birthday stream party", type: "normal" },
+            { username: "ToxicGamer2007", message: "probably passed out from birthday drinks OMEGALUL", type: "normal" },
+            { username: "GamerGirl_XOX", message: "wholesome birthday vibes when he gets back Pog", type: "normal" },
+            { username: "MemeLord3000", message: "chat's just gonna sit here and wait huh", type: "normal" },
+            { username: "RAWRRRR_Dragon", message: "RAWRRRR", type: "normal" },
+            { username: "NotABot_69", message: "dragon's been waiting too OMEGALUL", type: "normal" },
+            { username: "StreamSniper420", message: "most loyal viewers right here", type: "normal" },
+            { username: "xXGamerBoi23Xx", message: "birthday boy better show up soon", type: "normal" },
+            { username: "TwitchPrime_Andy", message: "Pog we're all still here for him", type: "vip" },
+            { username: "RandomUser247", message: "this is actually sweet, we're like a birthday party waiting for him", type: "normal" },
+            { username: "NoobSlayer2023", message: "when he comes back it's gonna be pure Pog energy", type: "normal" },
+            { username: "MemeLord3000", message: "happy birthday to our favorite streamer Pog", type: "normal" }
+        ];
         
-        function showPattern() {
-            document.getElementById('calculation-result').innerHTML = 
-                'Pattern: Each number is multiplied by 2<br>2 → 4 → 8 → 16 → 32';
-        }
+        let messageDelay = 2000;
+        let chatSequenceInterval;
         
-        function resetCalculator() {
-            document.getElementById('calculation-result').innerHTML = '';
-        }
-        
-        function goBack() {
-            window.location.href = "index.html";
-        }
-        
-        // Initialize puzzle timer when page loads
+        // Initialize chat when page loads
         document.addEventListener('DOMContentLoaded', function() {
             const puzzleNumber = "2";
             if (!isPuzzleCompleted(puzzleNumber)) {
                 initializePuzzleWithoutTimer(puzzleNumber);
             }
+            // Start with initial chat messages
+            setTimeout(() => startChatSequence(), 1000);
         });
+        
+        function addChatMessage(username, message, type = "normal") {
+            const chatContainer = document.getElementById('chat-messages');
+            const messageElement = document.createElement('div');
+            messageElement.className = 'chat-message';
+            
+            const timestamp = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            
+            // Create username class based on the actual username for consistent colors
+            const usernameClass = type === 'vip' ? `username vip username-${username}` : 
+                                 type === 'mod' ? `username mod username-${username}` : 
+                                 `username username-${username}`;
+            
+            // Parse message for @mentions and highlight them
+            const processedMessage = message.replace(/@(\w+)/g, '<span class="mention">@$1</span>');
+            
+            messageElement.innerHTML = `
+                <span class="timestamp">${timestamp}</span>
+                <span class="${usernameClass}">${username}:</span>
+                <span class="message-text">${processedMessage}</span>
+            `;
+            
+            chatContainer.appendChild(messageElement);
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+        
+        function startChatSequence() {
+            const chatContainer = document.getElementById('chat-messages');
+            chatContainer.innerHTML = '';
+            let messageIndex = 0;
+            
+            chatSequenceInterval = setInterval(() => {
+                if (messageIndex < chatMessages.length) {
+                    const msg = chatMessages[messageIndex];
+                    addChatMessage(msg.username, msg.message, msg.type);
+                    messageIndex++;
+                } else {
+                    clearInterval(chatSequenceInterval);
+                }
+            }, messageDelay);
+        }
+        
+        function handleChatInput(event) {
+            if (event.key === 'Enter') {
+                const input = event.target;
+                const message = input.value.trim();
+                if (message) {
+                    addChatMessage("You", message, "normal");
+                    input.value = '';
+                    
+                    // Add a random response after a delay
+                    setTimeout(() => {
+                        const responses = [
+                            "That's interesting!",
+                            "I see what you mean",
+                            "Good point!",
+                            "Hmm, let me think about that",
+                            "Interesting observation"
+                        ];
+                        const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                        const randomUser = ["Bot_User", "AutoResponder", "ChatBot"][Math.floor(Math.random() * 3)];
+                        addChatMessage(randomUser, randomResponse, "normal");
+                    }, 1500);
+                }
+            }
+        }
+        
+        function goBack() {
+            window.location.href = "index.html";
+        }
     </script>
 </body>
 </html>

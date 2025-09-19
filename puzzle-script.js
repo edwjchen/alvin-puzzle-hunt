@@ -5,9 +5,16 @@ let canSubmitAnswer = false;
 let hasAttemptedAnswer = false;
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Get puzzle number from URL parameters
+    // Get puzzle number from URL parameters or filename
     const urlParams = new URLSearchParams(window.location.search);
-    const puzzleNumber = urlParams.get("puzzle") || "1";
+    let puzzleNumber = urlParams.get("puzzle");
+
+    // If no URL parameter, extract from filename (e.g., puzzle2.html -> 2)
+    if (!puzzleNumber) {
+        const filename = window.location.pathname.split("/").pop();
+        const match = filename.match(/puzzle(\d+)\.html/);
+        puzzleNumber = match ? match[1] : "1";
+    }
 
     // Update puzzle number in the page
     document.getElementById("puzzle-number").textContent = puzzleNumber;
@@ -366,11 +373,14 @@ function displayAttemptedAnswers(puzzleNumber) {
         return;
     }
 
-    // Find or create the attempted answers container
-    let container = document.querySelector(".attempted-answers-container");
+    // Find or create the attempted answers container - make it puzzle-specific
+    let container = document.querySelector(
+        `.attempted-answers-container[data-puzzle="${puzzleNumber}"]`
+    );
     if (!container) {
         container = document.createElement("div");
         container.className = "attempted-answers-container";
+        container.setAttribute("data-puzzle", puzzleNumber);
         container.innerHTML = `
             <h3>Previous Attempts</h3>
             <div class="attempted-answers-list"></div>
