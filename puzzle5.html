@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puzzle 5: Logic Challenge - Alvin Puzzle Hunt</title>
+    <title>🔥Battle of the year</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="puzzle-styles.css">
     <style>
@@ -158,93 +158,39 @@
     <div class="container">
         <header class="puzzle-header">
             <button class="back-btn" onclick="goBack()">← Back to Puzzles</button>
-            <h1>Puzzle <span id="puzzle-number">5</span>: Logic Challenge</h1>
+            <h1>Puzzle <span id="puzzle-number">5</span>: Epic Battle</h1>
         </header>
 
         <main class="puzzle-main">
             <div class="puzzle-content">
                 <div class="puzzle-description">
-                    <h2>🧠 Logical Reasoning</h2>
-                    <p>Test your logical thinking skills with this classic logic puzzle. Think carefully about the relationships between statements!</p>
+                    <h2>🔥SUPER EPIC Battle of the year</h2>
                 </div>
 
                 <div class="puzzle-area">
                     <div class="logic-puzzle">
-                        <h3>🎯 The Logic Problem</h3>
-                        <div class="statement-part">
-                            <strong>Statement 1:</strong> All roses are flowers.
+                        <h3>You don't know Battle of the year?</h3>
+                        <div style="position: relative; width: 100%; max-width: 800px; margin: 2rem auto;">
+                            <video 
+                                controls 
+                                style="width: 100%; height: auto; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);"
+                                preload="metadata">
+                                <source src="epic_battle.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
                         </div>
-                        <div class="statement-part">
-                            <strong>Statement 2:</strong> Some flowers are red.
-                        </div>
-                        <div class="statement-part">
-                            <strong>Question:</strong> Can we conclude that all roses are red?
-                        </div>
-                    </div>
-
-                    <div class="logic-options">
-                        <div class="option-card" onclick="selectOption(this, 'yes')">
-                            <h4>✅ Yes</h4>
-                            <p>If all roses are flowers, and some flowers are red, then all roses must be red.</p>
-                        </div>
-                        <div class="option-card" onclick="selectOption(this, 'no')">
-                            <h4>❌ No</h4>
-                            <p>We cannot conclude that all roses are red from these statements alone.</p>
-                        </div>
-                        <div class="option-card" onclick="selectOption(this, 'maybe')">
-                            <h4>🤔 Maybe</h4>
-                            <p>It depends on additional information not provided in the statements.</p>
-                        </div>
-                        <div class="option-card" onclick="selectOption(this, 'insufficient')">
-                            <h4>❓ Insufficient Information</h4>
-                            <p>We need more information to make any conclusion about rose colors.</p>
-                        </div>
-                    </div>
-
-                    <div class="venn-diagram">
-                        <div class="circle roses">Roses</div>
-                        <div class="circle flowers">Flowers</div>
-                        <div class="circle red">Red</div>
-                    </div>
-
-                    <div class="interactive-tool">
-                        <h4>🔧 Logic Analysis Tool</h4>
-                        <p>Use this tool to help visualize the logical relationships:</p>
-                        <div class="tool-buttons">
-                            <button class="tool-btn" onclick="showExplanation()">Show Explanation</button>
-                            <button class="tool-btn" onclick="resetSelection()">Reset Selection</button>
-                            <button class="tool-btn" onclick="checkAnswer()">Check Answer</button>
-                        </div>
-                        <div id="tool-result" style="margin-top: 1rem; font-size: 1.2rem; font-weight: bold; color: #333; text-align: center;"></div>
-                    </div>
-
-                    <div class="logic-explanation" id="explanation">
-                        <h4>💡 Logical Analysis</h4>
-                        <p><strong>Step 1:</strong> All roses are flowers (Roses ⊆ Flowers)</p>
-                        <p><strong>Step 2:</strong> Some flowers are red (Red ∩ Flowers ≠ ∅)</p>
-                        <p><strong>Step 3:</strong> Can we conclude all roses are red?</p>
-                        <br>
-                        <p><strong>Answer:</strong> <strong>NO</strong> - We cannot conclude that all roses are red.</p>
-                        <p><strong>Reasoning:</strong> Just because some flowers are red doesn't mean all flowers are red, and therefore doesn't mean all roses are red. The red flowers could be entirely separate from the roses.</p>
-                        <p><strong>Example:</strong> Imagine 100 flowers: 50 roses (all white) and 50 tulips (all red). This satisfies both statements but shows that not all roses are red.</p>
-                    </div>
-
-                    <div class="puzzle-box">
-                        <h3>🎯 The Solution</h3>
-                        <p>The correct answer is <strong>NO</strong> - we cannot conclude that all roses are red from the given statements.</p>
-                        <p>This is a classic example of the logical fallacy of assuming that a property of "some" members of a set applies to "all" members of a subset.</p>
                     </div>
                 </div>
 
                 <div class="puzzle-actions">
-                    <input type="text" id="answer-input" placeholder="Enter your answer (yes/no/maybe/insufficient)" class="answer-input">
+                    <input type="text" id="answer-input" placeholder="What clue did you find in the epic battle?" class="answer-input">
                     <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
                 </div>
 
                 <div class="puzzle-hints">
                     <button class="hint-btn" onclick="toggleHint()">Show Hint</button>
                     <div id="hint-content" class="hint-content hidden">
-                        <p>Think about the logical relationships between these statements. Just because some flowers are red doesn't mean all flowers are red.</p>
+                        <p>Watch the video carefully. Pay attention to any text, dialogue, or visual clues that might contain the answer!</p>
                     </div>
                 </div>
             </div>
@@ -257,49 +203,6 @@
 
     <script src="puzzle-script.js"></script>
     <script>
-        let selectedOption = null;
-        
-        function selectOption(element, value) {
-            // Remove previous selection
-            document.querySelectorAll('.option-card').forEach(card => {
-                card.classList.remove('selected');
-            });
-            
-            // Add selection to clicked element
-            element.classList.add('selected');
-            selectedOption = value;
-        }
-        
-        function showExplanation() {
-            const explanation = document.getElementById('explanation');
-            explanation.style.display = 'block';
-            explanation.scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        function resetSelection() {
-            document.querySelectorAll('.option-card').forEach(card => {
-                card.classList.remove('selected', 'correct', 'incorrect');
-            });
-            selectedOption = null;
-            document.getElementById('tool-result').innerHTML = '';
-        }
-        
-        function checkAnswer() {
-            const result = document.getElementById('tool-result');
-            if (!selectedOption) {
-                result.innerHTML = 'Please select an option first!';
-                return;
-            }
-            
-            if (selectedOption === 'no') {
-                result.innerHTML = '🎉 Correct! You cannot conclude that all roses are red.';
-                document.querySelector('.option-card.selected').classList.add('correct');
-            } else {
-                result.innerHTML = '❌ Incorrect. Think about the logical relationships more carefully.';
-                document.querySelector('.option-card.selected').classList.add('incorrect');
-            }
-        }
-        
         function goBack() {
             window.location.href = "index.html";
         }
