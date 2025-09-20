@@ -290,15 +290,14 @@ function getObfuscatedAnswers() {
         10: ["d9ef7771a0539bda416ec14eae7f7cf6"],
         11: ["8b61c11eb8baedd53d2e99d1a01fa7bb"],
         12: [
+            "c8d56be998c94089ea6e1147dc9253c1",
             "77ebd2a487ca41185d7991aabd4184a6",
-            "86eac3a6af2d003563a2359d632b3a58",
-            "cde12eb6d3c43393b88ecd9c1d6ee7a7",
         ],
         13: [
             "016ce905e31a675cd81b052d2acb5c57",
             "5bc3c1d52024c150581c7651627304b7",
             "77fcf3f9314d619c752f9cb035916b02",
-            "c8d56be998c94089ea6e1147dc9253c1",
+            "919c8b643b7133116b02fc0d9bb7df3f",
         ],
         14: ["88667e8b8a59a6d33c3ca93a12277cd7"],
         15: ["32318894778e7864e4d9bdbe52172217"],
@@ -316,8 +315,8 @@ function getObfuscatedAnswers() {
         9: ["deez nuts"],
         10: ["LLLLLLLLLL"],
         11: ["676767676767"],
-        12: ["bro bro bro bro bro bro"],
-        13: ["stop trying that hard"],
+        12: ["stop trying that hard"],
+        13: ["bro bro bro bro bro bro"],
         14: ["just solve the puzzles bro"],
         15: ["meta meta meta"],
     };
@@ -752,15 +751,15 @@ function updatePuzzleContent(puzzleNumber) {
             hint: "Check the console for any logged messages or errors.",
         },
         12: {
-            title: "Master Challenge 2",
-            content: "Decode this advanced cipher: ZKHUH LV WKH DQVZHU",
-            hint: "This uses a different shift than the previous cipher. Try Caesar cipher with different keys.",
-        },
-        13: {
             title: "Master Challenge 3",
             content:
                 "Find the connection between all the puzzle numbers and their corresponding sections.",
             hint: "Look at the mathematical relationships between puzzle numbers and section numbers.",
+        },
+        13: {
+            title: "Master Challenge 2",
+            content: "Decode this advanced cipher: ZKHUH LV WKH DQVZHU",
+            hint: "This uses a different shift than the previous cipher. Try Caesar cipher with different keys.",
         },
         14: {
             title: "Final Master Puzzle",
