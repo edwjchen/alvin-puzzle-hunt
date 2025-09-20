@@ -10,124 +10,222 @@
         .puzzle13-theme {
             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
         }
-        .connection-puzzle {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 3rem;
-            margin: 2rem 0;
-            text-align: center;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-        }
-        .puzzle-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin: 3rem 0;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .puzzle-section {
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
+        
+        /* Instagram Post Interface Styles */
+        .instagram-container {
+            max-width: 400px;
+            margin: 2rem auto;
+            background: #fff;
             border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
-        .section-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #4facfe;
-            margin-bottom: 1rem;
-        }
-        .puzzle-list {
-            list-style: none;
-            padding: 0;
-            margin: 1rem 0;
-        }
-        .puzzle-list li {
-            background: white;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
-            padding: 0.8rem;
-            margin: 0.5rem 0;
-            font-weight: 600;
-            color: #495057;
-        }
-        .connection-tool {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            backdrop-filter: blur(10px);
-        }
-        .tool-buttons {
+        
+        .instagram-header {
             display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 2rem 0;
-        }
-        .tool-btn {
-            background: linear-gradient(135deg, #4facfe, #00f2fe);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        .tool-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4);
-        }
-        .result-display {
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #495057;
-            text-align: center;
-        }
-        .connection-hint {
-            background: #fff3cd;
-            border: 2px solid #ffeaa7;
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            color: #856404;
-        }
-        .step-by-step {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        .step {
-            background: #f8f9fa;
-            border-left: 4px solid #4facfe;
+            align-items: center;
             padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 0 8px 8px 0;
+            border-bottom: 1px solid #efefef;
         }
-        .step-number {
+        
+        .instagram-profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
             font-weight: bold;
-            color: #4facfe;
-            font-size: 1.1rem;
+            color: white;
+            font-size: 18px;
         }
-        .math-relationship {
-            background: #d1ecf1;
-            border: 2px solid #bee5eb;
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            color: #0c5460;
+        
+        .instagram-user-info {
+            flex: 1;
+        }
+        
+        .instagram-username {
+            font-weight: 600;
+            font-size: 14px;
+            color: #262626;
+            margin: 0;
+        }
+        
+        .instagram-location {
+            font-size: 12px;
+            color: #8e8e8e;
+            margin: 0;
+        }
+        
+        .instagram-more {
+            font-size: 18px;
+            color: #262626;
+            font-weight: bold;
+        }
+        
+        .instagram-photo-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            background: #fafafa;
+        }
+        
+        .instagram-photo-scroll {
+            display: flex;
+            width: 400%;
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+        
+        .instagram-photo {
+            width: 25%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        
+        .instagram-photo-dots {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 6px;
+        }
+        
+        .instagram-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transition: background 0.3s ease;
+        }
+        
+        .instagram-dot.active {
+            background: #0095f6;
+        }
+        
+        .instagram-actions {
+            padding: 1rem;
+            border-bottom: 1px solid #efefef;
+        }
+        
+        .instagram-action-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        .instagram-action-left {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .instagram-action-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .instagram-action-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .instagram-action-btn.liked {
+            color: #ed4956;
+        }
+        
+        .instagram-action-btn.unliked {
+            color: #262626;
+        }
+        
+        .instagram-icon {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) saturate(100%);
+        }
+        
+        
+        .instagram-action-btn.liked .instagram-icon {
+            filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
+        }
+        
+        .instagram-likes {
+            font-weight: 600;
+            font-size: 14px;
+            color: #262626;
+            margin: 0;
+        }
+        
+        .instagram-caption {
+            padding: 0 1rem 1rem 1rem;
+            font-size: 14px;
+            line-height: 1.4;
+            color: #262626;
+        }
+        
+        .instagram-username-caption {
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        
+        .instagram-comments {
+            padding: 0 1rem 1rem 1rem;
+            font-size: 14px;
+            color: #8e8e8e;
+        }
+        
+        .instagram-comment {
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+        
+        .instagram-comment-username {
+            font-weight: 600;
+            color: #262626;
+            margin-right: 8px;
+        }
+        
+        .instagram-comment-text {
+            color: #262626;
+        }
+        
+        .instagram-view-all {
+            color: #8e8e8e;
+            font-size: 12px;
+            margin-top: 8px;
+            cursor: pointer;
+        }
+        
+        .instagram-view-all:hover {
+            color: #262626;
+        }
+        
+        .instagram-time {
+            padding: 0 1rem 1rem 1rem;
+            font-size: 10px;
+            color: #8e8e8e;
+            text-transform: uppercase;
+            letter-spacing: 0.2px;
+        }
+        
+        .instagram-scroll-hint {
+            text-align: center;
+            padding: 1rem;
+            color: #8e8e8e;
+            font-size: 12px;
+        }
+        
+        .instagram-scroll-hint::before {
+            content: "← Swipe to see more photos →";
         }
     </style>
 </head>
@@ -141,115 +239,100 @@
         <main class="puzzle-main">
             <div class="puzzle-content">
                 <div class="puzzle-description">
-                    <h2>🔗 Connection Puzzle</h2>
-                    <p>Find the connection between all the puzzle numbers and their corresponding sections. Look at the mathematical relationships!</p>
+                    <h2>📸 Instagram Clue</h2>
+                    <p>Check out this Instagram post! Scroll through the photos to find the connection between all the puzzle numbers and their corresponding sections.</p>
                 </div>
 
-                <div class="puzzle-area">
-                    <div class="connection-puzzle">
-                        <h3>🎯 The Challenge</h3>
-                        <p>Analyze the relationship between puzzle numbers and section numbers:</p>
-                        
-                        <div class="puzzle-grid">
-                            <div class="puzzle-section">
-                                <div class="section-number">Section 1</div>
-                                <ul class="puzzle-list">
-                                    <li>Puzzle 1</li>
-                                    <li>Puzzle 2</li>
-                                    <li>Puzzle 3</li>
-                                    <li>Puzzle 4</li>
-                                    <li>Puzzle 5</li>
-                                </ul>
+                <!-- Instagram Post Interface -->
+                <div class="instagram-container">
+                    <div class="instagram-header">
+                        <div class="instagram-profile-pic">A</div>
+                        <div class="instagram-user-info">
+                            <p class="instagram-username">alvin_puzzle_hunt</p>
+                            <p class="instagram-location">Puzzle Hunt HQ</p>
+                        </div>
+                        <div class="instagram-more">⋯</div>
+                    </div>
+
+                    <div class="instagram-photo-container" id="photo-container">
+                        <div class="instagram-photo-scroll" id="photo-scroll">
+                            <div class="instagram-photo" style="background-image: url('instagram/alvin_1.jpg');"></div>
+                            <div class="instagram-photo" style="background-image: url('instagram/alvin_2.jpg');"></div>
+                            <div class="instagram-photo" style="background-image: url('instagram/alvin_3.jpg');"></div>
+                            <div class="instagram-photo" style="background-image: url('instagram/alvin_4.jpg');"></div>
+                        </div>
+                        <div class="instagram-photo-dots">
+                            <div class="instagram-dot active" data-photo="0"></div>
+                            <div class="instagram-dot" data-photo="1"></div>
+                            <div class="instagram-dot" data-photo="2"></div>
+                            <div class="instagram-dot" data-photo="3"></div>
+                        </div>
+                    </div>
+
+                    <div class="instagram-actions">
+                        <div class="instagram-action-row">
+                            <div class="instagram-action-left">
+                                <button class="instagram-action-btn unliked" id="like-btn">
+                                    <img src="icons/instagram_like_icon.svg" alt="Like" class="instagram-icon">
+                                </button>
+                                <button class="instagram-action-btn">
+                                    <img src="icons/instagram_comment_icon.svg" alt="Comment" class="instagram-icon">
+                                </button>
+                                <button class="instagram-action-btn" id="share-btn">
+                                    <img src="icons/instagram_share_icon.svg" alt="Share" class="instagram-icon">
+                                </button>
                             </div>
-                            <div class="puzzle-section">
-                                <div class="section-number">Section 2</div>
-                                <ul class="puzzle-list">
-                                    <li>Puzzle 6</li>
-                                    <li>Puzzle 7</li>
-                                    <li>Puzzle 8</li>
-                                    <li>Puzzle 9</li>
-                                    <li>Puzzle 10</li>
-                                </ul>
-                            </div>
-                            <div class="puzzle-section">
-                                <div class="section-number">Section 3</div>
-                                <ul class="puzzle-list">
-                                    <li>Puzzle 11</li>
-                                    <li>Puzzle 12</li>
-                                    <li>Puzzle 13</li>
-                                    <li>Puzzle 14</li>
-                                </ul>
-                            </div>
+                            <button class="instagram-action-btn">
+                                <img src="icons/instagram_save_icon.svg" alt="Save" class="instagram-icon">
+                            </button>
+                        </div>
+                        <p class="instagram-likes" id="likes-count">42 likes</p>
+                    </div>
+
+                    <div class="instagram-caption">
+                        <span class="instagram-username-caption">alvin_puzzle_hunt</span>
+                        Can you find the connection between these puzzle sections? 🧩 Each photo represents something special about the puzzle organization! #PuzzleHunt #Challenge13
+                    </div>
+
+                    <div class="instagram-comments">
+                        <div class="instagram-comment">
+                            <span class="instagram-comment-username">puzzle_master_99</span>
+                            <span class="instagram-comment-text">Love this challenge! The photos are so clever 🔍</span>
+                        </div>
+                        <div class="instagram-comment">
+                            <span class="instagram-comment-username">alvin_fan_2024</span>
+                            <span class="instagram-comment-text">I think I see the pattern! Each section has consecutive numbers right? 🤔</span>
+                        </div>
+                        <div class="instagram-comment">
+                            <span class="instagram-comment-username">mystery_solver</span>
+                            <span class="instagram-comment-text">The balloon photos are giving me hints about the grouping! 🎈</span>
+                        </div>
+                        <div class="instagram-comment">
+                            <span class="instagram-comment-username">puzzle_hunter</span>
+                            <span class="instagram-comment-text">This is genius! The visual representation makes it so much clearer 💡</span>
+                        </div>
+                        <div class="instagram-comment">
+                            <span class="instagram-comment-username">alvin_puzzle_hunt</span>
+                            <span class="instagram-comment-text">Great observations everyone! Keep thinking about the mathematical relationship 🧮</span>
+                        </div>
+                        <div class="instagram-view-all">
+                            View all 12 comments
                         </div>
                     </div>
 
-                    <div class="connection-tool">
-                        <h4>🔧 Connection Analysis Tool</h4>
-                        <p>Use this tool to help find the connection:</p>
-                        <div class="tool-buttons">
-                            <button class="tool-btn" onclick="analyzeMath()">Analyze Math</button>
-                            <button class="tool-btn" onclick="showHint()">Show Hint</button>
-                            <button class="tool-btn" onclick="checkAnswer()">Check Answer</button>
-                            <button class="tool-btn" onclick="showSolution()">Show Solution</button>
-                        </div>
-                        <div class="result-display" id="result-display">
-                            Click "Analyze Math" to start!
-                        </div>
+                    <div class="instagram-time">
+                        2 hours ago
                     </div>
-
-                    <div class="connection-hint">
-                        <h4>💡 Connection Hints</h4>
-                        <p><strong>Hint 1:</strong> Look at the mathematical relationships between puzzle numbers and section numbers.</p>
-                        <p><strong>Hint 2:</strong> Consider how puzzle numbers are distributed across sections.</p>
-                        <p><strong>Hint 3:</strong> Think about the pattern of puzzle numbers in each section.</p>
-                    </div>
-
-                    <div class="math-relationship">
-                        <h4>🧮 Mathematical Analysis</h4>
-                        <p><strong>Section 1:</strong> Puzzles 1-5 (5 puzzles)</p>
-                        <p><strong>Section 2:</strong> Puzzles 6-10 (5 puzzles)</p>
-                        <p><strong>Section 3:</strong> Puzzles 11-14 (4 puzzles)</p>
-                        <p><strong>Pattern:</strong> Each section contains consecutive puzzle numbers!</p>
-                    </div>
-
-                    <div class="step-by-step" id="solution-steps" style="display: none;">
-                        <h4>📝 Step-by-Step Solution</h4>
-                        <div class="step">
-                            <div class="step-number">Step 1:</div>
-                            <p>Look at the puzzle numbers in each section.</p>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">Step 2:</div>
-                            <p>Notice that each section contains consecutive puzzle numbers.</p>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">Step 3:</div>
-                            <p>Section 1: 1-5, Section 2: 6-10, Section 3: 11-14</p>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">Answer:</div>
-                            <p><strong>CONSECUTIVE</strong></p>
-                        </div>
-                    </div>
-
-                    <div class="puzzle-box">
-                        <h3>🎯 The Solution</h3>
-                        <p>The connection is that each section contains <strong>consecutive</strong> puzzle numbers.</p>
-                        <p>Section 1: Puzzles 1-5, Section 2: Puzzles 6-10, Section 3: Puzzles 11-14</p>
-                    </div>
+                    
+                    <div class="instagram-scroll-hint"></div>
                 </div>
+
 
                 <div class="puzzle-actions">
                     <input type="text" id="answer-input" placeholder="What is the connection between puzzle numbers and sections?" class="answer-input">
                     <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
                 </div>
 
-                <div class="puzzle-hints">
-                    <button class="hint-btn" onclick="toggleHint()">Show Hint</button>
-                    <div id="hint-content" class="hint-content hidden">
-                        <p>Look at the mathematical relationships between puzzle numbers and section numbers.</p>
-                    </div>
-                </div>
             </div>
         </main>
 
@@ -260,28 +343,183 @@
 
     <script src="puzzle-script.js"></script>
     <script>
-        function analyzeMath() {
-            const result = document.getElementById('result-display');
-            result.innerHTML = 'Analyzing mathematical relationships...<br>Section 1: 1-5, Section 2: 6-10, Section 3: 11-14<br>Each section contains consecutive numbers!';
-        }
-        
-        function showHint() {
-            const result = document.getElementById('result-display');
-            result.innerHTML = 'Hint: Look at how puzzle numbers are distributed across sections.<br>Are they random or do they follow a pattern?';
-        }
-        
-        function checkAnswer() {
-            const result = document.getElementById('result-display');
-            result.innerHTML = 'The connection is that each section contains consecutive puzzle numbers!<br>Section 1: 1-5, Section 2: 6-10, Section 3: 11-14';
-        }
-        
-        function showSolution() {
-            document.getElementById('solution-steps').style.display = 'block';
-            document.getElementById('solution-steps').scrollIntoView({ behavior: 'smooth' });
-        }
         
         function goBack() {
             window.location.href = "index.html";
+        }
+        
+        // Instagram Interface Functionality
+        let currentPhotoIndex = 0;
+        let isLiked = false;
+        let likeCount = 42;
+        
+        function initializeInstagramInterface() {
+            // Photo scrolling functionality
+            const photoScroll = document.getElementById('photo-scroll');
+            const dots = document.querySelectorAll('.instagram-dot');
+            const photoContainer = document.getElementById('photo-container');
+            
+            // Touch/swipe support for mobile
+            let startX = 0;
+            let currentX = 0;
+            let isDragging = false;
+            
+            photoContainer.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+            });
+            
+            photoContainer.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                currentX = e.touches[0].clientX;
+            });
+            
+            photoContainer.addEventListener('touchend', () => {
+                if (!isDragging) return;
+                isDragging = false;
+                
+                const diff = startX - currentX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0 && currentPhotoIndex < 3) {
+                        showNextPhoto();
+                    } else if (diff < 0 && currentPhotoIndex > 0) {
+                        showPrevPhoto();
+                    }
+                }
+            });
+            
+            // Mouse drag support for desktop
+            let mouseStartX = 0;
+            let mouseCurrentX = 0;
+            let isMouseDragging = false;
+            let hasDragged = false;
+            
+            photoContainer.addEventListener('mousedown', (e) => {
+                mouseStartX = e.clientX;
+                isMouseDragging = true;
+                hasDragged = false;
+                photoContainer.style.cursor = 'grabbing';
+            });
+            
+            photoContainer.addEventListener('mousemove', (e) => {
+                if (!isMouseDragging) return;
+                mouseCurrentX = e.clientX;
+                const diff = Math.abs(mouseStartX - mouseCurrentX);
+                if (diff > 5) {
+                    hasDragged = true;
+                }
+            });
+            
+            photoContainer.addEventListener('mouseup', (e) => {
+                if (!isMouseDragging) return;
+                isMouseDragging = false;
+                photoContainer.style.cursor = 'grab';
+                
+                if (hasDragged) {
+                    const diff = mouseStartX - mouseCurrentX;
+                    if (Math.abs(diff) > 50) {
+                        if (diff > 0 && currentPhotoIndex < 3) {
+                            showNextPhoto();
+                        } else if (diff < 0 && currentPhotoIndex > 0) {
+                            showPrevPhoto();
+                        }
+                    }
+                } else {
+                    // Simple click navigation
+                    const rect = photoContainer.getBoundingClientRect();
+                    const clickX = e.clientX - rect.left;
+                    const containerWidth = rect.width;
+                    
+                    if (clickX < containerWidth / 2 && currentPhotoIndex > 0) {
+                        showPrevPhoto();
+                    } else if (clickX >= containerWidth / 2 && currentPhotoIndex < 3) {
+                        showNextPhoto();
+                    }
+                }
+            });
+            
+            photoContainer.addEventListener('mouseleave', () => {
+                isMouseDragging = false;
+                photoContainer.style.cursor = 'grab';
+            });
+            
+            // Click on dots
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    showPhoto(index);
+                });
+            });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft' && currentPhotoIndex > 0) {
+                    showPrevPhoto();
+                } else if (e.key === 'ArrowRight' && currentPhotoIndex < 3) {
+                    showNextPhoto();
+                }
+            });
+            
+            // Like button functionality
+            const likeBtn = document.getElementById('like-btn');
+            const likesCount = document.getElementById('likes-count');
+            
+            likeBtn.addEventListener('click', () => {
+                isLiked = !isLiked;
+                if (isLiked) {
+                    likeBtn.className = 'instagram-action-btn liked';
+                    likeCount++;
+                    likesCount.textContent = `${likeCount} likes`;
+                } else {
+                    likeBtn.className = 'instagram-action-btn unliked';
+                    likeCount--;
+                    likesCount.textContent = `${likeCount} likes`;
+                }
+            });
+            
+            // Share button functionality
+            const shareBtn = document.getElementById('share-btn');
+            shareBtn.addEventListener('click', () => {
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'Alvin Puzzle Hunt - Challenge 13',
+                        text: 'Check out this Instagram puzzle! Can you find the connection?',
+                        url: window.location.href
+                    });
+                } else {
+                    // Fallback for browsers without Web Share API
+                    const shareText = `Check out this puzzle from Alvin Puzzle Hunt! ${window.location.href}`;
+                    navigator.clipboard.writeText(shareText).then(() => {
+                        alert('Link copied to clipboard!');
+                    });
+                }
+            });
+        }
+        
+        function showPhoto(index) {
+            currentPhotoIndex = index;
+            const photoScroll = document.getElementById('photo-scroll');
+            const dots = document.querySelectorAll('.instagram-dot');
+            
+            if (photoScroll) {
+                photoScroll.style.transform = `translateX(-${index * 25}%)`;
+                console.log(`Showing photo ${index}, transform: translateX(-${index * 25}%)`);
+            }
+            
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+        
+        function showNextPhoto() {
+            if (currentPhotoIndex < 3) {
+                showPhoto(currentPhotoIndex + 1);
+            }
+        }
+        
+        function showPrevPhoto() {
+            if (currentPhotoIndex > 0) {
+                showPhoto(currentPhotoIndex - 1);
+            }
         }
         
         // Initialize puzzle timer when page loads
@@ -290,6 +528,7 @@
             if (!isPuzzleCompleted(puzzleNumber)) {
                 initializePuzzleWithoutTimer(puzzleNumber);
             }
+            initializeInstagramInterface();
         });
     </script>
 </body>
