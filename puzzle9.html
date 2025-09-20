@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puzzle 9: Riddle Me This - Alvin Puzzle Hunt</title>
+    <title>Puzzle 9: Video Challenge - Alvin Puzzle Hunt</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="puzzle-styles.css">
     <style>
@@ -136,96 +136,40 @@
     <div class="container">
         <header class="puzzle-header">
             <button class="back-btn" onclick="goBack()">← Back to Puzzles</button>
-            <h1>Puzzle <span id="puzzle-number">9</span>: Riddle Me This</h1>
+            <h1>Puzzle <span id="puzzle-number">9</span>: Video Challenge</h1>
         </header>
 
         <main class="puzzle-main">
             <div class="puzzle-content">
                 <div class="puzzle-description">
-                    <h2>🤔 Riddle Challenge</h2>
-                    <p>Test your lateral thinking skills with this classic riddle. Sometimes the answer is simpler than you think!</p>
+                    <h2></h2>
                 </div>
 
                 <div class="puzzle-area">
                     <div class="riddle-puzzle">
-                        <h3>🎯 The Riddle</h3>
-                        <div class="riddle-text">
-                            I speak without a mouth and hear without ears.<br>
-                            I have no body, but come alive with wind.<br>
-                            What am I?
-                        </div>
-                    </div>
-
-                    <div class="riddle-answer">
-                        <h4>🎯 Choose Your Answer</h4>
-                        <div class="answer-options">
-                            <div class="answer-option" onclick="selectAnswer(this, 'echo')">
-                                <h5>Echo</h5>
-                                <p>An echo speaks without a mouth and hears without ears</p>
-                            </div>
-                            <div class="answer-option" onclick="selectAnswer(this, 'whistle')">
-                                <h5>Whistle</h5>
-                                <p>A whistle makes sound when wind passes through it</p>
-                            </div>
-                            <div class="answer-option" onclick="selectAnswer(this, 'flag')">
-                                <h5>Flag</h5>
-                                <p>A flag moves and "comes alive" with wind</p>
-                            </div>
-                            <div class="answer-option" onclick="selectAnswer(this, 'wind')">
-                                <h5>Wind</h5>
-                                <p>Wind itself speaks and moves things</p>
-                            </div>
-                            <div class="answer-option" onclick="selectAnswer(this, 'tree')">
-                                <h5>Tree</h5>
-                                <p>Trees rustle and make sounds in the wind</p>
-                            </div>
-                            <div class="answer-option" onclick="selectAnswer(this, 'kite')">
-                                <h5>Kite</h5>
-                                <p>A kite flies and moves with the wind</p>
+                        <h3>👂That musicality</h3>
+                        <div style="position: relative; width: 100%; max-width: 800px; margin: 2rem auto;">
+                            <div style="position: relative; width: 100%; height: 0; padding-bottom: 56.25%;">
+                                <iframe 
+                                    src="https://www.youtube.com/embed/7qS_7hs18Zs" 
+                                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                                </iframe>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="thinking-tool">
-                        <h4>🔧 Thinking Tool</h4>
-                        <p>Use this tool to help analyze the riddle:</p>
-                        <div class="tool-buttons">
-                            <button class="tool-btn" onclick="analyzeClues()">Analyze Clues</button>
-                            <button class="tool-btn" onclick="showHint()">Show Hint</button>
-                            <button class="tool-btn" onclick="checkAnswer()">Check Answer</button>
-                            <button class="tool-btn" onclick="resetSelection()">Reset</button>
-                        </div>
-                        <div class="result-display" id="result-display">
-                            Select an answer to check if it's correct!
-                        </div>
-                    </div>
-
-                    <div class="riddle-explanation" id="explanation" style="display: none;">
-                        <h4>💡 Explanation</h4>
-                        <p><strong>Clue 1:</strong> "I speak without a mouth" - This suggests something that makes sound but doesn't have a physical mouth.</p>
-                        <p><strong>Clue 2:</strong> "I hear without ears" - This suggests something that responds to sound but doesn't have physical ears.</p>
-                        <p><strong>Clue 3:</strong> "I have no body, but come alive with wind" - This suggests something that is not a living being but becomes active or makes sound when wind passes through it.</p>
-                        <br>
-                        <p><strong>Answer:</strong> <strong>ECHO</strong></p>
-                        <p><strong>Reasoning:</strong> An echo "speaks" (repeats sound) without a mouth, "hears" (responds to sound) without ears, and "comes alive" when wind or sound waves pass through it, creating the echo effect.</p>
-                    </div>
-
-                    <div class="puzzle-box">
-                        <h3>🎯 The Solution</h3>
-                        <p>The answer is <strong>ECHO</strong>.</p>
-                        <p>An echo speaks without a mouth (it repeats sounds), hears without ears (it responds to sound waves), and comes alive with wind (sound waves created by wind or other sources).</p>
                     </div>
                 </div>
 
                 <div class="puzzle-actions">
-                    <input type="text" id="answer-input" placeholder="What is the answer to the riddle?" class="answer-input">
+                    <input type="text" id="answer-input" placeholder="What clue did you find in the video?" class="answer-input">
                     <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
                 </div>
 
                 <div class="puzzle-hints">
                     <button class="hint-btn" onclick="toggleHint()">Show Hint</button>
                     <div id="hint-content" class="hint-content hidden">
-                        <p>Think about things that make sounds when wind passes through them. What repeats sounds without having a mouth?</p>
+                        <p>Watch the video carefully. Pay attention to any text, sounds, or visual clues that might contain the answer!</p>
                     </div>
                 </div>
             </div>
@@ -238,55 +182,6 @@
 
     <script src="puzzle-script.js"></script>
     <script>
-        let selectedAnswer = null;
-        
-        function selectAnswer(element, value) {
-            // Remove previous selection
-            document.querySelectorAll('.answer-option').forEach(option => {
-                option.classList.remove('selected');
-            });
-            
-            // Add selection to clicked element
-            element.classList.add('selected');
-            selectedAnswer = value;
-        }
-        
-        function analyzeClues() {
-            const result = document.getElementById('result-display');
-            result.innerHTML = 'Analyzing clues...<br>• Speaks without mouth<br>• Hears without ears<br>• No body, comes alive with wind';
-        }
-        
-        function showHint() {
-            const result = document.getElementById('result-display');
-            result.innerHTML = 'Hint: Think about things that repeat sounds. What happens when you shout in a canyon?';
-        }
-        
-        function checkAnswer() {
-            const result = document.getElementById('result-display');
-            if (!selectedAnswer) {
-                result.innerHTML = 'Please select an answer first!';
-                return;
-            }
-            
-            if (selectedAnswer === 'echo') {
-                result.innerHTML = '🎉 Correct! The answer is ECHO!';
-                document.querySelector('.answer-option.selected').classList.add('correct');
-                document.getElementById('explanation').style.display = 'block';
-            } else {
-                result.innerHTML = '❌ Incorrect. Think about what repeats sounds without having a mouth.';
-                document.querySelector('.answer-option.selected').classList.add('incorrect');
-            }
-        }
-        
-        function resetSelection() {
-            document.querySelectorAll('.answer-option').forEach(option => {
-                option.classList.remove('selected', 'correct', 'incorrect');
-            });
-            selectedAnswer = null;
-            document.getElementById('result-display').innerHTML = 'Select an answer to check if it\'s correct!';
-            document.getElementById('explanation').style.display = 'none';
-        }
-        
         function goBack() {
             window.location.href = "index.html";
         }
