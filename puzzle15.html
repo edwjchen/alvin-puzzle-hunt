@@ -57,6 +57,12 @@
 </head>
 <body class="meta-puzzle-theme">
     <div class="container">
+        <!-- Background Music -->
+        <audio id="spotify-music" loop>
+            <source src="spotify.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        
         <header class="puzzle-header">
             <button class="back-btn" onclick="goBack()">← Back to Puzzles</button>
             <h1>Puzzle <span id="puzzle-number">15</span></h1>
@@ -114,6 +120,30 @@
             if (!isPuzzleCompleted(puzzleNumber)) {
                 initializePuzzleWithoutTimer(puzzleNumber);
             }
+            
+            // Play background music
+            const audio = document.getElementById('spotify-music');
+            let musicStarted = false;
+            
+            // Function to start music
+            function startMusic() {
+                if (!musicStarted && audio) {
+                    audio.play().then(() => {
+                        musicStarted = true;
+                        console.log('Background music started');
+                    }).catch(function(error) {
+                        console.log('Audio play failed:', error);
+                    });
+                }
+            }
+            
+            // Try to start music immediately
+            startMusic();
+            
+            // Start music on any user interaction
+            document.addEventListener('click', startMusic, { once: true });
+            document.addEventListener('keydown', startMusic, { once: true });
+            document.addEventListener('touchstart', startMusic, { once: true });
         });
     </script>
 </body>
