@@ -76,13 +76,13 @@
         
         .instagram-photo-scroll {
             display: flex;
-            width: 400%;
+            width: 500%;
             height: 100%;
             transition: transform 0.3s ease;
         }
         
         .instagram-photo {
-            width: 25%;
+            width: 20%;
             height: 100%;
             background-size: cover;
             background-position: center;
@@ -299,12 +299,14 @@
                             <div class="instagram-photo" style="background-image: url('instagram/Roots.jpg');"></div>
                             <div class="instagram-photo" style="background-image: url('instagram/Chinese.jpg');"></div>
                             <div class="instagram-photo" style="background-image: url('instagram/Culture.jpg');"></div>
+                            <div class="instagram-photo" style="background-image: url('instagram/sicilian_dragon_deez_nutz.jpg');"></div>
                         </div>
                         <div class="instagram-photo-dots">
                             <div class="instagram-dot active" data-photo="0"></div>
                             <div class="instagram-dot" data-photo="1"></div>
                             <div class="instagram-dot" data-photo="2"></div>
                             <div class="instagram-dot" data-photo="3"></div>
+                            <div class="instagram-dot" data-photo="4"></div>
                         </div>
                         </div>
                         
@@ -412,7 +414,7 @@
                 
                 const diff = startX - currentX;
                 if (Math.abs(diff) > 50) {
-                    if (diff > 0 && currentPhotoIndex < 3) {
+                    if (diff > 0 && currentPhotoIndex < 4) {
                         showNextPhoto();
                     } else if (diff < 0 && currentPhotoIndex > 0) {
                         showPrevPhoto();
@@ -450,7 +452,7 @@
                 if (hasDragged) {
                     const diff = mouseStartX - mouseCurrentX;
                     if (Math.abs(diff) > 50) {
-                        if (diff > 0 && currentPhotoIndex < 3) {
+                        if (diff > 0 && currentPhotoIndex < 4) {
                             showNextPhoto();
                         } else if (diff < 0 && currentPhotoIndex > 0) {
                             showPrevPhoto();
@@ -464,7 +466,7 @@
                     
                     if (clickX < containerWidth / 2 && currentPhotoIndex > 0) {
                         showPrevPhoto();
-                    } else if (clickX >= containerWidth / 2 && currentPhotoIndex < 3) {
+                    } else if (clickX >= containerWidth / 2 && currentPhotoIndex < 4) {
                         showNextPhoto();
                     }
                 }
@@ -486,7 +488,7 @@
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'ArrowLeft' && currentPhotoIndex > 0) {
                     showPrevPhoto();
-                } else if (e.key === 'ArrowRight' && currentPhotoIndex < 3) {
+                } else if (e.key === 'ArrowRight' && currentPhotoIndex < 4) {
                     showNextPhoto();
                 }
             });
@@ -544,8 +546,8 @@
             const dots = document.querySelectorAll('.instagram-dot');
             
             if (photoScroll) {
-                photoScroll.style.transform = `translateX(-${index * 25}%)`;
-                console.log(`Showing photo ${index}, transform: translateX(-${index * 25}%)`);
+                photoScroll.style.transform = `translateX(-${index * 20}%)`;
+                console.log(`Showing photo ${index}, transform: translateX(-${index * 20}%)`);
             }
             
             dots.forEach((dot, i) => {
@@ -554,7 +556,7 @@
         }
         
         function showNextPhoto() {
-            if (currentPhotoIndex < 3) {
+            if (currentPhotoIndex < 4) {
                 showPhoto(currentPhotoIndex + 1);
             }
         }
