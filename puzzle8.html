@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puzzle 8: Hidden Message - Alvin Puzzle Hunt</title>
+    <title>🗺️ Maze</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="puzzle-styles.css">
     <style>
@@ -18,249 +18,51 @@
             text-align: center;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         }
-        .color-palette {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 1rem;
-            margin: 2rem 0;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .color-swatch {
-            aspect-ratio: 1;
-            border-radius: 10px;
+        .maze-container {
             display: flex;
-            align-items: center;
             justify-content: center;
-            font-weight: bold;
-            color: white;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            align-items: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
-        .color-swatch:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        .maze-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
-        .color-swatch::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s ease;
-        }
-        .color-swatch:hover::before {
-            left: 100%;
-        }
-        .swatch-1 { background: linear-gradient(135deg, #667eea, #764ba2); }
-        .swatch-2 { background: linear-gradient(135deg, #f093fb, #f5576c); }
-        .swatch-3 { background: linear-gradient(135deg, #4facfe, #00f2fe); }
-        .swatch-4 { background: linear-gradient(135deg, #43e97b, #38f9d7); }
-        .swatch-5 { background: linear-gradient(135deg, #fa709a, #fee140); }
-        .swatch-6 { background: linear-gradient(135deg, #a8edea, #fed6e3); }
-        .swatch-7 { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
-        .swatch-8 { background: linear-gradient(135deg, #ffecd2, #fcb69f); }
-        .swatch-9 { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
-        .swatch-10 { background: linear-gradient(135deg, #fad0c4, #ffd1ff); }
-        .swatch-11 { background: linear-gradient(135deg, #667eea, #764ba2); }
-        .swatch-12 { background: linear-gradient(135deg, #f093fb, #f5576c); }
-        .swatch-13 { background: linear-gradient(135deg, #4facfe, #00f2fe); }
-        .swatch-14 { background: linear-gradient(135deg, #43e97b, #38f9d7); }
-        .swatch-15 { background: linear-gradient(135deg, #fa709a, #fee140); }
-        .swatch-16 { background: linear-gradient(135deg, #a8edea, #fed6e3); }
-        .swatch-17 { background: linear-gradient(135deg, #ff9a9e, #fecfef); }
-        .swatch-18 { background: linear-gradient(135deg, #ffecd2, #fcb69f); }
-        .swatch-19 { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
-        .swatch-20 { background: linear-gradient(135deg, #fad0c4, #ffd1ff); }
-        .swatch-21 { background: linear-gradient(135deg, #667eea, #764ba2); }
-        .swatch-22 { background: linear-gradient(135deg, #f093fb, #f5576c); }
-        .swatch-23 { background: linear-gradient(135deg, #4facfe, #00f2fe); }
-        .swatch-24 { background: linear-gradient(135deg, #43e97b, #38f9d7); }
-        .swatch-25 { background: linear-gradient(135deg, #fa709a, #fee140); }
         
-        .message-decoder {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            backdrop-filter: blur(10px);
-        }
-        .decoder-tool {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        .decoder-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin: 2rem 0;
-        }
-        .decoder-btn {
-            background: linear-gradient(135deg, #f093fb, #f5576c);
-            color: white;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        .decoder-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(240, 147, 251, 0.4);
-        }
-        .message-display {
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            padding: 2rem;
-            margin: 2rem 0;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #495057;
-            text-align: center;
-            min-height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .pattern-hint {
-            background: #fff3cd;
-            border: 2px solid #ffeaa7;
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            color: #856404;
-        }
-        .color-legend {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
-        }
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(255, 255, 255, 0.8);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-        .legend-color {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-        }
-        .hidden-clue {
-            position: absolute;
-            top: -1000px;
-            left: -1000px;
-            color: #f093fb;
-            font-size: 0.1px;
-            opacity: 0.01;
-        }
-    </style>
+            </style>
 </head>
 <body class="puzzle8-theme">
     <div class="container">
         <header class="puzzle-header">
             <button class="back-btn" onclick="goBack()">← Back to Puzzles</button>
-            <h1>Puzzle <span id="puzzle-number">8</span>: Hidden Message</h1>
+            <h1>Puzzle <span id="puzzle-number">8</span>: Maze Challenge</h1>
         </header>
 
         <main class="puzzle-main">
             <div class="puzzle-content">
                 <div class="puzzle-description">
-                    <h2>🎨 Color Code Mystery</h2>
-                    <p>Look for patterns in the button colors and gradients on the main page. The colors might spell out a word or message when arranged properly!</p>
+                    <h2>🗺️ Solve the Maze</h2>
                 </div>
 
                 <div class="puzzle-area">
-                    <div class="hidden-message-puzzle">
-                        <h3>🌈 Color Pattern Analysis</h3>
-                        <p>Examine this 5x5 color grid. What pattern do you see? What might it spell out?</p>
-                        
-                        <div class="color-palette" id="color-palette">
-                            <!-- Color swatches will be generated by JavaScript -->
-                        </div>
-                        
-                        <p>Click on the colors to decode the hidden message!</p>
-                    </div>
-
-                    <div class="message-decoder">
-                        <h4>🔧 Message Decoder Tool</h4>
-                        <div class="decoder-tool">
-                            <p>Use this tool to help decode the hidden message:</p>
-                            <div class="decoder-buttons">
-                                <button class="decoder-btn" onclick="analyzePattern()">Analyze Pattern</button>
-                                <button class="decoder-btn" onclick="showHint()">Show Hint</button>
-                                <button class="decoder-btn" onclick="resetDecoder()">Reset</button>
-                                <button class="decoder-btn" onclick="revealMessage()">Reveal Message</button>
-                            </div>
-                            <div class="message-display" id="message-display">
-                                Click "Analyze Pattern" to start decoding!
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="pattern-hint">
-                        <h4>💡 Pattern Hints</h4>
-                        <p><strong>Hint 1:</strong> Look at the first letter of each color name in the legend below.</p>
-                        <p><strong>Hint 2:</strong> The pattern might be read row by row, column by column, or diagonally.</p>
-                        <p><strong>Hint 3:</strong> Check the HTML structure and CSS classes for additional clues.</p>
-                    </div>
-
-                    <div class="color-legend">
-                        <div class="legend-item">
-                            <div class="legend-color" style="background: linear-gradient(135deg, #667eea, #764ba2);"></div>
-                            <span>Purple</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background: linear-gradient(135deg, #f093fb, #f5576c);"></div>
-                            <span>Pink</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background: linear-gradient(135deg, #4facfe, #00f2fe);"></div>
-                            <span>Blue</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background: linear-gradient(135deg, #43e97b, #38f9d7);"></div>
-                            <span>Green</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background: linear-gradient(135deg, #fa709a, #fee140);"></div>
-                            <span>Yellow</span>
-                        </div>
-                    </div>
-
-                    <!-- Hidden clue in the HTML source -->
-                    <div class="hidden-clue">The hidden message is: HELLO</div>
-
-                    <div class="puzzle-box">
-                        <h3>🎯 The Solution</h3>
-                        <p>Look at the first letter of each color name in the legend:</p>
-                        <p><strong>Purple → P, Pink → P, Blue → B, Green → G, Yellow → Y</strong></p>
-                        <p>But wait... that's not right. Look more carefully at the actual colors used in the grid!</p>
-                        <p>The real pattern is hidden in the CSS class names and HTML structure.</p>
+                    <div class="maze-container">
+                        <img src="maze/maze.png" alt="Maze Challenge" class="maze-image">
                     </div>
                 </div>
 
+
+
+
+                </div>
+
                 <div class="puzzle-actions">
-                    <input type="text" id="answer-input" placeholder="What word do the colors spell out?" class="answer-input">
+                    <input type="text" id="answer-input" placeholder="Did you solve the maze?" class="answer-input">
                     <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
                 </div>
 
@@ -275,49 +77,6 @@
 
     <script src="puzzle-script.js"></script>
     <script>
-        function generateColorPalette() {
-            const container = document.getElementById('color-palette');
-            container.innerHTML = '';
-            
-            for (let i = 1; i <= 25; i++) {
-                const swatch = document.createElement('div');
-                swatch.className = `color-swatch swatch-${i}`;
-                swatch.textContent = i;
-                swatch.onclick = () => selectColor(i, swatch);
-                container.appendChild(swatch);
-            }
-        }
-        
-        function selectColor(num, element) {
-            element.style.transform = 'scale(1.2)';
-            setTimeout(() => {
-                element.style.transform = '';
-            }, 200);
-        }
-        
-        function analyzePattern() {
-            const display = document.getElementById('message-display');
-            display.innerHTML = 'Analyzing color pattern...<br>Look for the first letter of each color name!';
-        }
-        
-        function showHint() {
-            const display = document.getElementById('message-display');
-            display.innerHTML = 'Hint: Check the HTML source code for hidden clues!<br>Look for elements with very small text or positioned off-screen.';
-        }
-        
-        function resetDecoder() {
-            const display = document.getElementById('message-display');
-            display.innerHTML = 'Click "Analyze Pattern" to start decoding!';
-        }
-        
-        function revealMessage() {
-            const display = document.getElementById('message-display');
-            display.innerHTML = 'The hidden message is: <strong>HELLO</strong><br>Found in the HTML source code!';
-        }
-        
-        // Initialize the puzzle
-        generateColorPalette();
-        
         function goBack() {
             window.location.href = "index.html";
         }
