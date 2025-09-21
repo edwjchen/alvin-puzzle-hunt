@@ -328,10 +328,14 @@ footer {
 
 /* Level 4 - Meta Puzzle Styles */
 .section-4 {
-    background: linear-gradient(135deg, #ffd700 0%, #ff8c00 100%);
-    border: 2px solid #ffd700;
+    background: linear-gradient(135deg, #ffd700 0%, #ffb347 50%, #ff8c00 100%);
+    border: 3px solid #daa520;
+    border-radius: 20px;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 15px 35px rgba(218, 165, 32, 0.4), 
+                0 5px 15px rgba(255, 215, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .section-4::before {
@@ -341,8 +345,26 @@ footer {
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
     animation: shimmer 3s infinite;
+}
+
+.section-4::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #ffd700, #ffed4e, #ffd700, #ffb347);
+    border-radius: 22px;
+    z-index: -1;
+    animation: borderGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes borderGlow {
+    0% { opacity: 0.6; }
+    100% { opacity: 1; }
 }
 
 @keyframes shimmer {
@@ -351,12 +373,22 @@ footer {
 }
 
 .section-4 h2 {
-    color: #8b4513;
-    text-shadow: 0 2px 4px rgba(255, 255, 255, 0.5);
+    color: #ffffff;
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.6), 
+                 0 1px 3px rgba(0, 0, 0, 0.4);
     font-size: 2.2rem;
     margin-bottom: 2rem;
     position: relative;
     z-index: 1;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    animation: textGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes textGlow {
+    0% { filter: brightness(1); }
+    100% { filter: brightness(1.2); }
 }
 
 .meta-puzzle-grid {
@@ -368,18 +400,23 @@ footer {
 }
 
 .btn-meta {
-    background: linear-gradient(135deg, #5a67d8, #7c3aed);
-    color: white;
-    box-shadow: 0 4px 15px rgba(90, 103, 216, 0.4);
+    background: linear-gradient(135deg, #ffd700, #ffed4e, #ffd700);
+    color: #ffffff;
+    box-shadow: 0 8px 25px rgba(218, 165, 32, 0.6),
+                0 4px 15px rgba(255, 215, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 700;
     padding: 1rem 2rem;
     border-radius: 12px;
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
     min-width: 200px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid #daa520;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .btn-meta::before {
@@ -399,7 +436,10 @@ footer {
 
 .btn-meta:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(90, 103, 216, 0.6);
+    box-shadow: 0 12px 35px rgba(218, 165, 32, 0.8),
+                0 6px 20px rgba(255, 215, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    background: linear-gradient(135deg, #ffed4e, #ffd700, #ffed4e);
 }
 
 .btn-meta:active {
@@ -408,13 +448,19 @@ footer {
 
 /* Meta puzzle completed state */
 .btn-meta.completed {
-    background: linear-gradient(135deg, #28a745, #20c997);
-    box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+    background: linear-gradient(135deg, #ffd700, #ffa500, #ffd700);
+    box-shadow: 0 8px 25px rgba(218, 165, 32, 0.8),
+                0 4px 15px rgba(255, 165, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    border: 2px solid #ff8c00;
 }
 
 .btn-meta.completed:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.6);
+    box-shadow: 0 12px 35px rgba(218, 165, 32, 1),
+                0 6px 20px rgba(255, 165, 0, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    background: linear-gradient(135deg, #ffa500, #ffd700, #ffa500);
 }
 
 /* Responsive design for Level 4 */
