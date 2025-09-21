@@ -275,11 +275,11 @@ function md5(string) {
 function getObfuscatedAnswers() {
     // Obfuscated answer data using MD5 hashes - much harder to reverse engineer
     const obfuscatedData = {
-        1: ["86cb4c737e69de20350dc7e97416f5fe"],
-        2: ["3168e6a60e8535eb3385afe8ff5748ce"],
-        3: ["9e3669d19b675bd57058fd4664205d2a"],
-        4: ["5828d49f807e44f7ec77eccf7dd18a2f"],
-        5: ["3899dcbab79f92af727c2190bbd8abc5"],
+        1: ["3168e6a60e8535eb3385afe8ff5748ce"],
+        2: ["5828d49f807e44f7ec77eccf7dd18a2f"],
+        3: ["86cb4c737e69de20350dc7e97416f5fe"],
+        4: ["3899dcbab79f92af727c2190bbd8abc5"],
+        5: ["9e3669d19b675bd57058fd4664205d2a"],
         6: ["2db95e8e1a9267b7a1188556b2013b33"],
         7: ["e8984b9da2f51f375a80360246755854"],
         8: [

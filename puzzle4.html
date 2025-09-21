@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔍🔍🔍</title>
+    <title>🔥 Battle of the year</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="puzzle-styles.css">
     <style>
-        .puzzle4-theme {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        .puzzle5-theme {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
         }
-        .audio-puzzle {
+        .logic-puzzle {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             padding: 3rem;
@@ -18,51 +18,143 @@
             text-align: center;
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         }
-        
-        .audio-player {
+        .logic-statement {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: left;
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+        .statement-part {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .logic-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .option-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+        .option-card:hover {
+            border-color: #ffc107;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 193, 7, 0.2);
+        }
+        .option-card.selected {
+            border-color: #28a745;
+            background: #d4edda;
+        }
+        .option-card.correct {
+            border-color: #28a745;
+            background: #d4edda;
+            animation: correctPulse 0.6s ease;
+        }
+        .option-card.incorrect {
+            border-color: #dc3545;
+            background: #f8d7da;
+            animation: incorrectShake 0.6s ease;
+        }
+        @keyframes correctPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        @keyframes incorrectShake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        .logic-explanation {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             padding: 2rem;
             margin: 2rem 0;
             backdrop-filter: blur(10px);
+            display: none;
         }
-        
-        .play-btn {
-            background: linear-gradient(135deg, #a8edea, #fed6e3);
+        .venn-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem 0;
+        }
+        .circle {
+            width: 120px;
+            height: 120px;
+            border: 3px solid #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            position: relative;
+        }
+        .circle.roses {
+            background: rgba(255, 193, 7, 0.3);
+            margin-right: -20px;
+        }
+        .circle.flowers {
+            background: rgba(40, 167, 69, 0.3);
+            margin-left: -20px;
+        }
+        .circle.red {
+            background: rgba(220, 53, 69, 0.3);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+        }
+        .interactive-tool {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .tool-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+        .tool-btn {
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
             color: #333;
             border: none;
-            padding: 1rem 2rem;
-            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 600;
             transition: all 0.3s ease;
-            margin: 1rem;
         }
-        
-        .play-btn:hover {
+        .tool-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(168, 237, 234, 0.4);
-        }
-        
-        .play-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-        
-        .audio-clue {
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 10px;
-            padding: 1rem;
-            margin: 1rem 0;
-            font-family: 'Courier New', monospace;
-            font-size: 1rem;
-            color: #495057;
+            box-shadow: 0 6px 20px rgba(255, 236, 210, 0.4);
         }
     </style>
 </head>
-<body class="puzzle4-theme">
+<body class="puzzle5-theme">
     <div class="container">
         <header class="puzzle-header">
             <button class="back-btn" onclick="goBack()">← Back to Puzzles</button>
@@ -72,26 +164,26 @@
         <main class="puzzle-main">
             <div class="puzzle-content">
                 <div class="puzzle-description">
-                    <h2>🔍🔍🔍</h2>
+                    <h2>🔥SUPER EPIC Battle of the year</h2>
                 </div>
 
                 <div class="puzzle-area">
-                    <div class="audio-puzzle">
-                        <h3>🎵 🎵 🎵</h3>
-                        <div class="audio-player">
-                            <audio id="puzzle-audio" preload="auto">
-                                <source src="audio.mp3" type="audio/mpeg">
-                                Your browser does not support the audio element.
-                            </audio>
-                            <button class="play-btn" onclick="playAudio()">🔊 Play Audio Clue</button>
-                            <!-- Wow you decided to actually InSpEcT the html!!! Great job. Here's a hint: https://www.youtube.com/watch?v=dQw4w9WgXcQ -->
+                    <div class="logic-puzzle">
+                        <h3>You don't know Battle of the year?</h3>
+                        <div style="position: relative; width: 100%; max-width: 800px; margin: 2rem auto;">
+                            <video 
+                                controls 
+                                style="width: 100%; height: auto; border-radius: 15px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);"
+                                preload="metadata">
+                                <source src="epic_battle.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="puzzle-actions">
-                    <input type="text" id="answer-input" placeholder="What do you hear in the audio clip?" class="answer-input">
+                    <input type="text" id="answer-input" placeholder="What clue did you find in the epic battle?" class="answer-input">
                     <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
                 </div>
 
@@ -101,31 +193,11 @@
         <footer>
             <p>Made with 💙 by Sheldon and Edward</p>
             <p>&copy; 2024 Alvin's Birthday Puzzle Hunt. All rights reserved.</p>
-        <!-- jk here's the real hint: https://www.youtube.com/shorts/M56m6jeISlY --> 
         </footer>
     </div>
 
     <script src="puzzle-script.js"></script>
     <script>
-        function playAudio() {
-            const audio = document.getElementById('puzzle-audio');
-            const button = document.querySelector('.play-btn');
-            
-            if (audio.paused) {
-                audio.play();
-                button.textContent = '⏸️ Pause Audio';
-                button.disabled = false;
-            } else {
-                audio.pause();
-                button.textContent = '🔊 Play Audio Clue';
-            }
-        }
-        
-        function showAudioHint() {
-            const hint = document.getElementById('audio-hint');
-            hint.style.display = hint.style.display === 'none' ? 'block' : 'none';
-        }
-        
         function goBack() {
             window.location.href = "index.html";
         }
@@ -140,14 +212,6 @@
             if (!isPuzzleCompleted(puzzleNumber)) {
                 initializePuzzleWithoutTimer(puzzleNumber);
             }
-            
-            // Add event listener for audio ended
-            const audio = document.getElementById('puzzle-audio');
-            audio.addEventListener('ended', function() {
-                const button = document.querySelector('.play-btn');
-                button.textContent = '🔊 Play Audio Clue';
-                button.disabled = false;
-            });
         });
     </script>
 </body>

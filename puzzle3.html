@@ -3,287 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🧩 Connections</title>
+    <title>🌸 Hawaiian Salutations</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="puzzle-styles.css">
     <style>
-        .puzzle3-theme {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            color: #ffffff;
+        .puzzle1-theme {
+            background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 50%, #45b7d1 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
         }
-        
-        .connections-container {
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .slideshow-container {
+            position: relative;
             max-width: 800px;
-            margin: 0 auto;
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            border-radius: 12px;
+            margin: 2rem auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        .slide {
+            display: none;
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: opacity 1s ease-in-out;
+        }
+        .slide.active {
+            display: block;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .slide-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
             padding: 2rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            border: 1px solid #404040;
-        }
-        
-        .connections-header {
             text-align: center;
-            margin-bottom: 2rem;
-            border-bottom: 2px solid #404040;
-            padding-bottom: 1rem;
         }
-        
-        .connections-title {
+        .slide-title {
             font-size: 2rem;
             font-weight: bold;
-            color: #ffffff;
             margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
         }
-        
-        .connections-subtitle {
-            color: #b0b0b0;
-            font-size: 1.1rem;
+        .slide-description {
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
         }
-        
-        .connections-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
+        .slideshow-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             gap: 1rem;
             margin: 2rem 0;
         }
-        
-        .connection-word {
-            background: #2d2d2d;
-            border: 2px solid #404040;
-            border-radius: 8px;
-            padding: 1rem;
-            text-align: center;
-            font-weight: 600;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            min-height: 60px;
+        .puzzle-controls {
             display: flex;
-            align-items: center;
             justify-content: center;
-            color: #ffffff;
-            user-select: none;
-            transform: translateZ(0); /* Enable hardware acceleration */
-            will-change: transform, opacity; /* Optimize for animations */
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0 0.5rem 0;
         }
-        
-        .connection-word:hover {
-            background: #404040;
-            border-color: #666666;
-        }
-        
-        .connection-word.solved {
+        .control-btn {
+            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
             color: white;
             border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
-        
-        .connection-word.yellow {
-            background: #ffd43b;
-        }
-        
-        .connection-word.green {
-            background: #51cf66;
-        }
-        
-        .connection-word.blue {
-            background: #339af0;
-        }
-        
-        .connection-word.purple {
-            background: #9775fa;
-        }
-        
-        .connection-word.selected {
-            background: #ff6b6b;
-            border-color: #ff5252;
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
-        }
-        
-        .connection-word.selected:hover {
-            background: #ff5252;
-            transform: scale(1.05);
-        }
-        
-        .connection-word.bubbling {
-            animation: bubbleUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-            z-index: 10;
+        .control-btn:hover {
+            transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
-        
-        @keyframes bubbleUp {
-            0% {
-                transform: scale(1) translateY(0) rotateZ(0deg);
-                opacity: 1;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            }
-            15% {
-                transform: scale(1.08) translateY(-8px) rotateZ(1deg);
-                opacity: 0.95;
-                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-            }
-            30% {
-                transform: scale(1.12) translateY(-15px) rotateZ(-0.5deg);
-                opacity: 0.9;
-                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            }
-            45% {
-                transform: scale(1.1) translateY(-25px) rotateZ(0.3deg);
-                opacity: 0.92;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-            }
-            60% {
-                transform: scale(1.06) translateY(-20px) rotateZ(-0.2deg);
-                opacity: 0.95;
-                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-            }
-            75% {
-                transform: scale(1.03) translateY(-10px) rotateZ(0.1deg);
-                opacity: 0.98;
-                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-            }
-            90% {
-                transform: scale(1.01) translateY(-3px) rotateZ(0deg);
-                opacity: 1;
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            }
-            100% {
-                transform: scale(1) translateY(0) rotateZ(0deg);
-                opacity: 1;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            }
+        .control-btn:active {
+            transform: translateY(-1px);
         }
-        
-        .connection-word.solved {
-            animation: solvedPulse 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        .connection-word.pulse {
-            animation: solvedPulse 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        @keyframes solvedPulse {
-            0% {
-                transform: scale(1) rotateZ(0deg);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            }
-            20% {
-                transform: scale(1.05) rotateZ(0.5deg);
-                box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-            }
-            40% {
-                transform: scale(1.12) rotateZ(-0.3deg);
-                box-shadow: 0 8px 22px rgba(0, 0, 0, 0.3);
-            }
-            60% {
-                transform: scale(1.08) rotateZ(0.2deg);
-                box-shadow: 0 7px 20px rgba(0, 0, 0, 0.28);
-            }
-            80% {
-                transform: scale(1.03) rotateZ(-0.1deg);
-                box-shadow: 0 5px 16px rgba(0, 0, 0, 0.23);
-            }
-            100% {
-                transform: scale(1) rotateZ(0deg);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            }
-        }
-        
-        .connections-categories {
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 2px solid #404040;
-        }
-        
-        .category-row {
+        .slide-indicators {
             display: flex;
-            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
             margin: 1rem 0;
-            padding: 1rem;
-            border-radius: 8px;
-            background: #2d2d2d;
-            border: 1px solid #404040;
         }
-        
-        .category-color {
-            width: 20px;
-            height: 20px;
+        .indicator {
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            margin-right: 1rem;
-        }
-        
-        .category-yellow {
-            background: #ffd43b;
-        }
-        
-        .category-green {
-            background: #51cf66;
-        }
-        
-        .category-blue {
-            background: #339af0;
-        }
-        
-        .category-purple {
-            background: #9775fa;
-        }
-        
-        .category-info {
-            flex: 1;
-        }
-        
-        .category-title {
-            font-weight: bold;
-            margin-bottom: 0.25rem;
-            color: #ffffff;
-        }
-        
-        .category-words {
-            color: #b0b0b0;
-            font-size: 0.9rem;
-        }
-        
-        .category-status {
-            font-weight: bold;
-            color: #28a745;
-        }
-        
-        .category-status.unsolved {
-            color: #dc3545;
-        }
-        
-        .category-row {
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
             transition: all 0.3s ease;
         }
-        
-        .category-row.solved {
-            transform: scale(1.02);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            border: 2px solid #28a745;
-            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+        .indicator.active {
+            background: white;
+            transform: scale(1.2);
         }
-        
-        .puzzle-hint {
-            background: #fff3cd;
-            border: 2px solid #ffeaa7;
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 1rem 0;
-            color: #856404;
-        }
-        
-        .hint-title {
+        .timer-display {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            padding: 1rem 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            color: white;
             font-weight: bold;
-            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
         }
-        
-        .hint-text {
-            margin: 0.5rem 0;
+        .hawaiian-hint {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            backdrop-filter: blur(10px);
+            color: white;
+            text-align: center;
+        }
+        .hidden-clue {
+            position: absolute;
+            top: -1000px;
+            left: -1000px;
+            color: #ff6b6b;
+            font-size: 0.1px;
+            opacity: 0.01;
+        }
+
+        .puzzle-tiles-container {
+            width: fit-content;
+            height: fit-content;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .tiles-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .puzzle-tile {
+            width: 64px;
+            height: 36px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            transition: transform 0.2s ease;
+            display: block;
+        }
+
+        .puzzle-tile:hover {
+            transform: scale(1.05);
+        }
+
+        .puzzle-tile-large {
+            width: 400px;
+            height: 300px;
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            margin: 0 auto;
+        }
+
+        .puzzle-tile-large:hover {
+            transform: scale(1.02);
         }
     </style>
 </head>
-<body class="puzzle3-theme">
+<body class="puzzle1-theme">
     <div class="container">
         <header class="puzzle-header">
             <button class="back-btn" onclick="goBack()">← Back to Puzzles</button>
@@ -293,52 +207,26 @@
         <main class="puzzle-main">
             <div class="puzzle-content">
                 <div class="puzzle-description">
-                    <h2>🧩 Street Connections</h2>
-                    <p id="puzzle-number-desc" style="display: none;">3</p>
+                    <h2>🌺 Hawaiian Salutations 🌺</h2>
+                    <p id="puzzle-number-desc" style="display: none;">1</p>
                 </div>
 
-                <div class="connections-container">
-                    <div class="connections-grid">
-                        <!-- Words will be dynamically shuffled and inserted here -->
+                <div class="puzzle-area">
+                    <div class="puzzle-tiles-container">
+                        <div class="tiles-grid" id="tiles-grid">
+                            <!-- Tiles will be dynamically generated here -->
+                        </div>
                     </div>
 
-                    <div class="connections-categories">
-                        <div class="category-row category-yellow">
-                            <div class="category-color category-yellow"></div>
-                            <div class="category-info">
-                                <div class="category-title">???</div>
-                                <div class="category-words">- - - -</div>
-                            </div>
-                        </div>
-                        
-                        <div class="category-row category-green">
-                            <div class="category-color category-green"></div>
-                            <div class="category-info">
-                                <div class="category-title">???</div>
-                                <div class="category-words">- - - -</div>
-                            </div>
-                        </div>
-                        
-                        <div class="category-row category-blue">
-                            <div class="category-color category-blue"></div>
-                            <div class="category-info">
-                                <div class="category-title">???</div>
-                                <div class="category-words">- - - -</div>
-                            </div>
-                        </div>
-                        
-                        <div class="category-row category-purple">
-                            <div class="category-color category-purple"></div>
-                            <div class="category-info">
-                                <div class="category-title">???</div>
-                                <div class="category-words">- - - -</div>
-                            </div>
-                        </div>
+                    <div class="puzzle-controls">
+                        <button class="control-btn" onclick="togglePuzzle()" id="play-pause-btn">⏸️ Pause</button>
                     </div>
+
+
                 </div>
 
                 <div class="puzzle-actions">
-                    <input type="text" id="answer-input" placeholder="???" class="answer-input">
+                    <input type="text" id="answer-input" placeholder="What is the hidden answer?" class="answer-input">
                     <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
                 </div>
 
@@ -353,425 +241,144 @@
 
     <script src="puzzle-script.js"></script>
     <script>
-        // Connections game state
-        let selectedWords = [];
-        let gameState = {
-            yellow: { solved: false, words: ['LOCKING', 'HOUSE', 'BREAKING', 'POPPING'], theme: 'OG Styles' },
-            green: { solved: false, words: ['SHADY', 'OAK', 'SQUIRREL', 'BLOOM'], theme: 'Neighborhoods in Pittsburgh' },
-            blue: { solved: false, words: ['STANLEY', 'RICK', 'JIATONG', 'MARISSA'], theme: '2025 Street Graduating Class' },
-            purple: { solved: false, words: ['FIVE', 'BTS', 'ELECTRICITY', 'SPEED'], theme: '???' }
-        };
-        
-        // Track solved categories in order
-        let solvedCategories = [];
-        
-        // All words for shuffling
-        let allWords = [
-            'LOCKING', 'HOUSE', 'BREAKING', 'POPPING',
-            'SHADY', 'OAK', 'SQUIRREL', 'BLOOM',
-            'STANLEY', 'RICK', 'JIATONG', 'MARISSA',
-            'FIVE', 'BTS', 'ELECTRICITY', 'SPEED'
+        let currentSlide = 0;
+        let puzzleInterval;
+        let slideshowTimeRemaining = 3; // 3 seconds per tile
+        let isPlaying = true;
+        let availableTiles = []; // Array to store available tile indices
+        let randomTileOrder = []; // Array to store random order of available tiles
+
+        // List of missing tiles (deleted tiles)
+        const missingTiles = [
+            'tile_01_07.jpg', 'tile_01_08.jpg', 'tile_02_07.jpg', 'tile_02_08.jpg',
+            'tile_03_07.jpg', 'tile_05_07.jpg', 'tile_07_07.jpg', 'tile_08_04.jpg',
+            'tile_08_05.jpg', 'tile_09_04.jpg', 'tile_09_05.jpg', 'tile_09_07.jpg',
+            'tile_10_04.jpg', 'tile_10_07.jpg', 'tile_11_04.jpg', 'tile_11_05.jpg',
+            'tile_11_07.jpg'
         ];
-        
-        // Define the correct answer for the purple category
-        const correctPurpleTheme = '???';
-        
-        // Shuffle array function
-        function shuffleArray(array) {
-            const shuffled = [...array];
-            for (let i = shuffled.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+
+        // Generate list of available tiles
+        function generateAvailableTiles() {
+            const tiles = [];
+            for (let row = 0; row < 12; row++) {
+                for (let col = 0; col < 12; col++) {
+                    const tileName = `tile_${row.toString().padStart(2, '0')}_${col.toString().padStart(2, '0')}.jpg`;
+                    if (!missingTiles.includes(tileName)) {
+                        tiles.push({row, col, index: row * 12 + col});
+                    }
+                }
             }
-            return shuffled;
+            return tiles;
         }
-        
-        // Shuffle the board
-        function shuffleBoard() {
-            const shuffledWords = shuffleArray(allWords);
-            const grid = document.querySelector('.connections-grid');
-            
-            // Clear existing words
+
+        // Generate random order of available tiles
+        function generateRandomTileOrder() {
+            const tiles = [...availableTiles]; // Copy available tiles
+            // Fisher-Yates shuffle algorithm
+            for (let i = tiles.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
+            }
+            return tiles;
+        }
+
+
+        // Initialize puzzle
+        function initPuzzle() {
+            // Generate list of available tiles
+            availableTiles = generateAvailableTiles();
+            // Generate random order of available tiles
+            randomTileOrder = generateRandomTileOrder();
+            showSlide(0);
+            startPuzzle();
+        }
+
+
+        // Show specific slide (single tile)
+        function showSlide(n) {
+            currentSlide = n;
+            const grid = document.getElementById('tiles-grid');
+            if (!grid) {
+                console.error('Grid element not found!');
+                return;
+            }
             grid.innerHTML = '';
             
-            // Add shuffled words
-            shuffledWords.forEach(word => {
-                const wordDiv = document.createElement('div');
-                wordDiv.className = 'connection-word';
-                wordDiv.textContent = word;
-                grid.appendChild(wordDiv);
-            });
-        }
-        
-        // Reorder word tiles to bubble solved ones to the top
-        function reorderTiles() {
-            console.log('Reordering tiles, solved list:', solvedCategories);
-            const grid = document.querySelector('.connections-grid');
-            const allTiles = Array.from(grid.querySelectorAll('.connection-word'));
-            
-            console.log('Found tiles:', allTiles.length);
-            
-            // Separate solved and unsolved tiles
-            const solvedTiles = allTiles.filter(tile => tile.classList.contains('solved'));
-            const unsolvedTiles = allTiles.filter(tile => !tile.classList.contains('solved'));
-            
-            console.log('Solved tiles:', solvedTiles.length, 'Unsolved tiles:', unsolvedTiles.length);
-            
-            // Add bubbling animation to solved tiles with stagger
-            solvedTiles.forEach((tile, index) => {
-                // Stagger the animation start for multiple tiles
-                setTimeout(() => {
-                    tile.classList.add('bubbling');
-                    // Remove bubbling class after animation completes
-                    setTimeout(() => {
-                        tile.classList.remove('bubbling');
-                    }, 1200);
-                }, index * 100); // 100ms stagger between tiles
-            });
-            
-            // Clear grid
-            grid.innerHTML = '';
-            
-            // Add solved tiles first (in order of solving)
-            solvedCategories.forEach(color => {
-                const tilesForColor = solvedTiles.filter(tile => tile.classList.contains(color));
-                tilesForColor.forEach(tile => {
-                    console.log('Adding solved tile:', tile.textContent, 'for color:', color);
-                    grid.appendChild(tile);
-                });
-            });
-            
-            // Add unsolved tiles
-            unsolvedTiles.forEach(tile => {
-                console.log('Adding unsolved tile:', tile.textContent);
-                grid.appendChild(tile);
-            });
-            
-            // Log final order
-            const finalOrder = Array.from(grid.querySelectorAll('.connection-word')).map(tile => tile.textContent.trim());
-            console.log('Final tile order:', finalOrder);
-        }
-        
-        function goBack() {
-            window.location.href = "index.html";
-        }
-        
-        // Initialize connections game
-        function initializeConnectionsGame() {
-            console.log('Initializing connections game...');
-            
-            // Shuffle the board first
-            shuffleBoard();
-            
-            // Update category display to show all as unsolved
-            updateCategoryDisplay();
-            
-            // Add click listeners to all words
-            const words = document.querySelectorAll('.connection-word');
-            console.log('Found clickable words:', words.length, words);
-            
-            words.forEach((word, index) => {
-                console.log(`Adding click listener to word ${index}:`, word.textContent);
-                word.addEventListener('click', handleWordClick);
-            });
-            
-            // Update game display
-            updateGameDisplay();
-        }
-        
-        // Update category display to show all as unsolved
-        function updateCategoryDisplay() {
-            const categories = document.querySelectorAll('.category-row');
-            categories.forEach(category => {
-                const titleElement = category.querySelector('.category-title');
-                const wordsElement = category.querySelector('.category-words');
-                
-                if (titleElement) {
-                    titleElement.textContent = '???';
-                }
-                
-                if (wordsElement) {
-                    wordsElement.textContent = '- - - -';
-                }
-            });
-        }
-        
-        function handleWordClick(event) {
-            console.log('Word clicked!', event.target);
-            const word = event.target;
-            const wordText = word.textContent.trim();
-            console.log('Clicked word text:', wordText);
-            
-            // Don't allow clicking on already solved words
-            if (word.classList.contains('solved')) {
-                console.log('Word is already solved, ignoring click');
+            // Get the tile from random order
+            const tileData = randomTileOrder[n];
+            if (!tileData) {
+                console.error('No tile data found for slide', n);
                 return;
             }
             
-            // Toggle selection
-            if (word.classList.contains('selected')) {
-                // Deselect word
-                word.classList.remove('selected');
-                selectedWords = selectedWords.filter(w => w !== wordText);
+            // Create a single large tile
+            const tile = document.createElement('div');
+            tile.className = 'puzzle-tile-large';
+            const imageUrl = `tiles/tile_${tileData.row.toString().padStart(2, '0')}_${tileData.col.toString().padStart(2, '0')}.jpg`;
+            tile.style.backgroundImage = `url('${imageUrl}')`;
+            tile.style.backgroundSize = 'cover';
+            tile.style.backgroundPosition = 'center';
+            grid.appendChild(tile);
+            
+        }
+
+        // Next slide
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % availableTiles.length;
+            showSlide(currentSlide);
+            resetTimer();
+        }
+
+
+        // Toggle puzzle play/pause
+        function togglePuzzle() {
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            
+            if (isPlaying) {
+                clearInterval(puzzleInterval);
+                playPauseBtn.textContent = '▶️ Play';
+                isPlaying = false;
             } else {
-                // Select word (max 4)
-                if (selectedWords.length >= 4) {
-                    showMessage('You can only select up to 4 words at a time!', 'warning');
-                    return;
-                }
-                word.classList.add('selected');
-                selectedWords.push(wordText);
-            }
-            
-            // Check if we have 4 selected words
-            if (selectedWords.length === 4) {
-                checkCategory();
-            }
-            
-            updateGameDisplay();
-        }
-        
-        function checkCategory() {
-            console.log('Checking category for words:', selectedWords);
-            // Check if the selected words form a valid category
-            const selectedSet = new Set(selectedWords);
-            
-            // Check against known categories
-            for (const [color, category] of Object.entries(gameState)) {
-                console.log(`Checking ${color} category:`, category.words, 'solved:', category.solved);
-                if (category.solved) continue;
-                
-                const categorySet = new Set(category.words);
-                console.log('Comparing sets:', Array.from(selectedSet), 'vs', Array.from(categorySet));
-                if (setsEqual(selectedSet, categorySet)) {
-                    // Found a match!
-                    console.log('Found match for category:', color);
-                    solveCategory(color, selectedWords);
-                    return;
-                }
-            }
-            
-            // No match found
-            console.log('No match found for words:', selectedWords);
-            showMessage('These words don\'t form a valid category. Try again!', 'error');
-            clearSelection();
-        }
-        
-        function setsEqual(set1, set2) {
-            if (set1.size !== set2.size) return false;
-            for (let item of set1) {
-                if (!set2.has(item)) return false;
-            }
-            return true;
-        }
-        
-        function solveCategory(color, words) {
-            console.log('solveCategory called with:', color, words);
-            // Mark category as solved
-            gameState[color].solved = true;
-            
-            // Add to solved categories list
-            if (!solvedCategories.includes(color)) {
-                solvedCategories.push(color);
-                console.log('Added to solved categories:', color, 'List now:', solvedCategories);
-            }
-            
-            // Update word styling
-            words.forEach(wordText => {
-                const wordElement = Array.from(document.querySelectorAll('.connection-word'))
-                    .find(el => el.textContent.trim() === wordText);
-                if (wordElement) {
-                    wordElement.classList.add('solved', color);
-                    wordElement.classList.remove('selected');
-                    
-                    // Add solved pulse animation
-                    wordElement.classList.add('pulse');
-                    setTimeout(() => {
-                        wordElement.classList.remove('pulse');
-                    }, 800);
-                }
-            });
-            
-            // Update category display
-            const categoryRow = document.querySelector(`.category-${color}`);
-            if (categoryRow) {
-                console.log('Updating category display for:', color, 'with words:', words);
-                
-                // Add solved class for visual feedback
-                categoryRow.classList.add('solved');
-                
-                // Update the category title if it was unknown
-                const titleElement = categoryRow.querySelector('.category-title');
-                if (titleElement && titleElement.textContent === '???') {
-                    titleElement.textContent = gameState[color].theme;
-                    console.log('Updated title to:', gameState[color].theme);
-                }
-                
-                // Update the category words to show the solved words
-                const wordsElement = categoryRow.querySelector('.category-words');
-                if (wordsElement) {
-                    const wordsText = words.join(', ');
-                    wordsElement.textContent = wordsText;
-                    console.log('Updated words to:', wordsText);
-                } else {
-                    console.log('Words element not found for category:', color);
-                }
-            } else {
-                console.log('Category row not found for:', color);
-            }
-            
-            // Clear selection
-            selectedWords = [];
-            
-            // Reorder tiles to bubble solved ones to the top
-            reorderTiles();
-            
-            // Check if game is complete
-            if (isGameComplete()) {
-                showGameComplete();
-            } else {
-                showMessage(`Great! You found the ${gameState[color].theme} category!`, 'success');
-            }
-            
-            updateGameDisplay();
-        }
-        
-        function clearSelection() {
-            selectedWords = [];
-            document.querySelectorAll('.connection-word.selected').forEach(word => {
-                word.classList.remove('selected');
-            });
-        }
-        
-        function updateGameDisplay() {
-            // Update selected words count
-            const selectedCount = selectedWords.length;
-            const message = selectedCount > 0 ? 
-                `Selected: ${selectedCount}/4 words` : 
-                'Click words to form categories of 4';
-            
-            // Update or create message display
-            let messageEl = document.getElementById('game-message');
-            if (!messageEl) {
-                messageEl = document.createElement('div');
-                messageEl.id = 'game-message';
-                messageEl.style.cssText = `
-                    text-align: center;
-                    margin: 1rem 0;
-                    padding: 0.5rem;
-                    background: #2d2d2d;
-                    border-radius: 8px;
-                    color: #ffffff;
-                    font-weight: 600;
-                `;
-                document.querySelector('.connections-grid').parentNode.insertBefore(
-                    messageEl, 
-                    document.querySelector('.connections-grid')
-                );
-            }
-            messageEl.textContent = message;
-        }
-        
-        function showMessage(text, type) {
-            // Remove existing message
-            const existing = document.querySelector('.game-message-temp');
-            if (existing) existing.remove();
-            
-            const messageEl = document.createElement('div');
-            messageEl.className = 'game-message-temp';
-            messageEl.style.cssText = `
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background: ${type === 'error' ? '#dc3545' : type === 'success' ? '#28a745' : '#ffc107'};
-                color: white;
-                padding: 1rem 2rem;
-                border-radius: 8px;
-                font-weight: bold;
-                z-index: 1000;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            `;
-            messageEl.textContent = text;
-            document.body.appendChild(messageEl);
-            
-            setTimeout(() => {
-                if (messageEl.parentNode) {
-                    messageEl.parentNode.removeChild(messageEl);
-                }
-            }, 3000);
-        }
-        
-        function isGameComplete() {
-            return Object.values(gameState).every(category => category.solved);
-        }
-        
-        function showGameComplete() {
-            showMessage('🎉 Congratulations! You\'ve solved all categories! Now guess the theme of the purple category.', 'success');
-            
-            // Enable the answer input
-            const answerInput = document.getElementById('answer-input');
-            const submitBtn = document.querySelector('.submit-btn');
-            
-            if (answerInput) {
-                answerInput.disabled = false;
-                answerInput.placeholder = 'What is the theme of the purple category?';
-            }
-            if (submitBtn) {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Submit Answer';
+                startPuzzle();
+                playPauseBtn.textContent = '⏸️ Pause';
+                isPlaying = true;
             }
         }
-        
-        
-        // Test function to manually solve a category
-        function testSolveCategory() {
-            console.log('Testing category solve...');
-            solveCategory('purple', ['FIVE', 'BTS', 'ELECTRICITY', 'SPEED']);
+
+        // Start puzzle
+        function startPuzzle() {
+            puzzleInterval = setInterval(() => {
+                nextSlide();
+            }, 3000); // 3 seconds per tile
         }
-        
-        // Test function to manually test tile bubbling
-        function testBubbling() {
-            console.log('Testing tile bubbling...');
-            solvedCategories = ['yellow', 'green'];
-            reorderTiles();
+
+        // Reset timer
+        function resetTimer() {
+            slideshowTimeRemaining = 3;
         }
-        
-        // Test function to simulate solving a category
-        function testSolve() {
-            console.log('Testing category solve...');
-            solveCategory('yellow', ['LOCKING', 'HOUSE', 'BREAKING', 'POPPING']);
-        }
-        
-        // Test function to manually reorder tiles
-        function testReorder() {
-            console.log('Testing manual tile reorder...');
-            solvedCategories = ['yellow', 'green'];
-            reorderTiles();
-        }
-        
-        // Make test functions globally available
-        window.testSolveCategory = testSolveCategory;
-        window.testBubbling = testBubbling;
-        window.testSolve = testSolve;
-        window.testReorder = testReorder;
-        
-        // Initialize puzzle timer when page loads
+
+        // Initialize when page loads
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM Content Loaded');
+            console.log('Puzzle 1 DOMContentLoaded - starting initialization');
+            // Initialize puzzle timer first
             const puzzleNumber = "3";
             
             // Always check if puzzle is completed first
             checkPuzzleCompletion(puzzleNumber);
             
+            console.log('Checking if puzzle is completed:', isPuzzleCompleted(puzzleNumber));
             if (!isPuzzleCompleted(puzzleNumber)) {
+                console.log('Initializing puzzle timer for puzzle', puzzleNumber);
                 initializePuzzleWithoutTimer(puzzleNumber);
             }
-            
-            // Initialize the connections game
-            console.log('About to initialize connections game');
-            initializeConnectionsGame();
+            // Then initialize puzzle
+            console.log('Initializing puzzle');
+            initPuzzle();
         });
+
+        function goBack() {
+            window.location.href = "index.html";
+        }
     </script>
 </body>
 </html>
