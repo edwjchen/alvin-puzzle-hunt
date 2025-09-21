@@ -287,7 +287,10 @@ function getObfuscatedAnswers() {
             "34369ad7f7d08ecb1dbdfa62e3f074aa",
         ],
         9: ["17148f97de14ffbe039390235f42c7c7"],
-        10: ["d9ef7771a0539bda416ec14eae7f7cf6"],
+        10: [
+            "34369ad7f7d08ecb1dbdfa62e3f074aa",
+            "54418875ec249dd4b51d368ae3f9dcef",
+        ],
         11: ["8b61c11eb8baedd53d2e99d1a01fa7bb"],
         12: [
             "c8d56be998c94089ea6e1147dc9253c1",
@@ -858,8 +861,15 @@ function submitAnswer() {
         // Mark puzzle as completed (even if already completed)
         markPuzzleCompleted(puzzleNumber);
 
-        // Show success screen (even if already completed)
-        showSuccessScreen(puzzleNumber, answer);
+        // Check if all 15 puzzles are now completed
+        const completedPuzzles = getCompletedPuzzles();
+        if (completedPuzzles.length >= 15) {
+            // All puzzles completed - show the final celebration screen
+            showAllCompletedScreen();
+        } else {
+            // Show success screen (even if already completed)
+            showSuccessScreen(puzzleNumber, answer);
+        }
     } else {
         // Always show wrong answer alert for incorrect answers
         // regardless of whether puzzle is already completed
