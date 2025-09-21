@@ -286,11 +286,9 @@ function getObfuscatedAnswers() {
         ],
         7: ["17148f97de14ffbe039390235f42c7c7"],
         8: ["2db95e8e1a9267b7a1188556b2013b33"],
-        9: [
-            "d9ef7771a0539bda416ec14eae7f7cf6",
-        ],
+        9: ["d9ef7771a0539bda416ec14eae7f7cf6"],
         10: ["e8984b9da2f51f375a80360246755854"],
-        11: ["8b61c11eb8baedd53d2e99d1a01fa7bb"],
+        11: ["88667e8b8a59a6d33c3ca93a12277cd7"],
         12: [
             "c8d56be998c94089ea6e1147dc9253c1",
             "77ebd2a487ca41185d7991aabd4184a6",
@@ -301,7 +299,7 @@ function getObfuscatedAnswers() {
             "77fcf3f9314d619c752f9cb035916b02",
             "919c8b643b7133116b02fc0d9bb7df3f",
         ],
-        14: ["88667e8b8a59a6d33c3ca93a12277cd7"],
+        14: ["8b61c11eb8baedd53d2e99d1a01fa7bb"],
         15: ["32318894778e7864e4d9bdbe52172217"],
     };
 
@@ -316,10 +314,10 @@ function getObfuscatedAnswers() {
         8: ["get rekt"],
         9: ["deez nuts"],
         10: ["LLLLLLLLLL"],
-        11: ["676767676767"],
+        11: ["just solve the puzzles bro"],
         12: ["stop trying that hard"],
         13: ["bro bro bro bro bro bro"],
-        14: ["just solve the puzzles bro"],
+        14: ["676767676767"],
         15: ["meta meta meta"],
     };
 

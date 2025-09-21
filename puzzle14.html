@@ -3,327 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎈 Balloon Challenge</title>
+    <title>🪞 Mirror Mirror</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="puzzle-styles.css">
     <style>
-        .puzzle14-theme {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 8s ease infinite;
+        .puzzle11-theme {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
         }
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        
-        .balloon-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 60vh;
-            padding: 2rem;
-            position: relative;
-        }
-        
-        .balloon {
-            width: 120px;
-            height: 150px;
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            cursor: pointer;
-            transition: transform 0.2s ease-out, box-shadow 0.3s ease;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            margin-bottom: 2rem;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            --current-scale: 1;
-            transform: scale(var(--current-scale));
-            background: #ff6b6b;
-        }
-        
-        .balloon::before {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 0;
-            border-left: 8px solid transparent;
-            border-right: 8px solid transparent;
-            border-top: 15px solid var(--balloon-tip-color, #FF6B6B);
-        }
-        
-        .balloon::after {
-            content: '';
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 25px;
-            height: 35px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            transform: rotate(-45deg);
-        }
-        
-        .balloon-string {
-            width: 2px;
-            height: 80px;
-            background: #8B4513;
-            margin: 0 auto;
-            position: relative;
-            animation: stringWave 2s ease-in-out infinite;
-            transition: margin-top 0.2s ease-out;
-            margin-top: var(--string-offset, 0px);
-            cursor: pointer;
-        }
-        
-        .balloon-string::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 8px;
-            height: 8px;
-            background: #8B4513;
-            border-radius: 50%;
-        }
-        
-        @keyframes stringWave {
-            0%, 100% {
-                transform: translateX(0px);
-            }
-            25% {
-                transform: translateX(3px);
-            }
-            75% {
-                transform: translateX(-3px);
-            }
-        }
-        
-        .balloon:hover {
-            transform: translateY(-5px) scale(var(--current-scale, 1));
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.3);
-        }
-        
-        .balloon.inflating {
-            animation: inflate 0.2s ease-out;
-        }
-        
-        @keyframes inflate {
-            0% { transform: scale(var(--current-scale, 1)); }
-            50% { transform: scale(calc(var(--current-scale, 1) * 1.08)); }
-            100% { transform: scale(var(--current-scale, 1)); }
-        }
-        
-        .balloon.popping {
-            animation: pop 0.5s ease-out forwards;
-        }
-        
-        @keyframes pop {
-            0% { transform: scale(var(--current-scale, 1)); opacity: 1; }
-            30% { transform: scale(calc(var(--current-scale, 1) * 1.2)); opacity: 0.8; }
-            100% { transform: scale(0.1); opacity: 0; }
-        }
-        
-        .balloon-text {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: bold;
-            font-size: 1.8rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            user-select: none;
-            position: relative;
-        }
-        
-        .click-text {
-            text-align: center;
-            color: #333;
-            font-size: 1rem;
-            font-weight: bold;
-            margin-top: 1rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-        }
-        
-        .balloon-image {
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        
-        .balloon.balloon-image-1 {
-            background: url('balloons/alvin_1.jpg') !important;
-            background-size: cover !important;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-            --balloon-tip-color: #FF6B6B;
-        }
-        
-        .balloon.balloon-image-2 {
-            background: url('balloons/alvin_2.jpg') !important;
-            background-size: cover !important;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-            --balloon-tip-color: #4ECDC4;
-        }
-        
-        .balloon.balloon-image-3 {
-            background: url('balloons/alvin_3.jpg') !important;
-            background-size: cover !important;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-            --balloon-tip-color: #45B7D1;
-        }
-        
-        .balloon.balloon-image-4 {
-            background: url('balloons/alvin_4.jpg') !important;
-            background-size: cover !important;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-            --balloon-tip-color: #F093FB;
-        }
-        
-        .balloon.balloon-image-5 {
-            background: linear-gradient(45deg, #4FACFE, #00F2FE) !important;
-            background-size: cover !important;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-            --balloon-tip-color: #4FACFE;
-        }
-        
-        .balloon.balloon-image-6 {
-            background: linear-gradient(45deg, #43E97B, #38F9D7) !important;
-            background-size: cover !important;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-            --balloon-tip-color: #43E97B;
-        }
-        
-        .balloon.balloon-image-7 {
-            background: linear-gradient(45deg, #FA709A, #FEE140) !important;
-            background-size: cover !important;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-            --balloon-tip-color: #FA709A;
-        }
-        
-        .balloon.balloon-image-8 {
-            background: linear-gradient(45deg, #A8EDEA, #FED6E3) !important;
-            background-size: cover !important;
-            background-position: center !important;
-            background-repeat: no-repeat !important;
-            --balloon-tip-color: #A8EDEA;
-        }
-        
-        .balloon-info {
-            text-align: center;
-            color: #333;
+        .webcam-puzzle {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
             margin: 2rem 0;
-        }
-        
-        .balloon-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #333;
-            text-shadow: none;
-        }
-        
-        .balloon-info p {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            color: #333;
-            text-shadow: none;
-        }
-        
-        .click-counter {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 15px;
-            padding: 1rem 2rem;
-            margin: 2rem auto;
-            backdrop-filter: blur(10px);
-            color: #333;
-            font-weight: bold;
-            font-size: 1.2rem;
-            border: 2px solid rgba(102, 126, 234, 0.3);
-            max-width: 300px;
             text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         }
-        
-        .restart-btn {
-            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+        .webcam-container {
+            position: relative;
+            max-width: 640px;
+            margin: 2rem auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        .webcam-video {
+            width: 100%;
+            height: auto;
+            display: block;
+            background: #000;
+        }
+        .webcam-placeholder {
+            width: 100%;
+            height: 360px;
+            background: linear-gradient(45deg, #2c3e50, #34495e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            border-radius: 15px;
+        }
+        .webcam-controls {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+        }
+        .webcam-btn {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
             color: white;
             border: none;
-            padding: 1rem 2rem;
-            border-radius: 25px;
-            font-size: 1.1rem;
-            font-weight: bold;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            margin-top: 2rem;
         }
-        
-        .restart-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        .webcam-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
         }
-        
-        .restart-btn:active {
-            transform: translateY(-1px);
+        .webcam-btn:disabled {
+            background: #7f8c8d;
+            cursor: not-allowed;
+            transform: none;
         }
-        
-        .pop-message {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(255, 255, 255, 0.95);
-            color: #333;
-            padding: 2rem 3rem;
-            border-radius: 20px;
-            font-size: 2rem;
+        .webcam-status {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            font-size: 1.2rem;
             font-weight: bold;
+            color: #495057;
             text-align: center;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-            animation: popMessage 2s ease-out forwards;
         }
-        
-        @keyframes popMessage {
-            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
-            20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-            80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-            100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+        .permission-hint {
+            background: #fff3cd;
+            border: 2px solid #ffeaa7;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            color: #856404;
         }
-        
-        .confetti {
-            position: fixed;
-            width: 10px;
-            height: 10px;
-            background: #ff6b6b;
-            animation: confetti-fall 3s linear forwards;
-            z-index: 999;
-        }
-        
-        @keyframes confetti-fall {
-            0% {
-                transform: translateY(-100vh) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(720deg);
-                opacity: 0;
-            }
+        .error-message {
+            background: #f8d7da;
+            border: 2px solid #f5c6cb;
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            color: #721c24;
         }
     </style>
 </head>
-<body class="puzzle14-theme">
+<body class="puzzle11-theme">
     <div class="container">
         <header class="puzzle-header">
             <button class="back-btn" onclick="goBack()">← Back to Puzzles</button>
@@ -333,38 +110,54 @@
         <main class="puzzle-main">
             <div class="puzzle-content">
                 <div class="puzzle-description">
-                    <h2 style="color: #333;">🎈 Balloon Challenge</h2>
-                    <p id="puzzle-number-desc" style="display: none;">14</p>
+                    <h2>🪞 Mirror Mirror</h2>
                 </div>
 
                 <div class="puzzle-area">
-                    <div class="balloon-container">
-                        <div class="balloon-info">
-                            <p>Click the balloon to make it bigger!</p>
-                        </div>
+                    <div class="webcam-puzzle">
+                        <h3></h3>
+                        <p>Click the button below to reveal the answer</p>
                         
-                        <div class="balloon-container">
-                            <div class="balloon balloon-image balloon-image-1" id="balloon">
-                                <div class="balloon-text"></div>
+                        <div class="webcam-container">
+                            <video id="webcam-video" class="webcam-video" autoplay muted style="display: none;"></video>
+                            <div id="webcam-placeholder" class="webcam-placeholder">
+                                📹 Click "Reveal answer" to start
                             </div>
-                            <div class="balloon-string"></div>
-                            <div class="click-text">CLICK</div>
+                            <div class="webcam-controls">
+                                <button id="webcam-btn" class="webcam-btn" onclick="toggleWebcam()">
+                                    Reveal answer
+                                </button>
+                                <span id="webcam-indicator" style="color: white; font-weight: bold;">
+                                </span>
+                            </div>
                         </div>
                         
-                        <button class="restart-btn" onclick="restartBalloon()" id="restart-btn" style="display: none;">
-                            🎈 New Balloon
-                        </button>
+                        <div class="webcam-status" id="webcam-status">
+                            Ready to reveal the answer!
+                        </div>
+                        
+                        <div class="permission-hint">
+                            <h4>💡 Permission Hint</h4>
+                            <p><strong>Note:</strong> Your browser will ask for camera permission. Click "Allow" to proceed with the puzzle.</p>
+                            <p>If you don't see the permission prompt, check your browser's address bar for a camera icon.</p>
+                        </div>
+                        
+                        <div id="error-container"></div>
+                        
+                        <div class="puzzle-box" id="answer-reveal" style="display: none;">
+                            <h3>🎯 The Answer</h3>
+                            <p>Great! The answer to this puzzle is:</p>
+                            <p><strong>676767676767</strong></p>
+                            <p>You successfully solved this puzzle!</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="click-counter">
-                    Clicks: <span id="click-count">0</span> / <span id="max-clicks">20</span>
-                </div>
-
                 <div class="puzzle-actions">
-                    <input type="text" id="answer-input" placeholder="What is the answer to this puzzle?" class="answer-input">
+                    <input type="text" id="answer-input" placeholder="What is the answer revealed when you activate the webcam?" class="answer-input">
                     <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
                 </div>
+
             </div>
         </main>
 
@@ -376,173 +169,114 @@
 
     <script src="puzzle-script.js"></script>
     <script>
-        let clickCount = 0;
-        let maxClicks = 100;
-        let currentBalloonSize = 1;
-        let currentStringOffset = 0;
-        let colorIndex = 0;
-        let isPopped = false;
+        let webcamStream = null;
+        let isWebcamActive = false;
         
-        const balloonImages = [
-            'balloon-image-1',
-            'balloon-image-2',
-            'balloon-image-3',
-            'balloon-image-4'
-        ];
-        
-        function initializeBalloon() {
-            const balloon = document.getElementById('balloon');
-            const balloonString = document.querySelector('.balloon-string');
-            const clickCountDisplay = document.getElementById('click-count');
-            const maxClicksDisplay = document.getElementById('max-clicks');
-            const restartBtn = document.getElementById('restart-btn');
+        async function toggleWebcam() {
+            const video = document.getElementById('webcam-video');
+            const placeholder = document.getElementById('webcam-placeholder');
+            const button = document.getElementById('webcam-btn');
+            const indicator = document.getElementById('webcam-indicator');
+            const status = document.getElementById('webcam-status');
+            const answerReveal = document.getElementById('answer-reveal');
+            const errorContainer = document.getElementById('error-container');
             
-            clickCount = 0;
-            currentBalloonSize = 1;
-            currentStringOffset = 0;
-            isPopped = false;
+            // Clear any previous errors
+            errorContainer.innerHTML = '';
             
-            // Set random max clicks between 80-120
-            maxClicks = Math.floor(Math.random() * 41) + 80;
-            
-            // Apply new image
-            balloon.className = `balloon balloon-image ${balloonImages[colorIndex]}`;
-            colorIndex = (colorIndex + 1) % balloonImages.length;
-            
-            // Reset balloon size and appearance using CSS custom property
-            balloon.style.setProperty('--current-scale', '1');
-            balloon.style.opacity = '1';
-            balloon.classList.remove('popping');
-            
-            // Reset string position
-            balloonString.style.setProperty('--string-offset', currentStringOffset + 'px');
-            
-            // Update displays
-            clickCountDisplay.textContent = clickCount;
-            maxClicksDisplay.textContent = maxClicks;
-            restartBtn.style.display = 'none';
-            
-            // Add click event listeners to both balloon and string
-            balloon.addEventListener('click', inflateBalloon);
-            balloonString.addEventListener('click', inflateBalloon);
-        }
-        
-        function inflateBalloon() {
-            if (isPopped) return;
-            
-            clickCount++;
-            currentBalloonSize += 0.08; // Slightly smaller increments for smoother growth
-            currentStringOffset += 6; // Move string starting point down with each click
-            
-            const balloon = document.getElementById('balloon');
-            const balloonString = document.querySelector('.balloon-string');
-            const clickCountDisplay = document.getElementById('click-count');
-            
-            // Update the CSS custom property for smooth scaling
-            balloon.style.setProperty('--current-scale', currentBalloonSize.toString());
-            
-            // Update string position - move starting point down with each click
-            balloonString.style.setProperty('--string-offset', currentStringOffset + 'px');
-            
-            // Add inflation animation
-            balloon.classList.add('inflating');
-                setTimeout(() => {
-                balloon.classList.remove('inflating');
-            }, 200);
-            
-            // Update click counter
-            clickCountDisplay.textContent = clickCount;
-            
-            // Check if balloon should pop
-            if (clickCount >= maxClicks) {
-                popBalloon();
-            }
-        }
-        
-        function popBalloon() {
-            if (isPopped) return;
-            
-            isPopped = true;
-            const balloon = document.getElementById('balloon');
-            const balloonString = document.querySelector('.balloon-string');
-            const restartBtn = document.getElementById('restart-btn');
-            
-            // Remove click listeners from both balloon and string
-            balloon.removeEventListener('click', inflateBalloon);
-            balloonString.removeEventListener('click', inflateBalloon);
-            
-            // Add pop animation
-            balloon.classList.add('popping');
-            
-            // Show pop message
-            showPopMessage();
-            
-            // Create confetti effect
-            createConfetti();
-            
-            // Show restart button after animation
-            setTimeout(() => {
-                restartBtn.style.display = 'block';
-            }, 2000);
-        }
-        
-        function showPopMessage() {
-            const messages = [
-                '💥 BOOM! 💥',
-                '🎉 Balloon Burst! 🎉',
-                '💥 Explosion! 💥',
-                '🎈 Balloon Gone! 🎈',
-                '💥 That was loud! 💥'
-            ];
-            
-            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-            
-            const popDiv = document.createElement('div');
-            popDiv.className = 'pop-message';
-            popDiv.textContent = randomMessage;
-            
-            document.body.appendChild(popDiv);
-            
-            // Remove message after animation
-            setTimeout(() => {
-                if (popDiv.parentNode) {
-                    popDiv.parentNode.removeChild(popDiv);
+            if (!isWebcamActive) {
+                try {
+                    // Request webcam access
+                    webcamStream = await navigator.mediaDevices.getUserMedia({ 
+                        video: { 
+                            width: { ideal: 640 },
+                            height: { ideal: 480 }
+                        },
+                        audio: false 
+                    });
+                    
+                    // Set video source
+                    video.srcObject = webcamStream;
+                    video.style.display = 'block';
+                    placeholder.style.display = 'none';
+                    
+                    // Update UI
+                    button.textContent = 'Deactivate Webcam';
+                    button.style.background = 'linear-gradient(135deg, #27ae60, #2ecc71)';
+                    indicator.textContent = '● Answer showing';
+                    indicator.style.color = '#27ae60';
+                    status.textContent = 'You revealed the answer!';
+                    status.style.background = '#d4edda';
+                    status.style.borderColor = '#c3e6cb';
+                    status.style.color = '#155724';
+                    
+                    // Show the answer
+                    answerReveal.style.display = 'block';
+                    answerReveal.scrollIntoView({ behavior: 'smooth' });
+                    
+                    isWebcamActive = true;
+                    
+                } catch (error) {
+                    console.error('Error accessing webcam:', error);
+                    let errorMessage = 'Failed to access webcam. ';
+                    
+                    if (error.name === 'NotAllowedError') {
+                        errorMessage += 'Please allow camera permission and try again.';
+                    } else if (error.name === 'NotFoundError') {
+                        errorMessage += 'No camera found on this device.';
+                    } else if (error.name === 'NotReadableError') {
+                        errorMessage += 'Camera is being used by another application.';
+                    } else {
+                        errorMessage += 'Please check your camera settings and try again.';
+                    }
+                    
+                    errorContainer.innerHTML = `<div class="error-message">${errorMessage}</div>`;
+                    status.textContent = 'Answer reveal failed. Please try again.';
+                    status.style.background = '#f8d7da';
+                    status.style.borderColor = '#f5c6cb';
+                    status.style.color = '#721c24';
                 }
-            }, 2000);
-        }
-        
-        function createConfetti() {
-            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f093fb', '#4facfe', '#43e97b', '#fa709a', '#a8edea'];
-            
-            for (let i = 0; i < 50; i++) {
-                setTimeout(() => {
-                    const confetti = document.createElement('div');
-                    confetti.className = 'confetti';
-                    confetti.style.left = Math.random() * 100 + '%';
-                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
-                    confetti.style.animationDelay = Math.random() * 2 + 's';
-                    confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                    
-                    document.body.appendChild(confetti);
-                    
-                    // Remove confetti after animation
-                    setTimeout(() => {
-                        if (confetti.parentNode) {
-                            confetti.parentNode.removeChild(confetti);
-                        }
-                    }, 4000);
-                }, i * 50);
+            } else {
+                // Stop webcam
+                if (webcamStream) {
+                    webcamStream.getTracks().forEach(track => track.stop());
+                    webcamStream = null;
+                }
+                
+                // Update UI
+                video.style.display = 'none';
+                placeholder.style.display = 'flex';
+                button.textContent = 'Reveal answer';
+                button.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
+                indicator.textContent = '● Answer hidden';
+                indicator.style.color = '#e74c3c';
+                status.textContent = 'Answer hidden. Click the button to reveal again.';
+                status.style.background = '#f8f9fa';
+                status.style.borderColor = '#e9ecef';
+                status.style.color = '#495057';
+                
+                // Hide the answer
+                answerReveal.style.display = 'none';
+                
+                isWebcamActive = false;
             }
-        }
-        
-        function restartBalloon() {
-            initializeBalloon();
         }
         
         function goBack() {
+            // Stop webcam before leaving
+            if (webcamStream) {
+                webcamStream.getTracks().forEach(track => track.stop());
+            }
             window.location.href = "index.html";
         }
-
+        
+        // Clean up webcam when page is unloaded
+        window.addEventListener('beforeunload', function() {
+            if (webcamStream) {
+                webcamStream.getTracks().forEach(track => track.stop());
+            }
+        });
+        
         // Initialize puzzle timer when page loads
         document.addEventListener('DOMContentLoaded', function() {
             const puzzleNumber = "14";
@@ -553,9 +287,6 @@
             if (!isPuzzleCompleted(puzzleNumber)) {
                 initializePuzzleWithoutTimer(puzzleNumber);
             }
-            
-            // Initialize balloon
-            initializeBalloon();
         });
     </script>
 </body>
