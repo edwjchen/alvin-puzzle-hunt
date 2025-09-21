@@ -182,7 +182,7 @@
         }
         
         .balloon.balloon-image-4 {
-            background: linear-gradient(45deg, #F093FB, #F5576C) !important;
+            background: url('balloons/alvin_4.jpg') !important;
             background-size: cover !important;
             background-position: center !important;
             background-repeat: no-repeat !important;
@@ -245,12 +245,14 @@
             background: rgba(255, 255, 255, 0.9);
             border-radius: 15px;
             padding: 1rem 2rem;
-            margin: 1rem 0;
+            margin: 2rem auto;
             backdrop-filter: blur(10px);
             color: #333;
             font-weight: bold;
             font-size: 1.2rem;
             border: 2px solid rgba(102, 126, 234, 0.3);
+            max-width: 300px;
+            text-align: center;
         }
         
         .restart-btn {
@@ -332,18 +334,13 @@
             <div class="puzzle-content">
                 <div class="puzzle-description">
                     <h2 style="color: #333;">🎈 Balloon Challenge</h2>
-                    <p style="color: #333;">Click the balloon to inflate it! See how big you can make it before it bursts!</p>
                     <p id="puzzle-number-desc" style="display: none;">14</p>
                 </div>
 
                 <div class="puzzle-area">
                     <div class="balloon-container">
                         <div class="balloon-info">
-                            <h3>🎈 Balloon Inflation Game</h3>
                             <p>Click the balloon to make it bigger!</p>
-                            <div class="click-counter">
-                                Clicks: <span id="click-count">0</span> / <span id="max-clicks">20</span>
-                            </div>
                         </div>
                         
                         <div class="balloon-container">
@@ -358,6 +355,10 @@
                             🎈 New Balloon
                         </button>
                     </div>
+                </div>
+
+                <div class="click-counter">
+                    Clicks: <span id="click-count">0</span> / <span id="max-clicks">20</span>
                 </div>
 
                 <div class="puzzle-actions">
@@ -375,7 +376,7 @@
     <script src="puzzle-script.js"></script>
     <script>
         let clickCount = 0;
-        let maxClicks = 20;
+        let maxClicks = 100;
         let currentBalloonSize = 1;
         let currentStringOffset = 0;
         let colorIndex = 0;
@@ -384,7 +385,8 @@
         const balloonImages = [
             'balloon-image-1',
             'balloon-image-2',
-            'balloon-image-3'
+            'balloon-image-3',
+            'balloon-image-4'
         ];
         
         function initializeBalloon() {
@@ -399,8 +401,8 @@
             currentStringOffset = 0;
             isPopped = false;
             
-            // Set random max clicks between 15-25
-            maxClicks = Math.floor(Math.random() * 11) + 15;
+            // Set random max clicks between 80-120
+            maxClicks = Math.floor(Math.random() * 41) + 80;
             
             // Apply new image
             balloon.className = `balloon balloon-image ${balloonImages[colorIndex]}`;
