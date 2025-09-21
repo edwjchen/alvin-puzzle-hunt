@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puzzle 13: Master Challenge 3 - Alvin Puzzle Hunt</title>
+    <title>📱 Instagram Post</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="puzzle-styles.css">
     <style>
@@ -227,6 +227,46 @@
         .instagram-scroll-hint::before {
             content: "← Swipe to see more photos →";
         }
+        
+        /* Share popup menu styles */
+        .share-popup {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            border: 1px solid #dbdbdb;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            padding: 8px 0;
+            z-index: 1000;
+            min-width: 120px;
+            display: none;
+        }
+        
+        .share-popup.show {
+            display: block;
+        }
+        
+        .share-option {
+            padding: 12px 16px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #262626;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+            transition: background-color 0.2s ease;
+        }
+        
+        .share-option:hover {
+            background-color: #fafafa;
+        }
+        
+        .instagram-action-btn {
+            position: relative;
+        }
     </style>
 </head>
 <body class="puzzle13-theme">
@@ -239,7 +279,7 @@
         <main class="puzzle-main">
             <div class="puzzle-content">
                 <div class="puzzle-description">
-                    <h2>📸 A Lot Of Us Don't Know About This</h2>
+                    <h2>📱 Check Your IG</h2>
                 </div>
 
                 <!-- Instagram Post Interface -->
@@ -247,7 +287,7 @@
                     <div class="instagram-header">
                         <div class="instagram-profile-pic">A</div>
                         <div class="instagram-user-info">
-                            <p class="instagram-username">alvin_puzzle_hunt</p>
+                            <p class="instagram-username">alvin_zou</p>
                             <p class="instagram-location">Puzzle Hunt HQ</p>
                         </div>
                         <div class="instagram-more">⋯</div>
@@ -255,10 +295,10 @@
 
                     <div class="instagram-photo-container" id="photo-container">
                         <div class="instagram-photo-scroll" id="photo-scroll">
-                            <div class="instagram-photo" style="background-image: url('instagram/alvin_1.jpg');"></div>
-                            <div class="instagram-photo" style="background-image: url('instagram/alvin_2.jpg');"></div>
-                            <div class="instagram-photo" style="background-image: url('instagram/alvin_3.jpg');"></div>
-                            <div class="instagram-photo" style="background-image: url('instagram/alvin_4.jpg');"></div>
+                            <div class="instagram-photo" style="background-image: url('instagram/Awareness.jpg');"></div>
+                            <div class="instagram-photo" style="background-image: url('instagram/Roots.jpg');"></div>
+                            <div class="instagram-photo" style="background-image: url('instagram/Chinese.jpg');"></div>
+                            <div class="instagram-photo" style="background-image: url('instagram/Culture.jpg');"></div>
                         </div>
                         <div class="instagram-photo-dots">
                             <div class="instagram-dot active" data-photo="0"></div>
@@ -289,30 +329,22 @@
                     </div>
 
                     <div class="instagram-caption">
-                        <span class="instagram-username-caption">alvin_puzzle_hunt</span>
-                        Can you find the connection between these puzzle sections? 🧩 Each photo represents something special about the puzzle organization! #PuzzleHunt #Challenge13
+                        <span class="instagram-username-caption">alvin_zou</span>
+                        我是人间惆怅客，知君何事泪纵横，断肠声里忆平生
                     </div>
 
                     <div class="instagram-comments">
                         <div class="instagram-comment">
-                            <span class="instagram-comment-username">puzzle_master_99</span>
-                            <span class="instagram-comment-text">Love this challenge! The photos are so clever 🔍</span>
+                            <span class="instagram-comment-username">1eyed_DingZhen</span>
+                            <span class="instagram-comment-text">装什么文化人？</span>
                         </div>
                         <div class="instagram-comment">
                             <span class="instagram-comment-username">alvin_fan_2024</span>
-                            <span class="instagram-comment-text">I think I see the pattern! Each section has consecutive numbers right? 🤔</span>
+                            <span class="instagram-comment-text">我也喜欢吃避风塘炒蟹</span>
                         </div>
                         <div class="instagram-comment">
-                            <span class="instagram-comment-username">mystery_solver</span>
-                            <span class="instagram-comment-text">The balloon photos are giving me hints about the grouping! 🎈</span>
-                        </div>
-                        <div class="instagram-comment">
-                            <span class="instagram-comment-username">puzzle_hunter</span>
-                            <span class="instagram-comment-text">This is genius! The visual representation makes it so much clearer 💡</span>
-                        </div>
-                        <div class="instagram-comment">
-                            <span class="instagram-comment-username">alvin_puzzle_hunt</span>
-                            <span class="instagram-comment-text">Great observations everyone! Keep thinking about the mathematical relationship 🧮</span>
+                            <span class="instagram-comment-username">saif_bin_hammad</span>
+                            <span class="instagram-comment-text">Why is everyone commenting in Chinese😅</span>
                         </div>
                         <div class="instagram-view-all">
                             View all 12 comments
@@ -479,19 +511,30 @@
             // Share button functionality
             const shareBtn = document.getElementById('share-btn');
             shareBtn.addEventListener('click', () => {
-                if (navigator.share) {
-                    navigator.share({
-                        title: 'Alvin Puzzle Hunt - Challenge 13',
-                        text: 'Check out this Instagram puzzle! Can you find the connection?',
-                        url: window.location.href
-                    });
-                } else {
-                    // Fallback for browsers without Web Share API
-                    const shareText = `Check out this puzzle from Alvin Puzzle Hunt! ${window.location.href}`;
-                    navigator.clipboard.writeText(shareText).then(() => {
-                        alert('Link copied to clipboard!');
-                    });
-                }
+                // Create Instagram post link
+                const instagramPostLink = 'https://www.instagram.com/p/C2adcA7R7QG/?img_index=2';
+                
+                // Copy to clipboard
+                navigator.clipboard.writeText(instagramPostLink).then(() => {
+                    // Show temporary feedback
+                    const originalHtml = shareBtn.innerHTML;
+                    shareBtn.innerHTML = '<span style="color: #0095f6; font-size: 12px;">✓ Copied!</span>';
+                    
+                    setTimeout(() => {
+                        shareBtn.innerHTML = originalHtml;
+                    }, 2000);
+                }).catch(() => {
+                    // Fallback for older browsers
+                    const textArea = document.createElement('textarea');
+                    textArea.value = instagramPostLink;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    
+                    // Show feedback
+                    alert('Instagram post link copied to clipboard!');
+                });
             });
         }
         

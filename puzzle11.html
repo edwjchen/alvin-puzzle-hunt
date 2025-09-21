@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Puzzle 11: Webcam Activation - Alvin Puzzle Hunt</title>
+    <title>🪞 Mirror Mirror</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="puzzle-styles.css">
     <style>
@@ -110,31 +110,30 @@
         <main class="puzzle-main">
             <div class="puzzle-content">
                 <div class="puzzle-description">
-                    <h2>📹 Mirror Mirror</h2>
+                    <h2>🪞 Mirror Mirror</h2>
                 </div>
 
                 <div class="puzzle-area">
                     <div class="webcam-puzzle">
-                        <h3>🎥 The Challenge</h3>
-                        <p>Click the button below to activate your webcam. Once activated, you'll see the answer appear on your screen!</p>
+                        <h3></h3>
+                        <p>Click the button below to reveal the answer</p>
                         
                         <div class="webcam-container">
                             <video id="webcam-video" class="webcam-video" autoplay muted style="display: none;"></video>
                             <div id="webcam-placeholder" class="webcam-placeholder">
-                                📹 Click "Activate Webcam" to start
+                                📹 Click "Reveal answer" to start
                             </div>
                             <div class="webcam-controls">
                                 <button id="webcam-btn" class="webcam-btn" onclick="toggleWebcam()">
-                                    Activate Webcam
+                                    Reveal answer
                                 </button>
                                 <span id="webcam-indicator" style="color: white; font-weight: bold;">
-                                    ● Camera Off
                                 </span>
                             </div>
                         </div>
                         
                         <div class="webcam-status" id="webcam-status">
-                            Ready to activate your webcam!
+                            Ready to reveal the answer!
                         </div>
                         
                         <div class="permission-hint">
@@ -147,9 +146,9 @@
                         
                         <div class="puzzle-box" id="answer-reveal" style="display: none;">
                             <h3>🎯 The Answer</h3>
-                            <p>Great! Your webcam is now active. The answer to this puzzle is:</p>
+                            <p>Great! The answer to this puzzle is:</p>
                             <p><strong>676767676767</strong></p>
-                            <p>You successfully activated your webcam to solve this puzzle!</p>
+                            <p>You successfully solved this puzzle!</p>
                         </div>
                     </div>
                 </div>
@@ -204,9 +203,9 @@
                     // Update UI
                     button.textContent = 'Deactivate Webcam';
                     button.style.background = 'linear-gradient(135deg, #27ae60, #2ecc71)';
-                    indicator.textContent = '● Camera On';
+                    indicator.textContent = '● Answer showing';
                     indicator.style.color = '#27ae60';
-                    status.textContent = 'Webcam activated successfully! Look at the answer below.';
+                    status.textContent = 'You revealed the answer!';
                     status.style.background = '#d4edda';
                     status.style.borderColor = '#c3e6cb';
                     status.style.color = '#155724';
@@ -232,7 +231,7 @@
                     }
                     
                     errorContainer.innerHTML = `<div class="error-message">${errorMessage}</div>`;
-                    status.textContent = 'Webcam activation failed. Please try again.';
+                    status.textContent = 'Answer reveal failed. Please try again.';
                     status.style.background = '#f8d7da';
                     status.style.borderColor = '#f5c6cb';
                     status.style.color = '#721c24';
@@ -247,11 +246,11 @@
                 // Update UI
                 video.style.display = 'none';
                 placeholder.style.display = 'flex';
-                button.textContent = 'Activate Webcam';
+                button.textContent = 'Reveal answer';
                 button.style.background = 'linear-gradient(135deg, #e74c3c, #c0392b)';
-                indicator.textContent = '● Camera Off';
+                indicator.textContent = '● Answer hidden';
                 indicator.style.color = '#e74c3c';
-                status.textContent = 'Webcam deactivated. Click the button to activate again.';
+                status.textContent = 'Answer hidden. Click the button to reveal again.';
                 status.style.background = '#f8f9fa';
                 status.style.borderColor = '#e9ecef';
                 status.style.color = '#495057';
