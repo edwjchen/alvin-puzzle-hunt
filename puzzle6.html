@@ -3,154 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚢-🎟️=?</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Puzzle 8: An Amazing Game</title>
     <link rel="stylesheet" href="puzzle-styles.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
-        .puzzle6-theme {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .puzzle8-theme {
+            background: linear-gradient(135deg, #2d5016 0%, #4a7c59 50%, #6b8e23 100%);
         }
-        .cipher-puzzle {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 3rem;
-            margin: 2rem 0;
+        
+        .maze-game-container {
             text-align: center;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            width: 100%;
         }
-        .cipher-text {
-            background: #f8f9fa;
-            border: 3px solid #e9ecef;
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            font-family: 'Courier New', monospace;
-            font-size: 2rem;
-            font-weight: bold;
-            color: #495057;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
+        
+        .game-info {
+            margin-bottom: 1rem;
+            color: #333;
+            font-weight: 500;
         }
-        .cipher-tool {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            backdrop-filter: blur(10px);
-        }
-        .alphabet-display {
-            display: grid;
-            grid-template-columns: repeat(13, 1fr);
-            gap: 0.5rem;
-            margin: 2rem 0;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .letter-box {
-            background: white;
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            padding: 0.8rem;
-            text-align: center;
-            font-weight: bold;
+        
+        .game-info p {
+            margin: 0.5rem 0;
             font-size: 1.1rem;
-            transition: all 0.3s ease;
         }
-        .letter-box.original {
-            background: #e3f2fd;
-            border-color: #2196f3;
+        
+        #maze-canvas {
+            border: 3px solid #4a7c59;
+            border-radius: 10px;
+            background: #f8f9fa;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            cursor: default;
+            image-rendering: pixelated;
         }
-        .letter-box.shifted {
-            background: #f3e5f5;
-            border-color: #9c27b0;
-        }
-        .shift-controls {
+        
+        .game-controls {
+            margin-top: 1rem;
             display: flex;
             justify-content: center;
-            align-items: center;
-            gap: 2rem;
-            margin: 2rem 0;
-            flex-wrap: wrap;
+            gap: 1rem;
         }
-        .shift-btn {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+        
+        .control-btn {
+            background: linear-gradient(135deg, #4a7c59 0%, #2d5016 100%);
             color: white;
             border: none;
-            padding: 1rem 1.5rem;
+            padding: 0.8rem 1.5rem;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 1.2rem;
-            font-weight: bold;
+            font-weight: 600;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(74, 124, 89, 0.3);
+            position: relative;
+            z-index: 10;
+            pointer-events: auto;
         }
-        .shift-btn:hover {
+        
+        .control-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 6px 20px rgba(74, 124, 89, 0.4);
         }
-        .shift-display {
-            background: white;
-            border: 2px solid #667eea;
-            border-radius: 10px;
-            padding: 1rem 2rem;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #667eea;
-            min-width: 100px;
-            text-align: center;
+        
+        .control-btn:active {
+            transform: translateY(0);
         }
-        .decoded-text {
-            background: #d4edda;
-            border: 2px solid #28a745;
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            font-family: 'Courier New', monospace;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #155724;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            display: none;
+        
+        .answer-input {
+            position: relative;
+            z-index: 10;
+            pointer-events: auto;
         }
-        .cipher-hint {
-            background: #fff3cd;
-            border: 2px solid #ffeaa7;
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            color: #856404;
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
         }
-        .frequency-analysis {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem 0;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+            20% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
         }
-        .frequency-chart {
-            display: flex;
-            justify-content: center;
-            align-items: end;
-            gap: 0.5rem;
-            margin: 2rem 0;
-            height: 200px;
-        }
-        .frequency-bar {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            width: 30px;
-            border-radius: 4px 4px 0 0;
-            display: flex;
-            align-items: end;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 0.8rem;
-            padding: 0.5rem 0;
-        }
+        
     </style>
 </head>
-<body class="puzzle6-theme">
+<body class="puzzle8-theme">
     <div class="container">
         <header class="puzzle-header">
             <button class="back-btn" onclick="goBack()">← Back to Puzzles</button>
@@ -160,20 +99,28 @@
         <main class="puzzle-main">
             <div class="puzzle-content">
                 <div class="puzzle-description">
-                    <h2>🎫 5$ to become a Sugondese</h2>
+                    <h2>🗺️ An Amazing Game</h2>
+                    <p id="puzzle-number-desc" style="display: none;">8</p>
                 </div>
 
                 <div class="puzzle-area">
-                    <div class="cipher-puzzle">
-                        <img src="images/ticket.png" alt="Ticket" style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);" />
+                    <div class="maze-container">
+                        <div class="maze-game-container">
+                            <div class="game-info">
+                                <p>Use arrow keys or WASD to move your character.</p>
+                            </div>
+                            <canvas id="maze-canvas" width="768" height="771"></canvas>
+                            <div class="game-controls">
+                                <button id="reset-btn" class="control-btn">Reset to Start</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="puzzle-actions">
-                    <input type="text" id="answer-input" placeholder="What does the ticket say?" class="answer-input">
+                    <input type="text" id="answer-input" placeholder="What is the answer to this puzzle?" class="answer-input">
                     <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
                 </div>
-
             </div>
         </main>
 
@@ -189,8 +136,33 @@
             window.location.href = "index.html";
         }
         
+        // Maze Game Variables - incorporating the provided code approach
+        let canvas, ctx;
+        let player = { x: 156, y: 200, size: 3, speed: 5 }; // Starting position from provided code
+        let playerStartPosition = { x: 156, y: 200 }; // Fixed start position that doesn't move
+        let startPosition = { x: 155, y: 164 }; // Fixed start position that doesn't move
+        let rainbowHue = 0; // For rainbow animation
+        let keysPressed = {}; // Track which keys are currently pressed
+        let stepCounter = 0; // Count player movement steps
+        let messages = [
+            "GG EZ",
+            "KEKW NOOB",
+            "BRO IS JUST CAMPING WITH A SHOTGUN",
+            "HAHA GET KNIFED",
+            "damn bottom of the leaderboard eh?",
+            "bro's playing with no monitor",
+            "skull emoji x7 not even trolling",
+        ]; // Customizable messages
+        // let goal = { x: 385, y: 25, size: 10 }; // Goal position removed
+        let mazeImage = new Image();
+        let gameCompleted = false;
+        let showCollisionMap = false;
+        let mazeLoaded = false;
+        let mazeData; // For collision detection like the provided code
+        
         // Initialize puzzle timer when page loads
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('Puzzle 8 page loaded');
             const puzzleNumber = "6";
             
             // Always check if puzzle is completed first
@@ -199,7 +171,292 @@
             if (!isPuzzleCompleted(puzzleNumber)) {
                 initializePuzzleWithoutTimer(puzzleNumber);
             }
+            
+            // Initialize maze game
+            initMazeGame();
         });
+
+        function initMazeGame() {
+            canvas = document.getElementById('maze-canvas');
+            ctx = canvas.getContext('2d');
+            
+            console.log('Initializing maze game...');
+            
+            // Load the maze image
+            mazeImage.onload = function() {
+                console.log('Maze image loaded successfully');
+                
+                // Draw maze and get pixel data for collision checking (like provided code)
+                ctx.drawImage(mazeImage, 0, 0, canvas.width, canvas.height);
+                
+                // Get pixel data for collision checking (incorporating provided code approach)
+                const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                mazeData = imgData.data;
+                
+                draw();
+                mazeLoaded = true;
+                console.log('Maze game ready!');
+                
+                // Start animation loop for rainbow effect
+                animateRainbow();
+                
+                // Start movement loop for smooth diagonal movement
+                startMovementLoop();
+            };
+            
+            mazeImage.onerror = function() {
+                console.error('Failed to load maze image');
+                createFallbackMaze();
+            };
+            
+            mazeImage.src = 'maze/maze.png';
+            
+            // Setup controls
+            setupControls();
+        }
+        
+        function setupControls() {
+            // Keyboard controls (incorporating provided code approach)
+            document.addEventListener('keydown', handleKeyPress);
+            
+            // Button controls
+            const resetBtn = document.getElementById('reset-btn');
+            
+            if (resetBtn) {
+                resetBtn.addEventListener('click', resetGame);
+            }
+        }
+        
+        // Collision detection function from provided code
+        function isWalkable(x, y) {
+            if (x < 0 || y < 0 || x >= canvas.width || y >= canvas.height) return false;
+            const index = (y * canvas.width + x) * 4;
+            const r = mazeData[index];
+            const g = mazeData[index + 1];
+            const b = mazeData[index + 2];
+            // Walkable if pixel is black (like provided code)
+            return (r === 0 && g === 0 && b === 0);
+        }
+        
+        // Drawing function incorporating provided code approach
+        function draw() {
+            // Draw maze background
+            ctx.drawImage(mazeImage, 0, 0, canvas.width, canvas.height);
+            
+            // Collision map overlay removed
+            
+            // Draw player as alternating rainbow circle
+            rainbowHue = (rainbowHue + 15) % 360; // Increment hue even faster for rainbow effect
+            ctx.fillStyle = `hsl(${rainbowHue}, 100%, 50%)`;
+            ctx.beginPath();
+            ctx.arc(player.x, player.y, player.size, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Add white outline for better visibility
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            
+            // Add start label at fixed position
+            ctx.fillStyle = '#ffffff'; // White color for START
+            ctx.font = 'bold 12px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('START', startPosition.x, startPosition.y - 15);
+        }
+        
+        function drawCollisionMapOverlay() {
+            // Draw collision detection overlay
+            for (let y = 0; y < canvas.height; y += 4) {
+                for (let x = 0; x < canvas.width; x += 4) {
+                    if (isWalkable(x, y)) {
+                        ctx.fillStyle = 'rgba(0, 255, 0, 0.1)';
+                    } else {
+                        ctx.fillStyle = 'rgba(255, 0, 0, 0.3)';
+                    }
+                    ctx.fillRect(x, y, 4, 4);
+                }
+            }
+        }
+        
+        // Movement function incorporating provided code approach
+        function movePlayer(dx, dy) {
+            const newX = player.x + dx;
+            const newY = player.y + dy;
+
+            // Check 4 corners of player circle for collisions (like provided code)
+            if (
+                isWalkable(Math.floor(newX - player.size), Math.floor(newY)) &&
+                isWalkable(Math.floor(newX + player.size), Math.floor(newY)) &&
+                isWalkable(Math.floor(newX), Math.floor(newY - player.size)) &&
+                isWalkable(Math.floor(newX), Math.floor(newY + player.size))
+            ) {
+                player.x = newX;
+                player.y = newY;
+                stepCounter++; // Increment step counter
+                
+                // Show message every 500 steps
+                if (stepCounter % 500 === 0) {
+                    showStepMessage();
+                }
+            }
+
+            draw();
+        }
+        
+        function handleKeyPress(e) {
+            if (gameCompleted || !mazeLoaded) return;
+            
+            // Check if user is typing in input
+            const activeElement = document.activeElement;
+            if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')) {
+                return;
+            }
+            
+            // Keyboard controls (like provided code)
+            let moved = false;
+            if (e.key === "ArrowUp" || e.key === "w" || e.key === "W") {
+                movePlayer(0, -player.speed);
+                moved = true;
+            }
+            if (e.key === "ArrowDown" || e.key === "s" || e.key === "S") {
+                movePlayer(0, player.speed);
+                moved = true;
+            }
+            if (e.key === "ArrowLeft" || e.key === "a" || e.key === "A") {
+                movePlayer(-player.speed, 0);
+                moved = true;
+            }
+            if (e.key === "ArrowRight" || e.key === "d" || e.key === "D") {
+                movePlayer(player.speed, 0);
+                moved = true;
+            }
+            
+            // Prevent default behavior for movement keys to stop page scrolling
+            if (moved) {
+                e.preventDefault();
+            }
+        }
+        
+        // Win condition removed - no end point
+        
+        function showStepMessage() {
+            // Pick a random message from the array
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            
+            // Create message overlay
+            const messageDiv = document.createElement('div');
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(135deg, #4a7c59 0%, #2d5016 100%);
+                color: white;
+                padding: 1.5rem 3rem;
+                border-radius: 15px;
+                font-size: 1.5rem;
+                font-weight: bold;
+                text-align: center;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                z-index: 1000;
+                animation: fadeInOut 3s ease-in-out;
+                border: 2px solid #6b8e23;
+            `;
+            
+            messageDiv.textContent = randomMessage;
+            document.body.appendChild(messageDiv);
+            
+            // Remove message after 3 seconds
+            setTimeout(() => {
+                if (messageDiv.parentNode) {
+                    messageDiv.parentNode.removeChild(messageDiv);
+                }
+            }, 3000);
+        }
+        
+        function resetGame() {
+            // Reset player to player start position
+            player.x = playerStartPosition.x;
+            player.y = playerStartPosition.y;
+            stepCounter = 0; // Reset step counter
+            gameCompleted = false;
+            draw();
+        }
+        
+        
+        function showVictory() {
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.8);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            `;
+            
+            const victoryBox = document.createElement('div');
+            victoryBox.style.cssText = `
+                background: linear-gradient(135deg, #4a7c59 0%, #2d5016 100%);
+                color: white;
+                padding: 3rem;
+                border-radius: 20px;
+                text-align: center;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+                animation: bounceIn 0.6s ease-out;
+            `;
+            
+            victoryBox.innerHTML = `
+                <h2 style="margin: 0 0 1rem 0; font-size: 2rem;">🎉 You Win! 🎉</h2>
+                <p style="margin: 0 0 2rem 0; font-size: 1.2rem;">You successfully escaped the maze!</p>
+                <button onclick="this.parentElement.parentElement.remove()" 
+                        style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white; 
+                               padding: 1rem 2rem; border-radius: 10px; cursor: pointer; font-size: 1.1rem;">
+                    Continue
+                </button>
+            `;
+            
+            overlay.appendChild(victoryBox);
+            document.body.appendChild(overlay);
+            
+            // Auto-fill answer
+            setTimeout(() => {
+                const answerInput = document.getElementById('answer-input');
+                if (answerInput) {
+                    answerInput.value = 'maze completed';
+                }
+            }, 1000);
+        }
+        
+        function createFallbackMaze() {
+            canvas.width = 768;
+            canvas.height = 771;
+            mazeLoaded = true;
+            
+            // Draw simple test maze
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw walls
+            ctx.fillStyle = '#fff';
+            ctx.fillRect(100, 0, 20, 200);
+            ctx.fillRect(200, 100, 20, 200);
+            ctx.fillRect(300, 0, 20, 150);
+            
+            // Set fallback points
+            player.x = playerStartPosition.x;
+            player.y = playerStartPosition.y;
+            
+            // Get pixel data for fallback
+            const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            mazeData = imgData.data;
+            
+            draw();
+        }
     </script>
 </body>
 </html>

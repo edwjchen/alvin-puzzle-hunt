@@ -280,17 +280,16 @@ function getObfuscatedAnswers() {
         3: ["86cb4c737e69de20350dc7e97416f5fe"],
         4: ["3899dcbab79f92af727c2190bbd8abc5"],
         5: ["9e3669d19b675bd57058fd4664205d2a"],
-        6: ["2db95e8e1a9267b7a1188556b2013b33"],
-        7: ["e8984b9da2f51f375a80360246755854"],
-        8: [
+        6: [
             "54418875ec249dd4b51d368ae3f9dcef",
             "34369ad7f7d08ecb1dbdfa62e3f074aa",
         ],
-        9: ["17148f97de14ffbe039390235f42c7c7"],
-        10: [
-            "34369ad7f7d08ecb1dbdfa62e3f074aa",
-            "54418875ec249dd4b51d368ae3f9dcef",
+        7: ["17148f97de14ffbe039390235f42c7c7"],
+        8: ["2db95e8e1a9267b7a1188556b2013b33"],
+        9: [
+            "d9ef7771a0539bda416ec14eae7f7cf6",
         ],
+        10: ["e8984b9da2f51f375a80360246755854"],
         11: ["8b61c11eb8baedd53d2e99d1a01fa7bb"],
         12: [
             "c8d56be998c94089ea6e1147dc9253c1",
