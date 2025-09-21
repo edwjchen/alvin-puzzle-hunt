@@ -346,7 +346,8 @@
         </main>
 
         <footer>
-            <p>&copy; 2024 Alvin Puzzle Hunt. All rights reserved.</p>
+            <p>Made with 💙 by Sheldon and Edward</p>
+            <p>&copy; 2024 Alvin's Birthday Puzzle Hunt. All rights reserved.</p>
         </footer>
     </div>
 
@@ -722,42 +723,6 @@
             }
         }
         
-        // Override the submitAnswer function for puzzle 3
-        function submitAnswer() {
-            const answer = document.getElementById("answer-input").value.trim();
-            
-            if (!answer) {
-                alert("Please enter an answer before submitting!");
-                return;
-            }
-            
-            // Check if the game is complete first
-            if (!isGameComplete()) {
-                alert("Please solve all word categories first!");
-                return;
-            }
-            
-            // Check the answer
-            if (answer.toLowerCase().includes('watt') || 
-                answer.toLowerCase().includes('power') ||
-                answer.toLowerCase().includes('energy') ||
-                answer.toLowerCase().includes('electrical')) {
-                // Correct answer!
-                showMessage('🎉 Correct! The theme is "things that can be measured in watts"!', 'success');
-                
-                // Mark puzzle as completed
-                const puzzleNumber = "3";
-                markPuzzleCompleted(puzzleNumber);
-                
-                // Show success screen after a delay
-                setTimeout(() => {
-                    showSuccessScreen(puzzleNumber, answer);
-                }, 2000);
-            } else {
-                // Wrong answer
-                showMessage('❌ Incorrect! Try again.', 'error');
-            }
-        }
         
         // Test function to manually solve a category
         function testSolveCategory() {
@@ -795,6 +760,10 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM Content Loaded');
             const puzzleNumber = "3";
+            
+            // Always check if puzzle is completed first
+            checkPuzzleCompletion(puzzleNumber);
+            
             if (!isPuzzleCompleted(puzzleNumber)) {
                 initializePuzzleWithoutTimer(puzzleNumber);
             }

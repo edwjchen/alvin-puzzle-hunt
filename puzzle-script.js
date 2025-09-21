@@ -280,7 +280,7 @@ function getObfuscatedAnswers() {
         3: ["9e3669d19b675bd57058fd4664205d2a"],
         4: ["5828d49f807e44f7ec77eccf7dd18a2f"],
         5: ["3899dcbab79f92af727c2190bbd8abc5"],
-        6: ["3d8b6c2ce0612662a0c5054feda8fba3"],
+        6: ["2db95e8e1a9267b7a1188556b2013b33"],
         7: ["e8984b9da2f51f375a80360246755854"],
         8: [
             "54418875ec249dd4b51d368ae3f9dcef",
@@ -413,7 +413,13 @@ function isPuzzleCompleted(puzzleNumber) {
 
 function checkPuzzleCompletion(puzzleNumber) {
     if (isPuzzleCompleted(puzzleNumber)) {
-        showCompletionScreen(puzzleNumber);
+        // Check if all puzzles are completed
+        const completedPuzzles = getCompletedPuzzles();
+        if (completedPuzzles.length >= 15) {
+            showAllCompletedScreen();
+        } else {
+            showCompletionScreen(puzzleNumber);
+        }
     }
 }
 
@@ -1066,6 +1072,9 @@ function goToNextPuzzle(currentPuzzleNumber) {
     const nextPuzzle = parseInt(currentPuzzleNumber) + 1;
     if (nextPuzzle <= 14) {
         window.location.href = `puzzle${nextPuzzle}.html`;
+    } else if (nextPuzzle === 15) {
+        // Puzzle 14 completed - go to meta puzzle
+        window.location.href = `puzzle15.html`;
     } else {
         // All puzzles completed!
         showAllCompletedScreen();
@@ -1082,13 +1091,12 @@ function showAllCompletedScreen() {
     allCompletedScreen.className = "all-completed-screen";
     allCompletedScreen.innerHTML = `
         <div class="all-completed-content">
-            <div class="all-completed-icon">🏆</div>
-            <h1>Amazing Work!</h1>
+            <div class="all-completed-icon">🎂</div>
             <h2>All Puzzles Completed!</h2>
-            <p class="all-completed-message">You've successfully solved all 14 puzzles in the Alvin Puzzle Hunt!</p>
+            <g class="all-completed-message">Thank you all for playing the Alvin Puzzle Hunt! Once again, Happy Birthday Alvin!</p>
             <div class="final-stats">
-                <p>🎯 Perfect Score: 14/14</p>
-                <p>🧩 Puzzle Master Achievement Unlocked!</p>
+                <p>🎯 Perfect Score: 15/15</p>
+                <p>🧩 Big Brain Unlocked!</p>
             </div>
             <div class="final-actions">
                 <button class="btn btn-primary" onclick="goBack()">Back to All Puzzles</button>

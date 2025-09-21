@@ -200,7 +200,8 @@
         </main>
 
         <footer>
-            <p>&copy; 2024 Alvin Puzzle Hunt. All rights reserved.</p>
+            <p>Made with 💙 by Sheldon and Edward</p>
+            <p>&copy; 2024 Alvin's Birthday Puzzle Hunt. All rights reserved.</p>
         </footer>
     </div>
 
@@ -287,9 +288,9 @@
         document.addEventListener('DOMContentLoaded', function() {
             const puzzleNumber = "7";
             // Check if puzzle is already completed
-            if (isPuzzleCompleted(puzzleNumber)) {
-                showCompletionScreen(puzzleNumber);
-            } else {
+            checkPuzzleCompletion(puzzleNumber);
+            
+            if (!isPuzzleCompleted(puzzleNumber)) {
                 // Just display attempted answers, no timer
                 displayAttemptedAnswers(puzzleNumber);
             }

@@ -96,7 +96,7 @@ function getCompletedPuzzles() {
 
 function updateProgressDisplay() {
     const completed = getCompletedPuzzles();
-    const totalPuzzles = 14;
+    const totalPuzzles = 15;
     const completedCount = completed.length;
 
     // Update header with progress

@@ -130,6 +130,26 @@
             color: #495057;
             text-align: center;
         }
+        .answer-pattern {
+            background: #f8f9fa;
+            border: 4px solid #a8edea;
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 3rem;
+            font-weight: bold;
+            color: #495057;
+            letter-spacing: 0.3em;
+            box-shadow: 0 8px 25px rgba(168, 237, 234, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 <body class="puzzle9-theme">
@@ -159,6 +179,10 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="answer-pattern">
+                        <div>_ _ _ _ _</div>
+                    </div>
                 </div>
 
                 <div class="puzzle-actions">
@@ -166,17 +190,12 @@
                     <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
                 </div>
 
-                <div class="puzzle-hints">
-                    <button class="hint-btn" onclick="toggleHint()">Show Hint</button>
-                    <div id="hint-content" class="hint-content hidden">
-                        <p>Watch the video carefully. Pay attention to any text, sounds, or visual clues that might contain the answer!</p>
-                    </div>
-                </div>
             </div>
         </main>
 
         <footer>
-            <p>&copy; 2024 Alvin Puzzle Hunt. All rights reserved.</p>
+            <p>Made with 💙 by Sheldon and Edward</p>
+            <p>&copy; 2024 Alvin's Birthday Puzzle Hunt. All rights reserved.</p>
         </footer>
     </div>
 
@@ -189,6 +208,10 @@
         // Initialize puzzle timer when page loads
         document.addEventListener('DOMContentLoaded', function() {
             const puzzleNumber = "9";
+            
+            // Always check if puzzle is completed first
+            checkPuzzleCompletion(puzzleNumber);
+            
             if (!isPuzzleCompleted(puzzleNumber)) {
                 initializePuzzleWithoutTimer(puzzleNumber);
             }

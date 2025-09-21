@@ -234,7 +234,8 @@
         </main>
 
         <footer>
-            <p>&copy; 2024 Alvin Puzzle Hunt. All rights reserved.</p>
+            <p>Made with 💙 by Sheldon and Edward</p>
+            <p>&copy; 2024 Alvin's Birthday Puzzle Hunt. All rights reserved.</p>
         </footer>
     </div>
 
@@ -361,6 +362,10 @@
             console.log('Puzzle 1 DOMContentLoaded - starting initialization');
             // Initialize puzzle timer first
             const puzzleNumber = "1";
+            
+            // Always check if puzzle is completed first
+            checkPuzzleCompletion(puzzleNumber);
+            
             console.log('Checking if puzzle is completed:', isPuzzleCompleted(puzzleNumber));
             if (!isPuzzleCompleted(puzzleNumber)) {
                 console.log('Initializing puzzle timer for puzzle', puzzleNumber);

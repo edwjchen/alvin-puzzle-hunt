@@ -187,17 +187,12 @@
                     <button class="submit-btn" onclick="submitAnswer()">Submit Answer</button>
                 </div>
 
-                <div class="puzzle-hints">
-                    <button class="hint-btn" onclick="toggleHint()">Show Hint</button>
-                    <div id="hint-content" class="hint-content hidden">
-                        <p>Watch the video carefully. Pay attention to any text, dialogue, or visual clues that might contain the answer!</p>
-                    </div>
-                </div>
             </div>
         </main>
 
         <footer>
-            <p>&copy; 2024 Alvin Puzzle Hunt. All rights reserved.</p>
+            <p>Made with 💙 by Sheldon and Edward</p>
+            <p>&copy; 2024 Alvin's Birthday Puzzle Hunt. All rights reserved.</p>
         </footer>
     </div>
 
@@ -210,6 +205,10 @@
         // Initialize puzzle timer when page loads
         document.addEventListener('DOMContentLoaded', function() {
             const puzzleNumber = "5";
+            
+            // Always check if puzzle is completed first
+            checkPuzzleCompletion(puzzleNumber);
+            
             if (!isPuzzleCompleted(puzzleNumber)) {
                 initializePuzzleWithoutTimer(puzzleNumber);
             }
